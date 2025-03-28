@@ -7,14 +7,14 @@ export enum UserRole {
 
 export type User = {
   _id: ObjectId;
-  // role: UserRole;
-  // id?: string;
-  // name?: string;
-  // username?: string;
-  // email?: string;
-  // emailVerified?: boolean;
-  // password?: string;
-  // image?: string;
+  role: UserRole;
+  id?: string;
+  name?: string;
+  username?: string;
+  email?: string;
+  emailVerified?: boolean;
+  password?: string;
+  image?: string;
 };
 
 export type TUserData = {
