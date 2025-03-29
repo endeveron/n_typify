@@ -5,18 +5,17 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/core/utils/common';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer transition-all',
   {
     variants: {
       variant: {
         default:
-          'bg-btn-primary-background text-btn-primary-foreground hover:btn-primary-background/90',
-        destructive: 'bg-red/90 text-white hover:bg-red',
+          'text-btn-primary-foreground bg-btn-primary-background hover:bg-btn-primary-background-hover',
+        secondary:
+          'text-btn-accent-foreground bg-btn-accent-background hover:bg-btn-accent-background-hover',
         outline:
-          'border border-border text-foreground/70 hover:text-foreground hover:bg-btn-secondary-background',
-        secondary: 'bg-btn-secondary-background text-btn-secondary-foreground',
-        ghost:
-          'hover:bg-btn-secondary-background hover:text-btn-secondary-foreground',
+          'border border-border text-foreground/80 hover:text-foreground hover:bg-btn-neutral-background hover:border-transparent',
+        ghost: 'hover:bg-btn-neutral-background hover:text-foreground',
         link: 'text-blue underline-offset-4 hover:underline',
       },
       size: {

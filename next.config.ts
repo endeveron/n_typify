@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
     fileLoaderRule.exclude = /\.svg$/i;
     return config;
   },
+  // reactStrictMode: false, // Uncomment to prevent components to render twice intentionally to detect side effects.
 };
 
 export default nextConfig;

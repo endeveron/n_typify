@@ -9,33 +9,43 @@
   --gap-1-2: 8px;
   --gap-3-4: 12px;
 
-  --background: #fff7ed;
-  --foreground: #171717;
-  --secondary-foreground: #5b5b5b;
+  --background: #ffffff;
+  --foreground: #343c4b;
+  --secondary-background: #f6f6f7;
+  --secondary-foreground: #4d5769;
 
-  --red: #ff3e24;
-  --orange: #f88d41;
-  --yellow: #ffbe32;
-  --blue: #55b2f5;
-  --green: #19c07a;
+  --red: #ff3d23;
+  --orange: #f8822d;
+  --yellow: #ffba24;
+  --blue: #3eabfa;
+  --green: #29ba7d;
+  --purple: #994cde;
+  --neutral: #9fa8b9;
+
+  /* --green-foreground: #2a9f6e;
+  --purple-foreground: #782cba; */
 
   --accent: var(--orange);
   --brand: var(--blue);
 
-  --muted: #7d766f;
-  --border: #f8f1e7;
-  --input: white;
-  --overlay: #fafafa;
+  --muted: #8c96a8;
+  --border: #cfd5df;
+  --input: #f3f5f8;
+  --input-border: #f3f5f8;
+  --overlay: white;
 
   --ring: var(--blue);
 
   --btn-primary-foreground: white;
   --btn-primary-background: var(--brand);
-  --btn-secondary-foreground: white;
-  --btn-secondary-background: #fffefb;
+  --btn-primary-background-hover: #2992dd;
+  --btn-accent-foreground: white;
+  --btn-accent-background: var(--accent);
+  --btn-accent-background-hover: #ee7118;
+  --btn-neutral-background: white;
 
   --placeholder-background: white;
-  --card: #fffdfb;
+  --card: white;
 
   /* Shadcn */
   /* --radius: 0.625rem;
@@ -89,8 +99,8 @@
 
     --btn-primary-foreground: white;
     --btn-primary-background: var(--brand);
-    --btn-secondary-foreground: white;
-    --btn-secondary-background: #d4cfc9;
+    --btn-accent-foreground: white;
+    --btn-accent-background: #d4cfc9;
 
     --placeholder-background: white;
     --card: white;
@@ -100,22 +110,33 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-secondary-background: var(--secondary-background);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-red: var(--red);
   --color-orange: var(--orange);
   --color-yellow: var(--yellow);
   --color-blue: var(--blue);
   --color-green: var(--green);
+  --color-purple: var(--purple);
+  --color-purple: var(--purple);
+  --color-neutral: var(--neutral);
+
   --color-brand: var(--brand);
   --color-accent: var(--accent);
   --color-muted: var(--muted);
-  --color-border: var(--border);
   --color-input: var(--input);
+  --color-border: var(--border);
+  --color-input-border: var(--input-border);
   --color-overlay: var(--overlay);
+
   --color-btn-primary-foreground: var(--btn-primary-foreground);
   --color-btn-primary-background: var(--btn-primary-background);
-  --color-btn-secondary-foreground: var(--btn-secondary-foreground);
-  --color-btn-secondary-background: var(--btn-secondary-background);
+  --color-btn-primary-background-hover: var(--btn-primary-background-hover);
+  --color-btn-accent-foreground: var(--btn-accent-foreground);
+  --color-btn-accent-background: var(--btn-accent-background);
+  --color-btn-accent-background-hover: var(--btn-accent-background-hover);
+  --color-btn-neutral-background: var(--btn-neutral-background);
   --color-placeholder-background: var(--placeholder-background);
   --color-card: var(--card);
 
@@ -156,60 +177,37 @@
 .dark {
   --background: #fff7ed;
   --foreground: #171717;
-  --secondary-foreground: #5b5b5b;
+  --secondary-background: #fffaf5;
+  --secondary-foreground: #343434;
 
-  --red: #ff3e24;
-  --orange: #f88d41;
-  --yellow: #ffbe32;
-  --blue: #55b2f5;
-  --green: #19c07a;
+  --red: #ff3d23;
+  --orange: #f87f27;
+  --yellow: #ffba24;
+  --blue: #3eabfa;
+  --green: #1aa56b;
+  --purple: #7522be;
+  --neutral: #e5ded7;
 
   --accent: var(--orange);
   --brand: var(--blue);
 
   --muted: #7d766f;
-  --border: #f7e8d5;
+  --border: #e6dfd9;
   --input: white;
+  --input-border: #eee4d8;
   --overlay: #fafafa;
 
   --ring: var(--blue);
 
   --btn-primary-foreground: white;
   --btn-primary-background: var(--brand);
-  --btn-secondary-foreground: white;
-  --btn-secondary-background: #ffffff;
+  --btn-primary-background-hover: #2487cf;
+  --btn-accent-foreground: white;
+  --btn-accent-background-hover: #ef7115;
+  --btn-neutral-background: white;
 
   --placeholder-background: white;
-  --card: white;
-
-  /* Shadcn */
-  /* --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0); */
+  --card: #fffdfa;
 }
 
 @layer base {
@@ -217,26 +215,22 @@
     @apply border-border outline-ring;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-secondary-background text-foreground;
   }
 }
 
 @layer components {
   .layout {
-    @apply relative min-h-dvh max-w-7xl m-auto;
+    @apply font-sans min-w-96 min-h-dvh max-w-7xl m-auto;
   }
 
   .layout,
   main {
-    @apply flex items-stretch;
+    @apply flex flex-col grow-1;
   }
 
   .layout.align-center {
     @apply flex-col items-center justify-center box-border;
-  }
-
-  main {
-    flex-grow: 1;
   }
 
   /* .sidebar {
@@ -258,7 +252,7 @@
   }
 
   .auth-form_link {
-    @apply mt-2 text-center text-sm text-secondary-foreground hover:text-foreground transition-colors;
+    @apply mt-2 text-center text-sm text-muted hover:text-foreground transition-colors;
   }
 
   .form-control-with-icon input {

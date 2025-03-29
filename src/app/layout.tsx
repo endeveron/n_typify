@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
-import { ThemeProvider } from '@/core/components/ui/theme-provider';
 import { Toaster } from '@/core/components/ui/sonner';
+import { ThemeProvider } from '@/core/components/ui/theme-provider';
 
 import '@/core/globals.css';
 
@@ -10,25 +10,25 @@ export const metadata: Metadata = {
   title: 'NeurAI - Find Clarity Within',
   applicationName: 'NeurAI',
   description: 'NeurAI - Find Clarity Within',
-  openGraph: {
-    title: 'NeurAI',
-    description: 'Find Clarity Within',
-    siteName: 'NeurAI',
-    type: 'website',
-    images: [
-      {
-        url: 'https://chatai-sigma-three.vercel.app/icon.svg',
-        width: 512,
-        height: 512,
-      },
-    ],
-  },
-  icons: {
-    icon: {
-      url: '/icon.svg',
-      type: 'image/svg+xml',
-    },
-  },
+  // openGraph: {
+  //   title: 'NeurAI',
+  //   description: 'Find Clarity Within',
+  //   siteName: 'NeurAI',
+  //   type: 'website',
+  //   images: [
+  //     {
+  //       url: 'https://chatai-sigma-three.vercel.app/icon.svg',
+  //       width: 512,
+  //       height: 512,
+  //     },
+  //   ],
+  // },
+  // icons: {
+  //   icon: {
+  //     url: '/icon.svg',
+  //     type: 'image/svg+xml',
+  //   },
+  // },
 };
 
 export const viewport: Viewport = {

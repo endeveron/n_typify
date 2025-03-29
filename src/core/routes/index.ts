@@ -30,4 +30,4 @@ export const DEFAULT_REDIRECT = '/dashboard';
 /**
  * Default redirect path after user signed out.
  */
-export const DEFAULT_SIGNIN_REDIRECT = '/sign-in';
+export const DEFAULT_SIGNOUT_REDIRECT = '/';
