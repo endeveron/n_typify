@@ -8,7 +8,7 @@ import { AuthError, User as AuthUser } from 'next-auth';
 import { signIn as nextSignIn } from '~/auth';
 
 import { createUser } from '@/core/actions/user';
-import { mongoDB } from '@/core/utils/mongo';
+import { mongoDB } from '@/core/lib/mongo';
 import UserModel from '@/core/models/user';
 import {
   TCredentials,
@@ -18,7 +18,7 @@ import {
 } from '@/core/types/auth';
 import { TServerActionResult } from '@/core/types/common';
 import { User, UserRole } from '@/core/types/user';
-import { createVerificationEmail, sendEmail } from '@/core/utils/nodemailer';
+import { createVerificationEmail, sendEmail } from '@/core/lib/nodemailer';
 import { DEFAULT_REDIRECT } from '@/core/routes/index';
 import { handleActionError } from '@/core/utils/error';
 import { BASE_URL, EMAIL_JWT } from '@/core/constants';

@@ -1,3 +1,5 @@
+export type LangCode = 'en' | 'uk';
+
 export type TraitIndex =
   | 'e'
   | 'i'
@@ -12,15 +14,23 @@ export type TraitIndex =
 
 export type TraitType = 'energy' | 'mind' | 'nature' | 'tactics' | 'identity';
 
-export type Question = {
+export type QuestionData = {
   id: string;
-  question: string;
   traitType: TraitType;
   dichotomy: [TraitIndex, TraitIndex];
+};
+
+export type Question = QuestionData & {
+  question: string;
 };
 
 export type AnswerMapData = {
   questionId: string;
   traitIndex: string;
   value: number;
+};
+
+export type MBTIResult = {
+  percentages: Map<TraitIndex, number>;
+  personalityType: string;
 };

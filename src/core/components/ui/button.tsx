@@ -11,6 +11,8 @@ const buttonVariants = cva(
       variant: {
         default:
           'text-btn-primary-foreground bg-btn-primary-background hover:bg-btn-primary-background-hover',
+        accent:
+          'text-btn-accent-foreground bg-btn-accent-background hover:bg-btn-accent-background-hover',
         secondary:
           'text-btn-accent-foreground bg-btn-accent-background hover:bg-btn-accent-background-hover',
         outline:
@@ -19,7 +21,7 @@ const buttonVariants = cva(
         link: 'text-blue underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-10 px-6',
+        default: 'h-10 px-8 sm:h-12 sm:px-10',
         sm: 'h-8 px-4 text-xs',
         lg: 'h-12 px-8',
         icon: 'h-9 w-9',

@@ -36,7 +36,7 @@ export default async function Home() {
           <Button variant="link">Link</Button>
         </div> */}
 
-        <PersonalityTest />
+        <PersonalityTest langCode="uk" />
       </main>
     </>
   );

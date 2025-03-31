@@ -8,7 +8,7 @@ import { TCreateUserArgs } from '@/core/types/auth';
 import { TOnboardUserArgs } from '@/core/types/auth';
 import { TServerActionResult } from '@/core/types/common';
 import { handleActionError } from '@/core/utils/error';
-import { mongoDB } from '@/core/utils/mongo';
+import { mongoDB } from '@/core/lib/mongo';
 
 /**
  * Creates a new user in a database and returns the user's object ID.
