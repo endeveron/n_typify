@@ -1,5 +1,18 @@
 export type LangCode = 'en' | 'uk';
 
+// Define the structure of the imported JSON
+export type PersonalityTestQuestionCardTranslation = {
+  attitudePositive: string;
+  attitudeNegative: string;
+};
+
+export type PersonalityTestTranslation = {
+  questionCard: PersonalityTestQuestionCardTranslation;
+  questions: { [key: string]: string };
+  nextGroupBtnTitle: string;
+  getResultsBtnTitle: string;
+};
+
 export type TraitIndex =
   | 'e'
   | 'i'
@@ -31,6 +44,6 @@ export type AnswerMapData = {
 };
 
 export type MBTIResult = {
-  percentages: Map<TraitIndex, number>;
   personalityType: string;
+  percentageMap: Map<TraitIndex, number>;
 };

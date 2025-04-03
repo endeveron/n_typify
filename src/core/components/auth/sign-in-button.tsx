@@ -19,7 +19,7 @@ const SignInButton = (props: TSignInButtonProps) => {
   };
 
   return (
-    <Button onClick={handleClick} loading={loading} {...props}>
+    <Button size="sm" onClick={handleClick} loading={loading} {...props}>
       {props?.title || 'Sign In'}
     </Button>
   );

@@ -43,6 +43,8 @@
 
   --placeholder-background: white;
   --card: white;
+  --popover: #343c4b;
+  --popover-foreground: white;
 
   /* Shadcn */
   /* --radius: 0.625rem;
@@ -136,6 +138,8 @@
   --color-btn-neutral-background: var(--btn-neutral-background);
   --color-placeholder-background: var(--placeholder-background);
   --color-card: var(--card);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
 
   --font-sans: var(--font-inter-sans);
 
@@ -172,39 +176,42 @@
 }
 
 .dark {
-  --background: #fff7ed;
-  --foreground: #171717;
-  --secondary-background: #fffaf5;
-  --secondary-foreground: #343434;
+  --background: #ffffff;
+  --foreground: #343c4b;
+  --secondary-background: #f6f6f7;
+  --secondary-foreground: #4d5769;
 
   --red: #ff3d23;
-  --orange: #f87f27;
+  --orange: #f8822d;
   --yellow: #ffba24;
   --blue: #3eabfa;
-  --green: #1aa56b;
-  --purple: #7522be;
-  --neutral: #e5ded7;
+  --green: #29ba7d;
+  --purple: #994cde;
+  --neutral: #9fa8b9;
 
   --accent: var(--orange);
   --brand: var(--blue);
 
-  --muted: #7d766f;
-  --border: #e6dfd9;
-  --input: white;
-  --input-border: #eee4d8;
-  --overlay: #fafafa;
+  --muted: #8c96a8;
+  --border: #cfd5df;
+  --input: #f3f5f8;
+  --input-border: #f3f5f8;
+  --overlay: white;
 
   --ring: var(--blue);
 
   --btn-primary-foreground: white;
   --btn-primary-background: var(--brand);
-  --btn-primary-background-hover: #2487cf;
+  --btn-primary-background-hover: #2992dd;
   --btn-accent-foreground: white;
-  --btn-accent-background-hover: #ef7115;
+  --btn-accent-background: var(--accent);
+  --btn-accent-background-hover: #ee7118;
   --btn-neutral-background: white;
 
   --placeholder-background: white;
-  --card: #fffdfa;
+  --card: white;
+  --popover: #343c4b;
+  --popover-foreground: white;
 }
 
 @layer base {

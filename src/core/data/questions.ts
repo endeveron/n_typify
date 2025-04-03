@@ -1,4 +1,4 @@
-import { QuestionData } from '@/core/types/personality';
+import { QuestionData } from '@/core/types/personality-test';
 
 export const QUESTION_DATA_ARRAY: QuestionData[] = [
   {

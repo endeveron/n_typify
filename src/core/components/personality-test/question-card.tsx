@@ -2,23 +2,33 @@
 
 import { useState } from 'react';
 
-import RadioButton from '@/core/components/test/radio-button';
-import { Question, AnswerMapData } from '@/core/types/personality';
+import RadioButton from '@/core/components/personality-test/radio-button';
+import {
+  Question,
+  AnswerMapData,
+  PersonalityTestQuestionCardTranslation,
+} from '@/core/types/personality-test';
 import { cn } from '@/core/utils/common';
 
 type QuestionCardProps = Question & {
+  translation?: PersonalityTestQuestionCardTranslation;
   activeQuestionId: string;
   onSelect: (data: AnswerMapData) => void;
 };
 
 const QuestionCard = ({
   id,
+  translation,
   question,
   activeQuestionId,
   dichotomy,
   onSelect,
 }: QuestionCardProps) => {
   const [checkedButtonValue, setCheckedButtonValue] = useState<number>();
+
+  if (!translation) {
+    throw new Error(`No translation for question ${id}`);
+  }
 
   const handleRadioButtonClick = (value: number) => {
     setCheckedButtonValue(value);
@@ -39,15 +49,15 @@ const QuestionCard = ({
         }
       )}
     >
-      <div className="question m-8 text-center text-xl font-medium leading-8">
+      <div className="question m-8 text-center text-xl font-medium xl:text-2xl ">
         {question}
       </div>
-      <div className="radio-group w-full flex flex-col items-center sm:flex-row sm:justify-center sm:gap-4">
-        <div className="max-sm:hidden caption text-xl md:text-2xl text-green font-semibold">
-          Agree
+      <div className="radio-group w-full flex flex-col items-center sm:flex-row sm:justify-center sm:gap-4 md:gap-6">
+        <div className="max-sm:hidden caption text-xl xl:text-2xl text-green font-semibold">
+          {translation.attitudePositive}
         </div>
-        <div className="radios w-full flex items-center justify-between max-w-80 sm:max-w-[400px]  sm:gap-1">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer">
+        <div className="radios w-full flex items-center justify-between max-md:max-w-96 md:w-[420px] xl:w-[500px]">
+          <div className="w-12 h-12 xl:w-14 xl:h-14 cursor-pointer">
             <RadioButton
               label="I strongly agree"
               value={3}
@@ -55,7 +65,7 @@ const QuestionCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-10 h-10 sm:w-12 sm:h-12 cursor-pointer">
+          <div className="w-10 h-10 xl:w-12 xl:h-12 cursor-pointer">
             <RadioButton
               label="I moderately agree"
               value={2}
@@ -63,7 +73,7 @@ const QuestionCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-8 h-8 sm:w-10 sm:h-10 cursor-pointer">
+          <div className="w-8 h-8 xl:w-10 xl:h-10 cursor-pointer">
             <RadioButton
               label="I agree"
               value={1}
@@ -71,7 +81,7 @@ const QuestionCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-8 h-8 sm:w-10 sm:h-10 cursor-pointer">
+          <div className="w-8 h-8 xl:w-10 xl:h-10 cursor-pointer">
             <RadioButton
               label="I am not sure"
               value={0}
@@ -79,7 +89,7 @@ const QuestionCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-8 h-8 sm:w-10 sm:h-10 cursor-pointer">
+          <div className="w-8 h-8 xl:w-10 xl:h-10 cursor-pointer">
             <RadioButton
               label="I disagree"
               value={-1}
@@ -87,7 +97,7 @@ const QuestionCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-10 h-10 sm:w-12 sm:h-12 cursor-pointer">
+          <div className="w-10 h-10 xl:w-12 xl:h-12 cursor-pointer">
             <RadioButton
               label="I moderately disagree"
               value={-2}
@@ -95,7 +105,7 @@ const QuestionCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-12 h-12 sm:w-14 sm:h-14 cursor-pointer">
+          <div className="w-12 h-12 xl:w-14 xl:h-14 cursor-pointer">
             <RadioButton
               label="I strongly disagree"
               value={-3}
@@ -104,12 +114,12 @@ const QuestionCard = ({
             />
           </div>
         </div>
-        <div className="max-sm:hidden caption text-xl md:text-2xl text-purple font-semibold">
-          Disagree
+        <div className="max-sm:hidden caption text-xl xl:text-2xl text-purple font-semibold ">
+          {translation.attitudeNegative}
         </div>
-        <div className="captions-mobile w-full max-w-80 sm:hidden flex justify-between mt-4 font-semibold uppercase">
-          <div className="text-green">Agree</div>
-          <div className="text-purple">Disagree</div>
+        <div className="captions-mobile w-full max-w-96 sm:hidden flex justify-between mt-4 text-sm font-semibold uppercase">
+          <div className="text-green">{translation.attitudePositive}</div>
+          <div className="text-purple">{translation.attitudeNegative}</div>
         </div>
       </div>
     </div>

@@ -4,31 +4,21 @@ import { toast } from 'sonner';
 import {
   AnswerMapData,
   LangCode,
+  PersonalityTestTranslation,
   Question,
   TraitIndex,
-} from '@/core/types/personality';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+} from '@/core/types/personality-test';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import QuestionCard from '@/core/components/test/question-card';
+import QuestionCard from '@/core/components/personality-test/question-card';
 import { Button } from '@/core/components/ui/button';
 import { Progress } from '@/core/components/ui/progress';
 import { QUESTION_DATA_ARRAY_LENGTH } from '@/core/data/questions';
-import { calculateMBTI, getQuestions } from '@/core/utils/personality';
-
-// const traitMap = new Map<TraitIndex, number>([
-//   ['e', 11],
-//   ['i', 14],
-//   ['s', 14],
-//   ['n', 10],
-//   ['t', 4],
-//   ['f', 22],
-//   ['j', 13],
-//   ['p', 12],
-//   ['a', 7],
-//   ['v', 18],
-// ]);
-
-const answerMap = new Map<string, AnswerMapData>();
+import {
+  calculateMBTI,
+  configurePersonalityTestQuestions,
+} from '@/core/utils/personality-test';
+import { getPersonalityTestTranslation } from '@/core/utils/dictionary';
 
 const QUESTION_GROUP_SIZE = 12;
 const TOTAL_QUESTION_GROUPS = QUESTION_DATA_ARRAY_LENGTH / QUESTION_GROUP_SIZE; // 5  (60 / 12)
@@ -38,6 +28,9 @@ type PersonalityTestProps = {
 };
 
 const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
+  const [translation, setTranslation] =
+    useState<Omit<PersonalityTestTranslation, 'questions'>>();
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [questionGroup, setQuestionGroup] = useState<Question[]>([]);
   const [questionGroupNum, setQuestionGroupNum] = useState(0);
   const [activeQuestionId, setActiveQuestionId] = useState(1);
@@ -46,13 +39,11 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
   const [isDone, setIsDone] = useState(false);
 
   const activeQuestionRef = useRef<HTMLDivElement | null>(null);
-  const localizedQuestions = useMemo(() => {
-    return getQuestions(langCode);
-  }, [langCode]);
+  const answerMapRef = useRef<Map<string, AnswerMapData>>(new Map());
 
   const getNextQuestionGroup = () => {
     const newOffset = questionGroupNum * QUESTION_GROUP_SIZE;
-    const nextQuestionGroup = localizedQuestions.slice(
+    const nextQuestionGroup = questions.slice(
       newOffset,
       newOffset + QUESTION_GROUP_SIZE
     );
@@ -71,10 +62,28 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
     }, 50); // Ensure state updates before scrolling
   };
 
+  // Init data
+  useEffect(() => {
+    const initData = async () => {
+      // Get translation
+      const { questions, ...translations } =
+        await getPersonalityTestTranslation(langCode);
+      setTranslation(translations);
+
+      // Merge question data with translation
+      const translatedQuestions: { [key: string]: string } = questions;
+      const mergedQuestions =
+        configurePersonalityTestQuestions(translatedQuestions);
+      setQuestions(mergedQuestions);
+    };
+
+    initData();
+  }, [langCode]);
+
   useEffect(() => {
     // Get the first group
     const initQuestions = async () => {
-      const firstGroup = localizedQuestions.slice(0, QUESTION_GROUP_SIZE);
+      const firstGroup = questions.slice(0, QUESTION_GROUP_SIZE);
       if (!firstGroup?.length) {
         toast(`No questions fetched`);
         return;
@@ -83,7 +92,7 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
       setQuestionGroupNum(1);
     };
     initQuestions();
-  }, [localizedQuestions]);
+  }, [questions]);
 
   // Assign ref only to the currently active question
   const setActiveQuestionRef = useCallback((el: HTMLDivElement | null) => {
@@ -102,7 +111,7 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
   };
 
   const updateAnswerMap = (data: AnswerMapData) => {
-    answerMap.set(data.questionId, data);
+    answerMapRef.current.set(data.questionId, data);
   };
 
   const updateCurrentQuestionId = () => {
@@ -156,19 +165,19 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
     ]);
 
     // Fill out the trait map
-    answerMap.forEach(({ traitIndex, value }: AnswerMapData) => {
+    answerMapRef.current.forEach(({ traitIndex, value }: AnswerMapData) => {
       const curValue = traitMap.get(traitIndex as TraitIndex) as number;
       traitMap.set(traitIndex as TraitIndex, curValue + value);
     });
 
     const result = calculateMBTI(traitMap);
-    console.log(result.percentages); // Percentages for each trait
-    console.log(result.personalityType); // Personality type with identity
+    console.log(result.personalityType);
+    console.log(result.percentageMap);
   };
 
   return (
     <div className="personality-test relative flex flex-col flex-1">
-      <div className="question-group m-auto max-w-[600px]">
+      <div className="question-group m-auto max-w-[640px] lg:max-w-[720px] xl:max-w-[780px]">
         {questionGroup.map((data) => (
           <div
             id={data.id}
@@ -180,6 +189,7 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
             <QuestionCard
               key={data.id}
               id={data.id}
+              translation={translation?.questionCard}
               question={data.question}
               activeQuestionId={`${activeQuestionId}`}
               traitType={data.traitType}
@@ -191,26 +201,30 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
 
         <div className="action-buttons h-10 my-8 flex justify-center">
           {isNext && !isDone ? (
-            <Button onClick={handleNextButton}>Next</Button>
+            <Button onClick={handleNextButton}>
+              {translation?.nextGroupBtnTitle}
+            </Button>
           ) : null}
           {isNext && isDone ? (
             <Button variant="accent" onClick={getResults}>
-              Get Results
+              {translation?.getResultsBtnTitle}
             </Button>
           ) : null}
         </div>
       </div>
 
-      <div className="bottom-bar min-h-16 sticky bottom-0 flex items-center justify-between p-4 bg-white z-10">
-        <div className="w-20 flex items-center justify-center px-4 text-xl font-bold cursor-default">
-          {questionGroupNum} / {TOTAL_QUESTION_GROUPS}
+      <div className="bottom-bar min-h-16 sticky bottom-0 flex items-center justify-between bg-white xl:rounded-tr-4xl xl:rounded-tl-4xl">
+        <div className="w-24 flex items-center justify-center px-4 text-xl font-bold cursor-default">
+          {questionGroupNum}
+          <div className="text-muted ml-2">/ {TOTAL_QUESTION_GROUPS}</div>
         </div>
-        <div className="flex flex-1 px-4">
+        <div className="flex flex-1">
           <Progress value={progress} />
         </div>
-        <div className="w-20 flex items-center justify-center px-4 text-xl font-bold cursor-default">
+        <div className="w-24 flex items-center justify-center px-4 text-xl font-bold cursor-default">
           {/* {activeQuestionId} */}
-          {progress}%
+          {progress}
+          <div className="text-muted">%</div>
         </div>
       </div>
     </div>
