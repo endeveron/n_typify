@@ -1,0 +1,54 @@
+{
+  "energyCard": {
+    "introversion_title": "Introvert",
+    "extraversion_title": "Extravert"
+  },
+  "tacticsCard": {
+    "introversion_title": "Judging",
+    "extraversion_title": "Perceiving"
+  },
+  "thinkingCard": {
+    "title": "Thinking",
+    "extraverted_function": {
+      "title": "Business",
+      "description": "A mechanism that must run smoothly. Everything is subordinated to efficiency and practical value."
+    },
+    "introverted_function": {
+      "title": "Structural",
+      "description": "Structure, clarity, system. A logical map of the world where everything is interconnected."
+    }
+  },
+  "feelingCard": {
+    "title": "Feeling",
+    "extraverted_function": {
+      "title": "Relationship",
+      "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection."
+    },
+    "introverted_function": {
+      "title": "Emotions",
+      "description": "Controls the mood of others through bright and expressive emotionsemotional vibrations."
+    }
+  },
+  "sensingCard": {
+    "title": "Sensing",
+    "extraverted_function": {
+      "title": "Volitional",
+      "description": "Strength, will, determination. Willingness to fight for your goals and assert your boundaries."
+    },
+    "introverted_function": {
+      "title": "Comfort",
+      "description": "Home, warmth. All the attention is on bodily sensations, cozy atmosphere and pleasant details."
+    }
+  },
+  "intuitionCard": {
+    "title": "Intuition",
+    "extraverted_function": {
+      "title": "Time",
+      "description": "The flow of time, cycles, cause and effect. Sees the future through the present."
+    },
+    "introverted_function": {
+      "title": "Potentiality",
+      "description": "Flight of fancy, lots of ideas, freedom of options."
+    }
+  }
+}

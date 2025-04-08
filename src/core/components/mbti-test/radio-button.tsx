@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/core/utils/common';
-import Checkmark from '~/public/icons/checkmark.svg';
+import Checkmark from '~/public/icons/auth/checkmark.svg';
 
 export type RadioButtonProps = {
   label: string;

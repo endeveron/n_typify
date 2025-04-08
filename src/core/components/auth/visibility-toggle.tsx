@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import Eye from '~/public/icons/eye.svg';
-import EyeSlash from '~/public/icons/eye-slash.svg';
+import Eye from '~/public/icons/auth/eye.svg';
+import EyeSlash from '~/public/icons/auth/eye-slash.svg';
 
 type TVisibilityToggleProps = {
   onClick: () => void;

@@ -2,25 +2,25 @@
 
 import { useState } from 'react';
 
-import RadioButton from '@/core/components/personality-test/radio-button';
-import { AnswerMapData, Question } from '@/core/types/personality-test';
+import RadioButton from '@/core/components/mbti-test/radio-button';
+import { AnswerMapData, Question } from '@/core/types/mbti';
 import { QuestionCardTranslation } from '@/core/types/translation';
 import { cn } from '@/core/utils/common';
 
-type QuestionCardProps = Question & {
+type MBTITestCardProps = Question & {
   translation?: QuestionCardTranslation;
   activeQuestionId: string;
   onSelect: (data: AnswerMapData) => void;
 };
 
-const QuestionCard = ({
+const MBTITestCard = ({
   id,
   translation,
   question,
   activeQuestionId,
   dichotomy,
   onSelect,
-}: QuestionCardProps) => {
+}: MBTITestCardProps) => {
   const [checkedButtonValue, setCheckedButtonValue] = useState<number>();
 
   if (!translation) {
@@ -123,4 +123,4 @@ const QuestionCard = ({
   );
 };
 
-export default QuestionCard;
+export default MBTITestCard;

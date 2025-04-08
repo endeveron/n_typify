@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-import QuestionCard from '@/core/components/personality-test/question-card';
+import QuestionCard from '@/core/components/mbti-test/mbti-test-card';
 import { Button } from '@/core/components/ui/button';
 import { Progress } from '@/core/components/ui/progress';
 import { QUESTION_DATA_ARRAY_LENGTH } from '@/core/data/questions';
@@ -12,24 +12,21 @@ import {
   MBTIResult,
   Question,
   TraitIndex,
-} from '@/core/types/personality-test';
-import { LangCode, PersonalityTestTranslation } from '@/core/types/translation';
-import { getPersonalityTestTranslation } from '@/core/utils/dictionary';
-import {
-  calculateMBTI,
-  configurePersonalityTestQuestions,
-} from '@/core/utils/personality-test';
+} from '@/core/types/mbti';
+import { LangCode, MBTITestTranslation } from '@/core/types/translation';
+import { getMBTITestTranslation } from '@/core/utils/dictionary';
+import { calculateMBTI, configureMBTITestQuestions } from '@/core/utils/mbti';
 
 const QUESTION_GROUP_SIZE = 12;
 const TOTAL_QUESTION_GROUPS = QUESTION_DATA_ARRAY_LENGTH / QUESTION_GROUP_SIZE; // 5  (60 / 12)
 
-type PersonalityTestProps = {
-  langCode: LangCode;
+type MBTITestProps = {
+  langCode?: LangCode;
 };
 
-const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
+const MBTITest = ({ langCode }: MBTITestProps) => {
   const [translation, setTranslation] =
-    useState<Omit<PersonalityTestTranslation, 'questions'>>();
+    useState<Omit<MBTITestTranslation, 'questions'>>();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [questionGroup, setQuestionGroup] = useState<Question[]>([]);
   const [questionGroupNum, setQuestionGroupNum] = useState(0);
@@ -155,8 +152,9 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
   useEffect(() => {
     const initData = async () => {
       // Get translations
-      const { questions, ...translations } =
-        await getPersonalityTestTranslation(langCode);
+      const { questions, ...translations } = await getMBTITestTranslation(
+        langCode
+      );
       if (!questions || !translations) {
         toast(`Unable to get translations`);
         return;
@@ -165,8 +163,7 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
 
       // Merge question data with translation
       const translatedQuestions: { [key: string]: string } = questions;
-      const mergedQuestions =
-        configurePersonalityTestQuestions(translatedQuestions);
+      const mergedQuestions = configureMBTITestQuestions(translatedQuestions);
       setQuestions(mergedQuestions);
 
       // Init the first group of questions
@@ -179,7 +176,7 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
   }, [langCode]);
 
   return (
-    <div className="personality-test relative flex flex-col flex-1">
+    <div className="mbti-test relative flex flex-col flex-1">
       <div className="question-group m-auto max-w-[640px] lg:max-w-[720px] xl:max-w-[780px]">
         {questionGroup.map((data) => (
           <div
@@ -233,4 +230,4 @@ const PersonalityTest = ({ langCode }: PersonalityTestProps) => {
   );
 };
 
-export default PersonalityTest;
+export default MBTITest;

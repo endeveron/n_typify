@@ -11,8 +11,6 @@
 
   --background: #ffffff;
   --foreground: #343c4b;
-  /* --secondary-background: #f6f6f7;
-  --secondary-foreground: #4d5769; */
 
   --red: #ff3d23;
   --orange: #f8822d;
@@ -86,9 +84,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a; /* neutral-950 */
-    --foreground: #d4d4d4; /* neutral-300 */
-    /* --secondary-background: #171717;
-    --secondary-foreground: #4d5769; */
+    --foreground: #e5e5e5; /* neutral-200 */
 
     --red: #ff3d23; /* -000 */
     --orange: #f8822d; /* -000 */
@@ -107,10 +103,10 @@
     --accent: var(--amber);
     --brand: var(--sky);
 
-    --muted: #8c96a8;
+    --muted: #a1a1a1; /* neutral-400 */
     --border: #262626; /* neutral-800 */
-    --input: #f3f5f8;
-    --input-border: #f3f5f8;
+    --input: #262626; /* neutral-800 */
+    --input-border: #262626; /* neutral-800 */
     --overlay: white;
 
     --ring: var(--brand);
@@ -133,8 +129,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* --color-secondary-background: var(--secondary-background);
-  --color-secondary-foreground: var(--secondary-foreground); */
 
   --color-red: var(--red);
   --color-orange: var(--orange);

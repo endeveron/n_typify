@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 import LoadingIcon from '@/core/components/shared/loading-icon';
-import SignOutIcon from '~/public/icons/sign-out.svg';
+import SignOutIcon from '~/public/icons/auth/sign-out.svg';
 
 const SignOutButton = () => {
   const [pending, setPending] = useState(false);

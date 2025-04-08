@@ -2,7 +2,8 @@
 // import UserModel from '@/core/models/user';
 
 import MainHeader from '@/core/components/shared/main-header';
-import PersonalityTest from '@/core/components/personality-test/personality-test';
+// import MBTITest from '@/core/components/mbti-test/mbti-test';
+import MBTIDashboard from '@/core/components/mbti-dashboard/mbti-dashboard';
 // import { Button } from '@/core/components/ui/button';
 
 export default async function Home() {
@@ -54,7 +55,8 @@ export default async function Home() {
           </Button>
         </div> */}
 
-        <PersonalityTest langCode="uk" />
+        {/* <MBTITest langCode="uk" /> */}
+        <MBTIDashboard langCode="en" />
       </main>
     </>
   );

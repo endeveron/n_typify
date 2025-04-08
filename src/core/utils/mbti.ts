@@ -1,12 +1,12 @@
 import { QUESTION_DATA_ARRAY } from '@/core/data/questions';
-import { MBTIResult, TraitIndex } from '@/core/types/personality-test';
+import { MBTIResult, TraitIndex } from '@/core/types/mbti';
 
 /**
  * Merges question data with translations for a personality test.
  * @param translatedQuestions Array of translated questions
  * @returns Array of questions
  */
-export const configurePersonalityTestQuestions = (translatedQuestions: {
+export const configureMBTITestQuestions = (translatedQuestions: {
   [key: string]: string;
 }) => {
   return QUESTION_DATA_ARRAY.map((questionData) => {
