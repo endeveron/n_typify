@@ -36,10 +36,10 @@ const RadioButton = ({
         className={cn(
           `flex items-center justify-center h-full w-full rounded-full transition-all`,
           {
-            'border-2 border-green': isPositive && !isChecked,
+            'border-2 border-teal': isPositive && !isChecked,
             'border-2 border-purple': !isPositive && !isChecked,
             'border-2 border-neutral': isNeutral && !isChecked,
-            'bg-green': isPositive && isChecked,
+            'bg-teal': isPositive && isChecked,
             'bg-purple': !isPositive && isChecked,
             'bg-neutral': isNeutral && isChecked,
           }

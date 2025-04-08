@@ -1,7 +1,4 @@
-import {
-  LangCode,
-  PersonalityTestTranslation,
-} from '@/core/types/personality-test';
+import { LangCode, PersonalityTestTranslation } from '@/core/types/translation';
 
 const personalityTestLoadersMap = new Map<
   string,

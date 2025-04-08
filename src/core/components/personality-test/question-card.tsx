@@ -3,15 +3,12 @@
 import { useState } from 'react';
 
 import RadioButton from '@/core/components/personality-test/radio-button';
-import {
-  Question,
-  AnswerMapData,
-  PersonalityTestQuestionCardTranslation,
-} from '@/core/types/personality-test';
+import { AnswerMapData, Question } from '@/core/types/personality-test';
+import { QuestionCardTranslation } from '@/core/types/translation';
 import { cn } from '@/core/utils/common';
 
 type QuestionCardProps = Question & {
-  translation?: PersonalityTestQuestionCardTranslation;
+  translation?: QuestionCardTranslation;
   activeQuestionId: string;
   onSelect: (data: AnswerMapData) => void;
 };
@@ -53,7 +50,7 @@ const QuestionCard = ({
         {question}
       </div>
       <div className="radio-group w-full flex flex-col items-center sm:flex-row sm:justify-center sm:gap-4 md:gap-6">
-        <div className="max-sm:hidden caption text-xl xl:text-2xl text-green font-semibold">
+        <div className="max-sm:hidden caption text-xl xl:text-2xl text-teal font-semibold cursor-default">
           {translation.attitudePositive}
         </div>
         <div className="radios w-full flex items-center justify-between max-md:max-w-96 md:w-[420px] xl:w-[500px]">
@@ -114,11 +111,11 @@ const QuestionCard = ({
             />
           </div>
         </div>
-        <div className="max-sm:hidden caption text-xl xl:text-2xl text-purple font-semibold ">
+        <div className="max-sm:hidden caption text-xl xl:text-2xl text-purple font-semibold cursor-default">
           {translation.attitudeNegative}
         </div>
-        <div className="captions-mobile w-full max-w-96 sm:hidden flex justify-between mt-4 text-sm font-semibold uppercase">
-          <div className="text-green">{translation.attitudePositive}</div>
+        <div className="captions-mobile w-full max-w-96 sm:hidden flex justify-between mt-4 text-sm font-semibold uppercase cursor-default">
+          <div className="text-teal">{translation.attitudePositive}</div>
           <div className="text-purple">{translation.attitudeNegative}</div>
         </div>
       </div>

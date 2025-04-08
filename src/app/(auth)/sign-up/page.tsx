@@ -14,7 +14,7 @@ const Page = async () => {
       </CardHeader>
       <CardContent>
         {/* <div className="flex flex-col">
-          <div className="mb-2 text-center text-sm text-secondary-foreground">
+          <div className="mb-2 text-center text-sm text-muted">
             Unable to register in the preview mode
           </div>
           <Link href="/sign-in" className="auth-form_link">
