@@ -40,6 +40,9 @@
   --btn-primary-foreground: white;
   --btn-primary-background: var(--brand);
   --btn-primary-background-hover: #2992dd;
+  --btn-secondary-foreground: #e5e5e5; /* neutral-200 */
+  --btn-secondary-background: #404040; /* neutral-600 */
+  --btn-secondary-background-hover: #585858; /* neutral-550 */
   --btn-accent-foreground: white;
   --btn-accent-background: var(--accent);
   --btn-accent-background-hover: #ee7118;
@@ -114,10 +117,13 @@
     --btn-primary-foreground: white;
     --btn-primary-background: var(--brand);
     --btn-primary-background-hover: #2992dd;
+    --btn-secondary-foreground: #e5e5e5; /* neutral-200 */
+    --btn-secondary-background: #262626; /* neutral-800 */
+    --btn-secondary-background-hover: #2b2b2b;
     --btn-accent-foreground: white;
     --btn-accent-background: var(--accent);
     --btn-accent-background-hover: #ee7118;
-    --btn-neutral-background: white;
+    --btn-neutral-background: #404040; /* neutral-600 */
 
     --placeholder-background: white;
     --card: #171717; /* neutral-900 */
@@ -155,6 +161,9 @@
   --color-btn-primary-foreground: var(--btn-primary-foreground);
   --color-btn-primary-background: var(--btn-primary-background);
   --color-btn-primary-background-hover: var(--btn-primary-background-hover);
+  --color-btn-secondary-foreground: var(--btn-secondary-foreground);
+  --color-btn-secondary-background: var(--btn-secondary-background);
+  --color-btn-secondary-background-hover: var(--btn-secondary-background-hover);
   --color-btn-accent-foreground: var(--btn-accent-foreground);
   --color-btn-accent-background: var(--btn-accent-background);
   --color-btn-accent-background-hover: var(--btn-accent-background-hover);

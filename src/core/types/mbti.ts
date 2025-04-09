@@ -24,6 +24,12 @@ export type CognitiveFunctionIndex =
   | 'Ne'
   | 'Ni';
 
+/**
+ * MBTI Input
+ */
+
+export type CognitiveFunctionArr = [string, number][];
+
 export type CardButton = {
   title: string;
   icon: ReactElement;
@@ -40,10 +46,26 @@ export type CognitiveFunction = CardButton & {
   description?: string;
 };
 
+export type CognitiveFunctionButton = CognitiveFunction & {
+  counter: number;
+};
+
 export type CognitiveFnCard = {
   title: string;
   cognitiveFunctions: CognitiveFunction[];
 };
+
+export type MBTIMapItem = {
+  personality: {
+    type: string;
+    name: string;
+    description: string;
+  };
+  shadowFnPattern: string;
+  functions: string[];
+};
+
+// MBTI Test
 
 export type QuestionData = {
   id: string;
@@ -62,6 +84,12 @@ export type AnswerMapData = {
 };
 
 export type MBTIResult = {
-  personalityType: string;
+  personality: string;
   percentageMap: Map<TraitIndex, number>;
 };
+
+/**
+ * MBTI Output
+ */
+
+// MBTI Functions

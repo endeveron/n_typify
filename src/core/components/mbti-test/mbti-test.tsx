@@ -44,7 +44,7 @@ const MBTITest = ({ langCode }: MBTITestProps) => {
 
   const handleGetResultsButton = () => {
     const result = getResults();
-    console.log(result.personalityType);
+    console.log(result.personality);
     console.log(result.percentageMap);
 
     // TODO: Save test results in DB using server actions
