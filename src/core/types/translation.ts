@@ -1,3 +1,5 @@
+import { MBTIPersonalityType } from '@/core/types/mbti';
+
 export type LangCode = 'en' | 'uk';
 
 // Define the structure of the imported JSON
@@ -20,6 +22,23 @@ export type MBTIDashboardFunctionCardTranslation = {
   introverted_function: MBTIDashboardFunctionTranslation;
 };
 
+export type MBTICognitiveFnTranslation = {
+  description: string;
+};
+
+export type MBTICognitiveFnMapTranslation = {
+  [id: string]: {
+    description: string;
+  };
+};
+
+export type PersonalityType = {
+  type: MBTIPersonalityType;
+  title: string;
+  subtitle: string;
+  description: string;
+};
+
 export type MBTIDashboardTranslation = {
   energyCard: MBTIDashboardTraitCardTranslation;
   tacticsCard: MBTIDashboardTraitCardTranslation;
@@ -27,6 +46,9 @@ export type MBTIDashboardTranslation = {
   feelingCard: MBTIDashboardFunctionCardTranslation;
   sensingCard: MBTIDashboardFunctionCardTranslation;
   intuitionCard: MBTIDashboardFunctionCardTranslation;
+  cognitiveFnStack: string[];
+  cognitiveFunctions: MBTICognitiveFnMapTranslation;
+  personalityTypes: PersonalityType[];
 };
 
 // MBTI Test

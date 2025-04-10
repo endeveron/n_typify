@@ -2,23 +2,21 @@
 
 import { CardButton } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
+import { cognFnColorMap } from '@/core/utils/mbti';
 
 type TMBTICardButtonProps = CardButton & {
   onClick: () => void;
 };
 
-const MBTICardButton = ({
-  title,
-  icon,
-  className,
-  onClick,
-}: TMBTICardButtonProps) => {
+const MBTICardButton = ({ id, title, icon, onClick }: TMBTICardButtonProps) => {
+  const bgColor = cognFnColorMap.get(id);
+
   return (
     <div onClick={onClick} className="flex flex-col items-center gap-3">
       <div
         className={cn(
           `h-20 w-20 flex items-center justify-center rounded-full cursor-pointer`,
-          className
+          bgColor
         )}
       >
         {icon}

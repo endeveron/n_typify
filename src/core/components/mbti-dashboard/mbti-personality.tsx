@@ -1,6 +1,10 @@
 'use client';
 
-import { CognitiveFunctionArr, MBTIMapItem } from '@/core/types/mbti';
+import { CognFunctionArr, MBTIMapItem } from '@/core/types/mbti';
+import {
+  MBTIDashboardTranslation,
+  PersonalityType,
+} from '@/core/types/translation';
 import {
   getCognFnPattern,
   getMBTITypeByCognFnPattern,
@@ -8,40 +12,56 @@ import {
 import { useEffect, useState } from 'react';
 
 type MBTITypeProps = {
-  cognitiveFnArr: CognitiveFunctionArr;
+  cognitiveFnArr: CognFunctionArr;
+  translation: MBTIDashboardTranslation;
 };
 
-const MBTIPersonality = ({ cognitiveFnArr }: MBTITypeProps) => {
-  const [data, setData] = useState<MBTIMapItem | null>(null);
-
-  // Move
+const MBTIPersonality = ({ cognitiveFnArr, translation }: MBTITypeProps) => {
+  const [MBTIData, setMBTIData] = useState<MBTIMapItem | null>(null);
+  const [personTypeTranslation, setPersonTypeTranslation] =
+    useState<PersonalityType | null>(null);
 
   // Update personality
   useEffect(() => {
-    if (cognitiveFnArr.length < 4) return;
+    if (cognitiveFnArr.length < 4) {
+      setMBTIData(null);
+      setPersonTypeTranslation(null);
+      return;
+    }
 
     const cognFnPattern = getCognFnPattern(cognitiveFnArr);
-    console.log('cognFnPattern', cognFnPattern);
-
     const result = getMBTITypeByCognFnPattern(cognFnPattern);
     if (result.data) {
-      setData(result.data);
+      setMBTIData(result.data);
+
+      // Get translations
+      const translationData = translation.personalityTypes.find(
+        (data) => data.type === result.data?.personalityType
+      );
+      if (translationData) {
+        setPersonTypeTranslation(translationData);
+      }
     } else {
-      setData(null);
+      setMBTIData(null);
+      setPersonTypeTranslation(null);
     }
-  }, [cognitiveFnArr, cognitiveFnArr.length]);
+  }, [cognitiveFnArr, translation.personalityTypes]);
 
   return (
-    <div className="h-20 my-8 flex flex-col items-center justify-between">
-      {data ? (
+    <div className="h-28 my-6 flex flex-col items-center uppercase cursor-default">
+      {MBTIData ? (
         <>
-          {/* Title */}
-          <div className="text-5xl font-semibold cursor-default">
-            {data.personality.type}
+          {/* MBTI Personality Type */}
+          <div className="mb-1.5 text-[3.5rem] leading-none text-muted font-bold opacity-40">
+            {MBTIData.personalityType}
           </div>
-          {/* Name */}
-          <div className="text-muted font-semibold cursor-default">
-            {data.personality.name}
+          {/* Title */}
+          <div className="text-accent text-xl font-bold tracking-wider">
+            {personTypeTranslation?.title}
+          </div>
+          {/* Subtitle */}
+          <div className="mt-0.5 text-muted text-[11px] font-medium tracking-wide opacity-60">
+            {personTypeTranslation?.subtitle}
           </div>
         </>
       ) : null}

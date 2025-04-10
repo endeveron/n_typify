@@ -1,10 +1,21 @@
 import { QUESTION_DATA_ARRAY } from '@/core/data/questions';
 import {
-  CognitiveFunctionArr,
+  CognFunctionArr,
   MBTIMapItem,
   MBTIResult,
   TraitIndex,
 } from '@/core/types/mbti';
+
+export const cognFnColorMap = new Map<string, string>([
+  ['Te', 'bg-teal'],
+  ['Ti', 'bg-teal'],
+  ['Fe', 'bg-rose'],
+  ['Fi', 'bg-rose'],
+  ['Se', 'bg-amber'],
+  ['Si', 'bg-amber'],
+  ['Ne', 'bg-sky'],
+  ['Ni', 'bg-sky'],
+]);
 
 // Default cognitive function counter map
 export const defaultCognFnCounterMap = new Map<string, number>([
@@ -23,47 +34,32 @@ const MBTIMap = new Map<string, MBTIMapItem>([
   [
     'NiTeFiSe',
     {
-      personality: {
-        type: 'INTJ',
-        name: 'The Architect',
-        description: '',
-      },
+      personalityType: 'INTJ',
       shadowFnPattern: 'NeTiFeSi',
       functions: ['Ni', 'Te', 'Fi', 'Se', 'Ne', 'Ti', 'Fe', 'Si'],
     },
   ],
-  [
-    'TiNeSiFe',
-    {
-      personality: {
-        type: 'INTP',
-        name: 'The Logician',
-        description: '',
-      },
-      shadowFnPattern: 'TeNiSeFi',
-      functions: ['Ti', 'Ne', 'Si', 'Fe', 'Te', 'Ni', 'Se', 'Fi'],
-    },
-  ],
+
   [
     'TeNiSeFi',
     {
-      personality: {
-        type: 'ENTJ',
-        name: 'The Commander',
-        description: '',
-      },
+      personalityType: 'ENTJ',
       shadowFnPattern: 'TiNeSiFe',
       functions: ['Te', 'Ni', 'Se', 'Fi', 'Ti', 'Ne', 'Si', 'Fe'],
     },
   ],
   [
+    'TiNeSiFe',
+    {
+      personalityType: 'INTP',
+      shadowFnPattern: 'TeNiSeFi',
+      functions: ['Ti', 'Ne', 'Si', 'Fe', 'Te', 'Ni', 'Se', 'Fi'],
+    },
+  ],
+  [
     'NeTiFeSi',
     {
-      personality: {
-        type: 'ENTP',
-        name: 'The Debater',
-        description: '',
-      },
+      personalityType: 'ENTP',
       shadowFnPattern: 'NiTeFiSe',
       functions: ['Ne', 'Ti', 'Fe', 'Si', 'Ni', 'Te', 'Fi', 'Se'],
     },
@@ -71,47 +67,32 @@ const MBTIMap = new Map<string, MBTIMapItem>([
   [
     'NiFeTiSe',
     {
-      personality: {
-        type: 'INFJ',
-        name: 'The Advocate',
-        description: '',
-      },
+      personalityType: 'INFJ',
       shadowFnPattern: 'NeFiTeSi',
       functions: ['Ni', 'Fe', 'Ti', 'Se', 'Ne', 'Fi', 'Te', 'Si'],
     },
   ],
-  [
-    'FiNeSiTe',
-    {
-      personality: {
-        type: 'INFP',
-        name: 'The Mediator',
-        description: '',
-      },
-      shadowFnPattern: 'FeNiSeTi',
-      functions: ['Fi', 'Ne', 'Si', 'Te', 'Fe', 'Ni', 'Se', 'Ti'],
-    },
-  ],
+
   [
     'FeNiSeTi',
     {
-      personality: {
-        type: 'ENFJ',
-        name: 'The Protagonist',
-        description: '',
-      },
+      personalityType: 'ENFJ',
       shadowFnPattern: 'FiNeSiTe',
       functions: ['Fe', 'Ni', 'Se', 'Ti', 'Fi', 'Ne', 'Si', 'Te'],
     },
   ],
   [
+    'FiNeSiTe',
+    {
+      personalityType: 'INFP',
+      shadowFnPattern: 'FeNiSeTi',
+      functions: ['Fi', 'Ne', 'Si', 'Te', 'Fe', 'Ni', 'Se', 'Ti'],
+    },
+  ],
+  [
     'NeFiTeSi',
     {
-      personality: {
-        type: 'ENFP',
-        name: 'The Campaigner',
-        description: '',
-      },
+      personalityType: 'ENFP',
       shadowFnPattern: 'NiFeTiSe',
       functions: ['Ne', 'Fi', 'Te', 'Si', 'Ni', 'Fe', 'Ti', 'Se'],
     },
@@ -119,47 +100,32 @@ const MBTIMap = new Map<string, MBTIMapItem>([
   [
     'SiTeFiNe',
     {
-      personality: {
-        type: 'ISTJ',
-        name: 'The Inspector',
-        description: '',
-      },
+      personalityType: 'ISTJ',
       shadowFnPattern: 'SeTiFeNi',
       functions: ['Si', 'Te', 'Fi', 'Ne', 'Se', 'Ti', 'Fe', 'Ni'],
     },
   ],
-  [
-    'SiFeTiNe',
-    {
-      personality: {
-        type: 'ISFJ',
-        name: 'The Defender',
-        description: '',
-      },
-      shadowFnPattern: 'SeFiTeNi',
-      functions: ['Si', 'Fe', 'Ti', 'Ne', 'Se', 'Fi', 'Te', 'Ni'],
-    },
-  ],
+
   [
     'TeSiNeFi',
     {
-      personality: {
-        type: 'ESTJ',
-        name: 'The Executive',
-        description: '',
-      },
+      personalityType: 'ESTJ',
       shadowFnPattern: 'TiSeNiFe',
       functions: ['Te', 'Si', 'Ne', 'Fi', 'Ti', 'Se', 'Ni', 'Fe'],
     },
   ],
   [
+    'SiFeTiNe',
+    {
+      personalityType: 'ISFJ',
+      shadowFnPattern: 'SeFiTeNi',
+      functions: ['Si', 'Fe', 'Ti', 'Ne', 'Se', 'Fi', 'Te', 'Ni'],
+    },
+  ],
+  [
     'FeSiNeTi',
     {
-      personality: {
-        type: 'ESFJ',
-        name: 'The Consul',
-        description: '',
-      },
+      personalityType: 'ESFJ',
       shadowFnPattern: 'FiSeNiTe',
       functions: ['Fe', 'Si', 'Ne', 'Ti', 'Fi', 'Se', 'Ni', 'Te'],
     },
@@ -167,47 +133,32 @@ const MBTIMap = new Map<string, MBTIMapItem>([
   [
     'TiSeNiFe',
     {
-      personality: {
-        type: 'ISTP',
-        name: 'The Virtuoso',
-        description: '',
-      },
+      personalityType: 'ISTP',
       shadowFnPattern: 'TeSiNeFi',
       functions: ['Ti', 'Se', 'Ni', 'Fe', 'Te', 'Si', 'Ne', 'Fi'],
     },
   ],
-  [
-    'FiSeNiTe',
-    {
-      personality: {
-        type: 'ISFP',
-        name: 'The Adventurer',
-        description: '',
-      },
-      shadowFnPattern: 'FeSiNeTi',
-      functions: ['Fi', 'Se', 'Ni', 'Te', 'Fe', 'Si', 'Ne', 'Ti'],
-    },
-  ],
+
   [
     'SeTiFeNi',
     {
-      personality: {
-        type: 'ESTP',
-        name: 'The Entrepreneur',
-        description: '',
-      },
+      personalityType: 'ESTP',
       shadowFnPattern: 'SiTiFeNe',
       functions: ['Se', 'Ti', 'Fe', 'Ni', 'Si', 'Te', 'Fi', 'Ne'],
     },
   ],
   [
+    'FiSeNiTe',
+    {
+      personalityType: 'ISFP',
+      shadowFnPattern: 'FeSiNeTi',
+      functions: ['Fi', 'Se', 'Ni', 'Te', 'Fe', 'Si', 'Ne', 'Ti'],
+    },
+  ],
+  [
     'SeFiTeNi',
     {
-      personality: {
-        type: 'ESFP',
-        name: 'The Entertainer',
-        description: '',
-      },
+      personalityType: 'ESFP',
       shadowFnPattern: 'SiFiTeNe',
       functions: ['Se', 'Fi', 'Te', 'Ni', 'Si', 'Fe', 'Ti', 'Ne'],
     },
@@ -254,8 +205,8 @@ export const getMBTITypeByCognFnPattern = (
   };
 };
 
-export const getCognFnPattern = (cognFnArray: CognitiveFunctionArr) => {
-  return cognFnArray.map(([fnIndex]) => fnIndex).join('');
+export const getCognFnPattern = (cognFnArray: CognFunctionArr) => {
+  return cognFnArray.map(([id]) => id).join('');
 };
 
 /**

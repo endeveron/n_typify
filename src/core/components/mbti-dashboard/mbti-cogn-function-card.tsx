@@ -4,10 +4,10 @@ import MBTICardButton from '@/core/components/mbti-dashboard/mbti-card-button';
 import { CognitiveFnCard } from '@/core/types/mbti';
 
 type MBTICognitiveFnCardProps = CognitiveFnCard & {
-  onClick: (index: string) => void;
+  onClick: (id: string) => void;
 };
 
-const MBTICognitiveFunctionCard = ({
+const MBTICognFunctionCard = ({
   title,
   cognitiveFunctions,
   onClick,
@@ -22,10 +22,10 @@ const MBTICognitiveFunctionCard = ({
       {/* Cognitive Function Indexes */}
       <div className="-mt-2 px-1 flex justify-between opacity-40">
         <div className="text-muted font-bold cursor-default">
-          {cognitiveFunctions[0].index}
+          {cognitiveFunctions[0].id}
         </div>
         <div className="text-muted font-bold cursor-default">
-          {cognitiveFunctions[1].index}
+          {cognitiveFunctions[1].id}
         </div>
       </div>
 
@@ -34,7 +34,7 @@ const MBTICognitiveFunctionCard = ({
         {cognitiveFunctions.map((data) => (
           <MBTICardButton
             {...data}
-            onClick={() => onClick(data.index)}
+            onClick={() => onClick(data.id)}
             key={data.title}
           />
         ))}
@@ -43,4 +43,4 @@ const MBTICognitiveFunctionCard = ({
   );
 };
 
-export default MBTICognitiveFunctionCard;
+export default MBTICognFunctionCard;

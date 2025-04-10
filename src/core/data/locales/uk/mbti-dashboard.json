@@ -50,5 +50,139 @@
       "title": "Potentiality",
       "description": "Flight of fancy, lots of ideas, freedom of options."
     }
-  }
+  },
+  "cognitiveFnStack": [
+    "Core Driver",
+    "Trusted Guide",
+    "Inner Ally",
+    "Core Wound",
+    "Shadow Guard",
+    "Inner Critic",
+    "Rule Breaker",
+    "Inner Fear"
+  ],
+  "cognitiveFunctions": {
+    "Ni": {
+      "description": "Connects patterns and insights"
+    },
+    "Ne": {
+      "description": "Explores emerging ideas"
+    },
+    "Si": {
+      "description": "References detailed memories"
+    },
+    "Se": {
+      "description": "Engages with present reality"
+    },
+    "Ti": {
+      "description": "Analyzes with internal logic"
+    },
+    "Te": {
+      "description": "Organizes for effectiveness"
+    },
+    "Fi": {
+      "description": "Aligns with inner values"
+    },
+    "Fe": {
+      "description": "Seeks external group harmony"
+    }
+  },
+  "personalityTypes": [
+    {
+      "type": "INTJ",
+      "title": "The Architect",
+      "subtitle": "Strategic Mastermind",
+      "description": ""
+    },
+    {
+      "type": "ENTJ",
+      "title": "The Commander",
+      "subtitle": "Decisive Leader",
+      "description": ""
+    },
+    {
+      "type": "INTP",
+      "title": "The Logician",
+      "subtitle": "Philosophical Thinker",
+      "description": ""
+    },
+    {
+      "type": "ENTP",
+      "title": "The Debater",
+      "subtitle": "Inventive Debater",
+      "description": ""
+    },
+    {
+      "type": "INFJ",
+      "title": "The Advocate",
+      "subtitle": "Visionary Counselor",
+      "description": ""
+    },
+    {
+      "type": "ENFJ",
+      "title": "The Protagonist",
+      "subtitle": "Charismatic Mentor",
+      "description": ""
+    },
+    {
+      "type": "INFP",
+      "title": "The Mediator",
+      "subtitle": "Idealistic Dreamer",
+      "description": ""
+    },
+    {
+      "type": "ENFP",
+      "title": "The Campaigner",
+      "subtitle": "Energetic Visionary",
+      "description": ""
+    },
+    {
+      "type": "ISTJ",
+      "title": "The Inspector",
+      "subtitle": "Responsible Planner",
+      "description": ""
+    },
+    {
+      "type": "ESTJ",
+      "title": "The Executive",
+      "subtitle": "Efficient Organizer",
+      "description": ""
+    },
+    {
+      "type": "ISFJ",
+      "title": "The Defender",
+      "subtitle": "Supportive Protector",
+      "description": ""
+    },
+    {
+      "type": "ESFJ",
+      "title": "The Consul",
+      "subtitle": "Warmhearted Caregiver",
+      "description": ""
+    },
+    {
+      "type": "ISTP",
+      "title": "The Virtuoso",
+      "subtitle": "Logical Craftsman",
+      "description": ""
+    },
+    {
+      "type": "ESTP",
+      "title": "The Entrepreneur",
+      "subtitle": "Energetic Doer",
+      "description": ""
+    },
+    {
+      "type": "ISFP",
+      "title": "The Adventurer",
+      "subtitle": "Creative Individualist",
+      "description": ""
+    },
+    {
+      "type": "ESFP",
+      "title": "The Entertainer",
+      "subtitle": "Spontaneous Performer",
+      "description": ""
+    }
+  ]
 }

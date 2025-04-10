@@ -14,26 +14,44 @@ export type TraitIndex =
 
 export type TraitType = 'energy' | 'mind' | 'nature' | 'tactics' | 'identity';
 
-export type CognitiveFunctionIndex =
-  | 'Te'
-  | 'Ti'
-  | 'Fe'
-  | 'Fi'
-  | 'Se'
-  | 'Si'
+export type CognitiveFnId =
+  | 'Ni'
   | 'Ne'
-  | 'Ni';
+  | 'Si'
+  | 'Se'
+  | 'Ti'
+  | 'Te'
+  | 'Fi'
+  | 'Fe';
+
+export type MBTIPersonalityType =
+  | 'INTJ'
+  | 'ENTJ'
+  | 'INTP'
+  | 'ENTP'
+  | 'INFJ'
+  | 'ENFJ'
+  | 'INFP'
+  | 'ENFP'
+  | 'ISTJ'
+  | 'ESTJ'
+  | 'ISFJ'
+  | 'ESFJ'
+  | 'ISTP'
+  | 'ESTP'
+  | 'ISFP'
+  | 'ESFP';
 
 /**
  * MBTI Input
  */
 
-export type CognitiveFunctionArr = [string, number][];
+export type CognFunctionArr = [string, number][];
 
 export type CardButton = {
+  id: CognitiveFnId;
   title: string;
   icon: ReactElement;
-  className: string;
 };
 
 export type TraitCard = {
@@ -41,26 +59,17 @@ export type TraitCard = {
   buttons: CardButton[];
 };
 
-export type CognitiveFunction = CardButton & {
-  index: CognitiveFunctionIndex;
+export type CognitiveFnCardItem = CardButton & {
   description?: string;
-};
-
-export type CognitiveFunctionButton = CognitiveFunction & {
-  counter: number;
 };
 
 export type CognitiveFnCard = {
   title: string;
-  cognitiveFunctions: CognitiveFunction[];
+  cognitiveFunctions: CognitiveFnCardItem[];
 };
 
 export type MBTIMapItem = {
-  personality: {
-    type: string;
-    name: string;
-    description: string;
-  };
+  personalityType: MBTIPersonalityType;
   shadowFnPattern: string;
   functions: string[];
 };
@@ -93,3 +102,10 @@ export type MBTIResult = {
  */
 
 // MBTI Functions
+
+export type CognFunction = {
+  id: string;
+  title: string;
+  description: string;
+  counter: number;
+};

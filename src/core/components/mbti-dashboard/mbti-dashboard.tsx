@@ -7,7 +7,7 @@ import { LangCode, MBTIDashboardTranslation } from '@/core/types/translation';
 import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 import {
   CognitiveFnCard,
-  CognitiveFunctionArr,
+  CognFunctionArr,
   // TraitCard,
 } from '@/core/types/mbti';
 
@@ -31,11 +31,11 @@ import ExtravertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
 import IntrovertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
 
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
-import MBTICognitiveFunctionCard from '@/core/components/mbti-dashboard/mbti-cognitive-function-card';
 import { defaultCognFnCounterMap } from '@/core/utils/mbti';
 import MBTIPersonality from '@/core/components/mbti-dashboard/mbti-personality';
-import MBTICognitiveFunctions from '@/core/components/mbti-dashboard/mbti-cognitive-functions';
+import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-functions';
 import { Button } from '@/core/components/ui/button';
+import MBTICognFunctionCards from '@/core/components/mbti-dashboard/mbti-cogn-function-cards';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],
@@ -59,18 +59,16 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   const [cognitiveFnCards, setCognitiveFnCards] = useState<CognitiveFnCard[]>(
     []
   );
-  const [cognitiveFnArr, setCognitiveFnArr] = useState<CognitiveFunctionArr>(
-    []
-  );
+  const [cognitiveFnArr, setCognitiveFnArr] = useState<CognFunctionArr>([]);
 
-  const handleCognFnButtonClick = (fnIndex: string): void => {
-    const updCognFnCountMap = updateCognFnCounterMap(fnIndex);
+  const handleCognFnButtonClick = (id: string): void => {
+    const updCognFnCountMap = updateCognFnCounterMap(id);
     const cognFnArray = createCognFnArray(updCognFnCountMap);
     setCognitiveFnArr(cognFnArray);
   };
 
-  const updateCognFnCounterMap = (fnIndex: string): Map<string, number> => {
-    cognFnCounterMap.set(fnIndex, (cognFnCounterMap.get(fnIndex) ?? 0) + 1);
+  const updateCognFnCounterMap = (id: string): Map<string, number> => {
+    cognFnCounterMap.set(id, (cognFnCounterMap.get(id) ?? 0) + 1);
     return cognFnCounterMap;
   };
 
@@ -88,12 +86,15 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
    * and sorts by count descending.
    * Complexity: O(1) since n = 8.
    */
-  const createCognFnArray = (
-    map: Map<string, number>
-  ): CognitiveFunctionArr => {
+  const createCognFnArray = (map: Map<string, number>): CognFunctionArr => {
     return Array.from(map.entries())
-      .filter(([, count]) => count > 0)
-      .sort(([, a], [, b]) => b - a);
+      .map((entry, index) => ({ entry, index })) // keep original order
+      .filter(({ entry: [, count] }) => count > 0)
+      .sort((a, b) => {
+        const countDiff = b.entry[1] - a.entry[1];
+        return countDiff !== 0 ? countDiff : a.index - b.index; // stable fallback
+      })
+      .map(({ entry }) => entry);
   };
 
   // const initTraitCards = (translation: MBTIDashboardTranslation) => {
@@ -140,20 +141,18 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         title: translation.thinkingCard.title,
         cognitiveFunctions: [
           {
-            index: 'Te',
+            id: 'Te',
             title: translation.thinkingCard.extraverted_function.title,
             description:
               translation.thinkingCard.extraverted_function.description,
             icon: <ExtravertedThinkingIcon />,
-            className: 'bg-sky',
           },
           {
-            index: 'Ti',
+            id: 'Ti',
             title: translation.thinkingCard.introverted_function.title,
             description:
               translation.thinkingCard.introverted_function.description,
             icon: <IntrovertedThinkingIcon />,
-            className: 'bg-sky',
           },
         ],
       },
@@ -162,20 +161,18 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         title: translation.feelingCard.title,
         cognitiveFunctions: [
           {
-            index: 'Fe',
+            id: 'Fe',
             title: translation.feelingCard.extraverted_function.title,
             description:
               translation.feelingCard.extraverted_function.description,
             icon: <ExtravertedFeelingIcon />,
-            className: 'bg-rose',
           },
           {
-            index: 'Fi',
+            id: 'Fi',
             title: translation.feelingCard.introverted_function.title,
             description:
               translation.feelingCard.introverted_function.description,
             icon: <IntrovertedFeelingIcon />,
-            className: 'bg-rose',
           },
         ],
       },
@@ -184,20 +181,18 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         title: translation.sensingCard.title,
         cognitiveFunctions: [
           {
-            index: 'Se',
+            id: 'Se',
             title: translation.sensingCard.extraverted_function.title,
             description:
               translation.sensingCard.extraverted_function.description,
             icon: <ExtravertedSensingIcon />,
-            className: 'bg-amber',
           },
           {
-            index: 'Si',
+            id: 'Si',
             title: translation.sensingCard.introverted_function.title,
             description:
               translation.sensingCard.introverted_function.description,
             icon: <IntrovertedSensingIcon />,
-            className: 'bg-amber',
           },
         ],
       },
@@ -206,20 +201,18 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         title: translation.intuitionCard.title,
         cognitiveFunctions: [
           {
-            index: 'Ne',
+            id: 'Ne',
             title: translation.intuitionCard.extraverted_function.title,
             description:
               translation.intuitionCard.extraverted_function.description,
             icon: <ExtravertedIntuitionIcon />,
-            className: 'bg-teal',
           },
           {
-            index: 'Ni',
+            id: 'Ni',
             title: translation.intuitionCard.introverted_function.title,
             description:
               translation.intuitionCard.introverted_function.description,
             icon: <IntrovertedIntuitionIcon />,
-            className: 'bg-teal',
           },
         ],
       },
@@ -250,21 +243,21 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   if (!translation) return null;
 
   return (
-    <div className="mbti-dashboard flex flex-1 flex-col justify-between">
-      <div className="output">
-        <MBTIPersonality cognitiveFnArr={cognitiveFnArr} />
-        <MBTICognitiveFunctions
+    <div className="mbti-dashboard relative flex flex-1 flex-col justify-between">
+      <div className="top">
+        <MBTIPersonality
           cognitiveFnArr={cognitiveFnArr}
+          // cognitiveFnArr={[
+          //   ['Ni', 10],
+          //   ['Te', 8],
+          //   ['Fi', 7],
+          //   ['Se', 5],
+          // ]}
           translation={translation}
         />
       </div>
 
-      <div className="input">
-        <div className="flex justify-center">
-          <Button onClick={resetData} variant="secondary">
-            Reset
-          </Button>
-        </div>
+      <div className="bottom">
         {/* Trait Cards */}
         {/* {traitCards.length ? (
         <div className="row flex gap-1 justify-center">
@@ -274,18 +267,25 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         </div>
       ) : null} */}
 
+        {/* Cognitive Functions */}
+        <MBTICognFunctions
+          cognitiveFnArr={cognitiveFnArr}
+          translation={translation}
+        />
+
         {/* Cognitive Function Cards */}
         {cognitiveFnCards.length ? (
-          <div className="my-6 flex flex-wrap items-center justify-center gap-1">
-            {cognitiveFnCards.map((data) => (
-              <MBTICognitiveFunctionCard
-                {...data}
-                onClick={handleCognFnButtonClick}
-                key={data.title}
-              />
-            ))}
-          </div>
+          <MBTICognFunctionCards
+            cognitiveFnCards={cognitiveFnCards}
+            onClick={handleCognFnButtonClick}
+          />
         ) : null}
+      </div>
+
+      <div className="absolute top-1 right-1 opacity-50 hover:opacity-100 transition-opacity">
+        <Button onClick={resetData} variant="ghost">
+          Reset
+        </Button>
       </div>
     </div>
   );
