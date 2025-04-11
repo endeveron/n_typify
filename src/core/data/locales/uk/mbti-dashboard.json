@@ -184,5 +184,6 @@
       "subtitle": "Spontaneous Performer",
       "description": ""
     }
-  ]
+  ],
+  "cleanUpResultsPrompt": "Очистити результати?"
 }

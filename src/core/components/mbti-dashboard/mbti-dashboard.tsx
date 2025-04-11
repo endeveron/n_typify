@@ -8,6 +8,9 @@ import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 import {
   CognitiveFnCard,
   CognFunctionArr,
+  MBTIPersonalityData,
+  MBTIPersonalityItem,
+  CognitiveFnId,
   // TraitCard,
 } from '@/core/types/mbti';
 
@@ -32,10 +35,11 @@ import IntrovertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
 
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
 import { defaultCognFnCounterMap } from '@/core/utils/mbti';
-import MBTIPersonality from '@/core/components/mbti-dashboard/mbti-personality';
-import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-functions';
-import { Button } from '@/core/components/ui/button';
+import MBTIDashboardHeader from '@/core/components/mbti-dashboard/mbti-dashboard-header';
+import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-function-list';
 import MBTICognFunctionCards from '@/core/components/mbti-dashboard/mbti-cogn-function-cards';
+import MBTIPersonalityCards from '@/core/components/mbti-dashboard/mbti-personality-cards';
+import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],
@@ -60,20 +64,53 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
     []
   );
   const [cognitiveFnArr, setCognitiveFnArr] = useState<CognFunctionArr>([]);
+  const [personality, setPersonality] = useState<MBTIPersonalityItem>();
 
-  const handleCognFnButtonClick = (id: string): void => {
-    const updCognFnCountMap = updateCognFnCounterMap(id);
+  const handleCognFnButtonClick = (cognFnId: string): void => {
+    // Increase counter value by 1
+    const updCognFnCountMap = updateCognFnCounterMap(cognFnId);
     const cognFnArray = createCognFnArray(updCognFnCountMap);
     setCognitiveFnArr(cognFnArray);
   };
 
-  const updateCognFnCounterMap = (id: string): Map<string, number> => {
-    cognFnCounterMap.set(id, (cognFnCounterMap.get(id) ?? 0) + 1);
+  const handleCognFnListItemClick = (cognFnId: CognitiveFnId) => {
+    // Decrease counter value by 1
+    const updCognFnCountMap = updateCognFnCounterMap(cognFnId, true);
+    const cognFnArray = createCognFnArray(updCognFnCountMap);
+    setCognitiveFnArr(cognFnArray);
+  };
+
+  const handleMBTIPersonalityMatch = (data: MBTIPersonalityData) => {
+    /**
+     * type MBTIPersonalityData: {
+     *   personalityType,
+     *   functions,
+     *   shadowFnPattern,
+     *   status,
+     * }
+     */
+
+    // Add `cognitiveFnArr` and save as MBTIPersonalityItem
+    const MBTIPersonalityItem: MBTIPersonalityItem = {
+      ...data,
+      cognitiveFnArr,
+    };
+
+    setPersonality(MBTIPersonalityItem);
+  };
+
+  const updateCognFnCounterMap = (
+    cognFnId: string,
+    isDecrease?: boolean
+  ): Map<string, number> => {
+    const curValue = cognFnCounterMap.get(cognFnId) ?? 0;
+    const updValue = isDecrease ? curValue - 1 : curValue + 1;
+    cognFnCounterMap.set(cognFnId, updValue);
     return cognFnCounterMap;
   };
 
   // This keeps the same Map object (important because it’s being referenced)
-  const resetData = (): void => {
+  const cleanUpData = (): void => {
     cognFnCounterMap.clear();
     for (const [key, value] of defaultCognFnCounterMap) {
       cognFnCounterMap.set(key, value);
@@ -243,17 +280,20 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   if (!translation) return null;
 
   return (
-    <div className="mbti-dashboard relative flex flex-1 flex-col justify-between">
+    <div className="mbti-dashboard max-w-[480px] m-auto relative flex flex-1 flex-col justify-between">
       <div className="top">
-        <MBTIPersonality
+        {/* Personality Type */}
+        <MBTIDashboardHeader
           cognitiveFnArr={cognitiveFnArr}
-          // cognitiveFnArr={[
-          //   ['Ni', 10],
-          //   ['Te', 8],
-          //   ['Fi', 7],
-          //   ['Se', 5],
-          // ]}
           translation={translation}
+          onMatch={handleMBTIPersonalityMatch}
+        />
+
+        {/* Personality Cards */}
+        <MBTIPersonalityCards
+          cognitiveFnArr={cognitiveFnArr}
+          personality={personality}
+          personalityTranslations={translation.personalityTypes}
         />
       </div>
 
@@ -271,6 +311,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         <MBTICognFunctions
           cognitiveFnArr={cognitiveFnArr}
           translation={translation}
+          onFunctionClick={handleCognFnListItemClick}
         />
 
         {/* Cognitive Function Cards */}
@@ -282,10 +323,12 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         ) : null}
       </div>
 
-      <div className="absolute top-1 right-1 opacity-50 hover:opacity-100 transition-opacity">
-        <Button onClick={resetData} variant="ghost">
-          Reset
-        </Button>
+      <div className="absolute top-2 right-2">
+        <CleanUpResults
+          cleanUpResultsPrompt={translation.cleanUpResultsPrompt}
+          isAllow={!!cognitiveFnArr.length}
+          onCleanUp={cleanUpData}
+        />
       </div>
     </div>
   );

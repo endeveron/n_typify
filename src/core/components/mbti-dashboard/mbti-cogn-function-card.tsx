@@ -13,7 +13,7 @@ const MBTICognFunctionCard = ({
   onClick,
 }: MBTICognitiveFnCardProps) => {
   return (
-    <div className="flex flex-col px-3 py-4 bg-card rounded-4xl">
+    <div className="flex flex-col px-3 py-4 bg-card rounded-4xl select-none">
       {/* Title */}
       <div className="text-center text-sm font-bold uppercase cursor-default">
         {title}

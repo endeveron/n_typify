@@ -13,7 +13,7 @@ const MBTICognFunctionCards = ({
   onClick,
 }: MBTICognFunctionCardsProps) => {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-1">
+    <div className="pb-1 flex flex-wrap items-center justify-center gap-1">
       {cognitiveFnCards.map((data) => (
         <MBTICognFunctionCard {...data} onClick={onClick} key={data.title} />
       ))}

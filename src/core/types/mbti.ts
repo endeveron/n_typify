@@ -42,11 +42,31 @@ export type MBTIPersonalityType =
   | 'ISFP'
   | 'ESFP';
 
-/**
- * MBTI Input
- */
+// MBTI Dashboard
 
 export type CognFunctionArr = [string, number][];
+
+export enum MBTIMapStatus {
+  MATCH = 'MATCH',
+  ABSOLUTE_MATCH = 'ABSOLUTE_MATCH',
+  NO_MATCH = 'NO_MATCH',
+  INVALID_PATTERN = 'INVALID_PATTERN',
+}
+
+export type MBTIPersonalityData = MBTIMapItem & {
+  status: MBTIMapStatus;
+};
+
+export type MBTIPersonalityItem = MBTIPersonalityData & {
+  cognitiveFnArr: CognFunctionArr;
+};
+
+export type CognFunction = {
+  id: string;
+  title: string;
+  description: string;
+  counter: number;
+};
 
 export type CardButton = {
   id: CognitiveFnId;
@@ -95,17 +115,4 @@ export type AnswerMapData = {
 export type MBTIResult = {
   personality: string;
   percentageMap: Map<TraitIndex, number>;
-};
-
-/**
- * MBTI Output
- */
-
-// MBTI Functions
-
-export type CognFunction = {
-  id: string;
-  title: string;
-  description: string;
-  counter: number;
 };

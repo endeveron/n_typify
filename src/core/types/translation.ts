@@ -32,7 +32,7 @@ export type MBTICognitiveFnMapTranslation = {
   };
 };
 
-export type PersonalityType = {
+export type PersonalityTypeTranslation = {
   type: MBTIPersonalityType;
   title: string;
   subtitle: string;
@@ -48,7 +48,8 @@ export type MBTIDashboardTranslation = {
   intuitionCard: MBTIDashboardFunctionCardTranslation;
   cognitiveFnStack: string[];
   cognitiveFunctions: MBTICognitiveFnMapTranslation;
-  personalityTypes: PersonalityType[];
+  personalityTypes: PersonalityTypeTranslation[];
+  cleanUpResultsPrompt: string;
 };
 
 // MBTI Test

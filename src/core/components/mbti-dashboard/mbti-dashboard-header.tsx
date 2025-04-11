@@ -1,25 +1,35 @@
 'use client';
 
-import { CognFunctionArr, MBTIMapItem } from '@/core/types/mbti';
+import { useEffect, useState } from 'react';
+
+import {
+  CognFunctionArr,
+  MBTIMapItem,
+  MBTIPersonalityData,
+} from '@/core/types/mbti';
 import {
   MBTIDashboardTranslation,
-  PersonalityType,
+  PersonalityTypeTranslation,
 } from '@/core/types/translation';
 import {
   getCognFnPattern,
   getMBTITypeByCognFnPattern,
 } from '@/core/utils/mbti';
-import { useEffect, useState } from 'react';
 
 type MBTITypeProps = {
   cognitiveFnArr: CognFunctionArr;
   translation: MBTIDashboardTranslation;
+  onMatch: (data: MBTIPersonalityData) => void;
 };
 
-const MBTIPersonality = ({ cognitiveFnArr, translation }: MBTITypeProps) => {
+const MBTIPersonality = ({
+  cognitiveFnArr,
+  translation,
+  onMatch,
+}: MBTITypeProps) => {
   const [MBTIData, setMBTIData] = useState<MBTIMapItem | null>(null);
   const [personTypeTranslation, setPersonTypeTranslation] =
-    useState<PersonalityType | null>(null);
+    useState<PersonalityTypeTranslation | null>(null);
 
   // Update personality
   useEffect(() => {
@@ -30,25 +40,34 @@ const MBTIPersonality = ({ cognitiveFnArr, translation }: MBTITypeProps) => {
     }
 
     const cognFnPattern = getCognFnPattern(cognitiveFnArr);
-    const result = getMBTITypeByCognFnPattern(cognFnPattern);
-    if (result.data) {
-      setMBTIData(result.data);
+    const { data, status } = getMBTITypeByCognFnPattern(cognFnPattern);
+    if (data) {
+      setMBTIData(data);
 
       // Get translations
       const translationData = translation.personalityTypes.find(
-        (data) => data.type === result.data?.personalityType
+        (item) => item.type === data?.personalityType
       );
       if (translationData) {
         setPersonTypeTranslation(translationData);
+
+        // Configure MBTIPersonalityData
+        const personalityItem: MBTIPersonalityData = {
+          ...data,
+          status,
+        };
+        onMatch(personalityItem);
       }
     } else {
       setMBTIData(null);
       setPersonTypeTranslation(null);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cognitiveFnArr, translation.personalityTypes]);
 
   return (
-    <div className="h-28 my-6 flex flex-col items-center uppercase cursor-default">
+    <div className="h-28 my-4 flex flex-col items-center uppercase cursor-default">
       {MBTIData ? (
         <>
           {/* MBTI Personality Type */}

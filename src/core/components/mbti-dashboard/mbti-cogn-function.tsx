@@ -21,7 +21,7 @@ const MBTICognFunction = ({
   return (
     <div
       onClick={onClick}
-      className="flex items-center gap-2 text-xs uppercase cursor-default"
+      className="flex items-center gap-2 text-xs uppercase cursor-pointer"
     >
       <div className="w-24 text-right text-muted text-[11px] font-medium tracking-wide opacity-80">
         {title}

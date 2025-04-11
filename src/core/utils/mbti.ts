@@ -2,6 +2,7 @@ import { QUESTION_DATA_ARRAY } from '@/core/data/questions';
 import {
   CognFunctionArr,
   MBTIMapItem,
+  MBTIMapStatus,
   MBTIResult,
   TraitIndex,
 } from '@/core/types/mbti';
@@ -168,12 +169,12 @@ const MBTIMap = new Map<string, MBTIMapItem>([
 export const getMBTITypeByCognFnPattern = (
   cognFnPattern: string
 ): {
-  status: string;
+  status: MBTIMapStatus;
   data: MBTIMapItem | null;
 } => {
   if (cognFnPattern.length < 8)
     return {
-      status: `Pattern must contain at least 8 symbols`,
+      status: MBTIMapStatus.INVALID_PATTERN,
       data: null,
     };
 
@@ -183,7 +184,7 @@ export const getMBTITypeByCognFnPattern = (
   const MBTIMapItem = MBTIMap.get(valuableFnPattern);
   if (!MBTIMapItem) {
     return {
-      status: `No matches yet`,
+      status: MBTIMapStatus.NO_MATCH,
       data: null,
     };
   }
@@ -193,14 +194,14 @@ export const getMBTITypeByCognFnPattern = (
       cognFnPattern.slice(8) === MBTIMapItem.shadowFnPattern;
     if (isShadowFnPatternMatch) {
       return {
-        status: `Absolutely match for the valuable and shadow functions`,
+        status: MBTIMapStatus.ABSOLUTE_MATCH,
         data: MBTIMapItem,
       };
     }
   }
 
   return {
-    status: `Match for the valuable functions`,
+    status: MBTIMapStatus.MATCH,
     data: MBTIMapItem,
   };
 };
