@@ -112,7 +112,7 @@
     --input-border: #262626; /* neutral-800 */
     --overlay: white;
 
-    --ring: var(--brand);
+    --ring: var(--accent);
 
     --btn-primary-foreground: white;
     --btn-primary-background: var(--brand);

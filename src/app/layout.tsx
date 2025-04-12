@@ -5,6 +5,7 @@ import { Toaster } from '@/core/components/ui/sonner';
 import { ThemeProvider } from '@/core/components/ui/theme-provider';
 
 import '@/core/globals.css';
+import { LangProvider } from '@/core/context/LangContext';
 
 export const metadata: Metadata = {
   title: 'NeurAI - Find Clarity Within',
@@ -53,8 +54,10 @@ export default function RootLayout({
           defaultTheme="light"
           // enableSystem
         >
-          <div className="layout">{children}</div>
-          <Toaster />
+          <LangProvider>
+            <div className="layout">{children}</div>
+            <Toaster />
+          </LangProvider>
         </ThemeProvider>
       </body>
     </html>

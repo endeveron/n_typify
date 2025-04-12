@@ -2,7 +2,25 @@ import {
   LangCode,
   MBTIDashboardTranslation,
   MBTITestTranslation,
+  WelcomeTranslation,
 } from '@/core/types/translation';
+
+const WelcomeLoadersMap = new Map<string, () => Promise<WelcomeTranslation>>([
+  [
+    'en',
+    () =>
+      import('@/core/data/locales/en/welcome.json').then(
+        (module) => module.default
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/welcome.json').then(
+        (module) => module.default
+      ),
+  ],
+]);
 
 const MBTITestLoadersMap = new Map<string, () => Promise<MBTITestTranslation>>([
   [
@@ -41,9 +59,49 @@ const MBTIDashboardLoadersMap = new Map<
   ],
 ]);
 
+// Utility function to save the lang code in the Local Storage
+export const storeLangCode = (langCode: LangCode = 'en'): LangCode => {
+  return langCode;
+};
+
 // Utility function to get all supported languages
 export const getSupportedLanguages = (): LangCode[] => {
   return Object.keys(MBTITestLoadersMap) as LangCode[];
+};
+
+/**
+ * Gets localized data for MBTI Dashboard for the specified language code
+ * @param langCode Language code (e.g., 'en', 'uk')
+ * @returns Promise resolving to data of type MBTIDashboardTranslation
+ * @throws Error if both requested language and fallback language fail to load
+ */
+export const getWelcomeTranslation = async (
+  langCode: LangCode = 'en'
+): Promise<WelcomeTranslation> => {
+  // Try to get the loader for the requested language
+  const loader = WelcomeLoadersMap.get(langCode);
+  const errMsg = `Failed to load translations for the Welcome page`;
+  if (!loader) throw new Error(errMsg);
+
+  try {
+    // Load the translation
+    const translation = await loader();
+    // The imported data is already in the expected format
+    return translation;
+  } catch (error) {
+    // If requested language fails and it's not English, try English as fallback
+    if (langCode !== 'en') {
+      const fallbackLoader = WelcomeLoadersMap.get('en');
+      if (fallbackLoader) {
+        try {
+          return await fallbackLoader();
+        } catch (fallbackError) {
+          throw new Error(`${errMsg}: ${fallbackError}`);
+        }
+      }
+    }
+    throw new Error(`${errMsg}: ${error}`);
+  }
 };
 
 /**
@@ -57,12 +115,8 @@ export const getMBTIDashboardTranslation = async (
 ): Promise<MBTIDashboardTranslation> => {
   // Try to get the loader for the requested language
   const loader = MBTIDashboardLoadersMap.get(langCode);
-
-  if (!loader) {
-    throw new Error(
-      'Failed to load personality test translations: default language not available'
-    );
-  }
+  const errMsg = `Failed to load translations for the Dashboard page`;
+  if (!loader) throw new Error(errMsg);
 
   try {
     // Load the translation
@@ -77,13 +131,11 @@ export const getMBTIDashboardTranslation = async (
         try {
           return await fallbackLoader();
         } catch (fallbackError) {
-          throw new Error(
-            `Failed to load personality test translations: ${fallbackError}`
-          );
+          throw new Error(`${errMsg}: ${fallbackError}`);
         }
       }
     }
-    throw new Error(`Failed to load personality test translations: ${error}`);
+    throw new Error(`${errMsg}: ${error}`);
   }
 };
 
@@ -98,12 +150,8 @@ export const getMBTITestTranslation = async (
 ): Promise<MBTITestTranslation> => {
   // Try to get the loader for the requested language
   const loader = MBTITestLoadersMap.get(langCode);
-
-  if (!loader) {
-    throw new Error(
-      'Failed to load personality test translations: default language not available'
-    );
-  }
+  const errMsg = `Failed to load translations for the Personality Test page`;
+  if (!loader) throw new Error(errMsg);
 
   try {
     // Load the translation
@@ -118,12 +166,10 @@ export const getMBTITestTranslation = async (
         try {
           return await fallbackLoader();
         } catch (fallbackError) {
-          throw new Error(
-            `Failed to load personality test translations: ${fallbackError}`
-          );
+          throw new Error(`${errMsg}: ${fallbackError}`);
         }
       }
     }
-    throw new Error(`Failed to load personality test translations: ${error}`);
+    throw new Error(`${errMsg}: ${error}`);
   }
 };

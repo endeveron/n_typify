@@ -4,6 +4,14 @@ export type LangCode = 'en' | 'uk';
 
 // Define the structure of the imported JSON
 
+// Welcome page
+
+export type WelcomeTranslation = {
+  title: string;
+  description: string;
+  signInBtnTitle: string;
+};
+
 // MBTI Dashboard
 
 export type MBTIDashboardTraitCardTranslation = {

@@ -67,7 +67,7 @@ const MBTIPersonality = ({
   }, [cognitiveFnArr, translation.personalityTypes]);
 
   return (
-    <div className="h-28 my-4 flex flex-col items-center uppercase cursor-default">
+    <div className="flex flex-col items-center uppercase cursor-default">
       {MBTIData ? (
         <>
           {/* MBTI Personality Type */}

@@ -19,8 +19,8 @@ const SignInButton = (props: TSignInButtonProps) => {
   };
 
   return (
-    <Button size="sm" onClick={handleClick} loading={loading} {...props}>
-      {props?.title || 'Sign In'}
+    <Button variant="accent" onClick={handleClick} loading={loading} {...props}>
+      {props?.title || 'Dive In'}
     </Button>
   );
 };

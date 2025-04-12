@@ -12,16 +12,16 @@ const MBTICardButton = ({ id, title, icon, onClick }: TMBTICardButtonProps) => {
   const bgColor = cognFnColorMap.get(id);
 
   return (
-    <div onClick={onClick} className="flex flex-col items-center gap-3">
+    <div onClick={onClick} className="w-16 flex flex-col items-center gap-3">
       <div
         className={cn(
-          `h-20 w-20 flex items-center justify-center rounded-full cursor-pointer`,
+          `h-16 w-16 flex items-center justify-center rounded-full cursor-pointer`,
           bgColor
         )}
       >
-        {icon}
+        <div className="scale-75">{icon}</div>
       </div>
-      <div className="text-[10px] tracking-wider text-muted font-bold uppercase cursor-default">
+      <div className="text-[10px] tracking-wider text-muted font-bold uppercase cursor-default opacity-60">
         {title}
       </div>
     </div>

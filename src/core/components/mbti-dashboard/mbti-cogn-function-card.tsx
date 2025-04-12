@@ -13,18 +13,18 @@ const MBTICognFunctionCard = ({
   onClick,
 }: MBTICognitiveFnCardProps) => {
   return (
-    <div className="flex flex-col px-3 py-4 bg-card rounded-4xl select-none">
+    <div className="flex flex-col p-4 bg-card rounded-3xl select-none">
       {/* Title */}
-      <div className="text-center text-sm font-bold uppercase cursor-default">
+      <div className="text-center text-xs text-accent tracking-wider font-semibold uppercase cursor-default">
         {title}
       </div>
 
       {/* Cognitive Function Indexes */}
-      <div className="-mt-2 px-1 flex justify-between opacity-40">
-        <div className="text-muted font-bold cursor-default">
+      <div className="-mt-1.5 flex items-center justify-between opacity-40">
+        <div className="text-muted text-xs uppercase font-semibold cursor-default">
           {cognitiveFunctions[0].id}
         </div>
-        <div className="text-muted font-bold cursor-default">
+        <div className="text-muted text-sm uppercase font-semibold cursor-default">
           {cognitiveFunctions[1].id}
         </div>
       </div>

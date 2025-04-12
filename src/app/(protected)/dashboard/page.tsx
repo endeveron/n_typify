@@ -1,10 +1,9 @@
-import SignOutButton from '@/core/components/auth/sign-out-btn';
+import MBTIDashboard from '@/core/components/mbti-dashboard/mbti-dashboard';
 
 export default async function Dashboard() {
   return (
-    <div className="p-8">
-      <div className="text-3xl font-medium mb-4">Protected</div>
-      <SignOutButton />
+    <div className="flex flex-1">
+      <MBTIDashboard langCode="en" />
     </div>
   );
 }

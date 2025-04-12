@@ -62,7 +62,7 @@ const MBTICognFunctions = ({
   }, [cognitiveFnArr, cognitiveFnMap, cognitiveFnNameStack]);
 
   return (
-    <div className="my-5 flex justify-center">
+    <div className="flex justify-center">
       {cognFnItems ? (
         <div>
           <div className="flex flex-col gap-1">
@@ -76,11 +76,12 @@ const MBTICognFunctions = ({
           </div>
 
           {cognFnItems.length > 4 ? (
-            <div className="mt-3 flex flex-col gap-1 opacity-60">
+            <div className="mt-3 flex flex-col gap-1 opacity-50">
               {cognFnItems.slice(4).map((data) => (
                 <MBTICognFunction
                   {...data}
                   onClick={() => handleItemClick(data.id as CognitiveFnId)}
+                  isShadow={true}
                   key={data.id}
                 />
               ))}

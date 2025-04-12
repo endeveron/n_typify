@@ -59,7 +59,7 @@ const MBTIPersonalityCards = ({
   }, [isReset]);
 
   return personalities.length ? (
-    <HorizScrollWithoutScrollbar className="max-w-[400px] m-auto flex items-center gap-1 bg-card p-1 rounded-2xl">
+    <HorizScrollWithoutScrollbar className="mx-5 flex items-center gap-1 bg-card p-1 rounded-2xl">
       {personalities.map((personality) => (
         <MBTIPersonalityCard
           personality={personality}

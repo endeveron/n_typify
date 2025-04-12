@@ -9,7 +9,11 @@ type TLoadingIconProps = {
 // TODO: add loading icon
 
 const LoadingIcon = ({ className }: TLoadingIconProps) => {
-  return <div className={cn('loading-icon', className)}>Loading...</div>;
+  return (
+    <div className={cn('loading-icon text-accent font-medium', className)}>
+      One moment...
+    </div>
+  );
 };
 
 export default LoadingIcon;

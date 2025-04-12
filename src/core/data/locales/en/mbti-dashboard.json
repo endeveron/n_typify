@@ -21,11 +21,11 @@
   "feelingCard": {
     "title": "Feeling",
     "extraverted_function": {
-      "title": "Relationship",
+      "title": "Relation",
       "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection."
     },
     "introverted_function": {
-      "title": "Emotions",
+      "title": "Emotion",
       "description": "Controls the mood of others through bright and expressive emotionsemotional vibrations."
     }
   },
@@ -47,7 +47,7 @@
       "description": "The flow of time, cycles, cause and effect. Sees the future through the present."
     },
     "introverted_function": {
-      "title": "Potentiality",
+      "title": "Ability",
       "description": "Flight of fancy, lots of ideas, freedom of options."
     }
   },

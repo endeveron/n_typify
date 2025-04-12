@@ -71,7 +71,12 @@ const SignUpForm = () => {
             </FormItem>
           )}
         />
-        <Button loading={isPending} className="auth-form_button" type="submit">
+        <Button
+          variant="accent"
+          loading={isPending}
+          className="auth-form_button"
+          type="submit"
+        >
           Continue
         </Button>
         <div className="flex justify-center">

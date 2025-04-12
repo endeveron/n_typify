@@ -40,6 +40,7 @@ import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-functi
 import MBTICognFunctionCards from '@/core/components/mbti-dashboard/mbti-cogn-function-cards';
 import MBTIPersonalityCards from '@/core/components/mbti-dashboard/mbti-personality-cards';
 import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
+import SignOutButton from '@/core/components/auth/sign-out-btn';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],
@@ -280,24 +281,27 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   if (!translation) return null;
 
   return (
-    <div className="mbti-dashboard max-w-[480px] m-auto relative flex flex-1 flex-col justify-between">
-      <div className="top">
+    <div className="mbti-dashboard max-h-[900px] w-[400px] max-w-[400px] mx-auto relative flex flex-1 flex-col justify-between">
+      <div className="top flex flex-1 flex-col max-h-[300px]">
         {/* Personality Type */}
-        <MBTIDashboardHeader
-          cognitiveFnArr={cognitiveFnArr}
-          translation={translation}
-          onMatch={handleMBTIPersonalityMatch}
-        />
-
+        <div className="h-28 my-4 flex flex-1 flex-col justify-center">
+          <MBTIDashboardHeader
+            cognitiveFnArr={cognitiveFnArr}
+            translation={translation}
+            onMatch={handleMBTIPersonalityMatch}
+          />
+        </div>
         {/* Personality Cards */}
-        <MBTIPersonalityCards
-          cognitiveFnArr={cognitiveFnArr}
-          personality={personality}
-          personalityTranslations={translation.personalityTypes}
-        />
+        <div className="h-[106px]">
+          <MBTIPersonalityCards
+            cognitiveFnArr={cognitiveFnArr}
+            personality={personality}
+            personalityTranslations={translation.personalityTypes}
+          />
+        </div>
       </div>
 
-      <div className="bottom">
+      <div className="bottom flex flex-1 flex-col">
         {/* Trait Cards */}
         {/* {traitCards.length ? (
         <div className="row flex gap-1 justify-center">
@@ -308,11 +312,13 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
       ) : null} */}
 
         {/* Cognitive Functions */}
-        <MBTICognFunctions
-          cognitiveFnArr={cognitiveFnArr}
-          translation={translation}
-          onFunctionClick={handleCognFnListItemClick}
-        />
+        <div className="flex flex-1 flex-col justify-center my-4">
+          <MBTICognFunctions
+            cognitiveFnArr={cognitiveFnArr}
+            translation={translation}
+            onFunctionClick={handleCognFnListItemClick}
+          />
+        </div>
 
         {/* Cognitive Function Cards */}
         {cognitiveFnCards.length ? (
@@ -323,7 +329,10 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         ) : null}
       </div>
 
-      <div className="absolute top-2 right-2">
+      <div className="absolute top-4 left-2 z-10">
+        <SignOutButton />
+      </div>
+      <div className="absolute top-4 right-2 z-20">
         <CleanUpResults
           cleanUpResultsPrompt={translation.cleanUpResultsPrompt}
           isAllow={!!cognitiveFnArr.length}

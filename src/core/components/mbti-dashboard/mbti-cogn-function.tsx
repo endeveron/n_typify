@@ -7,6 +7,7 @@ import { cognFnColorMap } from '@/core/utils/mbti';
 type MBTICognFunctionProps = CognFunction & {
   counter: number;
   onClick: () => void;
+  isShadow?: boolean;
 };
 
 const MBTICognFunction = ({
@@ -15,6 +16,7 @@ const MBTICognFunction = ({
   description,
   counter,
   onClick,
+  isShadow,
 }: MBTICognFunctionProps) => {
   const bgColor = cognFnColorMap.get(id);
 
@@ -33,7 +35,13 @@ const MBTICognFunction = ({
       <div className="w-4 text-center text-muted font-medium tracking-wide opacity-90">
         {id}
       </div>
-      <div className="font-medium tracking-wide">{description}</div>
+      <div
+        className={cn(`font-medium tracking-wide`, {
+          'text-accent': !isShadow,
+        })}
+      >
+        {description}
+      </div>
     </div>
   );
 };

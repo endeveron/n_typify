@@ -96,7 +96,7 @@ function FormLabel({
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn('text-muted data-[error=true]:text-destructive', className)}
+      className={cn('text-muted opacity-50', className)}
       htmlFor={formItemId}
       {...props}
     />

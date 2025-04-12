@@ -126,7 +126,12 @@ const OnboardingForm = ({ userObjId }: TOnboardingFormProps) => {
             </FormItem>
           )}
         />
-        <Button loading={isPending} className="auth-form_button" type="submit">
+        <Button
+          variant="accent"
+          loading={isPending}
+          className="auth-form_button"
+          type="submit"
+        >
           Create an account
         </Button>
         <FormLoading loadigIconClassName="-mt-14" isPending={isPending} />

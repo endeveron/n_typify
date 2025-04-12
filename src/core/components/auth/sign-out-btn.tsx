@@ -3,8 +3,8 @@
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
-import LoadingIcon from '@/core/components/shared/loading-icon';
 import SignOutIcon from '~/public/icons/auth/sign-out.svg';
+import LoadingIcon from '~/public/icons/loading.svg';
 
 const SignOutButton = () => {
   const [pending, setPending] = useState(false);
@@ -14,13 +14,14 @@ const SignOutButton = () => {
     signOut();
   };
   return (
-    <div onClick={handleClick} className="sign-out-btn">
+    <div onClick={handleClick}>
       {pending ? (
-        <LoadingIcon />
+        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-card opacity-60 animate-spin">
+          <LoadingIcon />
+        </div>
       ) : (
-        <div className="flex gap-4 cursor-default">
-          <SignOutIcon className="icon opacity-40 flip-y" />
-          Sign Out
+        <div className="w-14 h-14 flex items-center justify-center rounded-full cursor-pointer bg-card opacity-30 hover:opacity-100 transition-opacity ">
+          <SignOutIcon />
         </div>
       )}
     </div>
