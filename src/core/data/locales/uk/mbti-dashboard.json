@@ -90,99 +90,189 @@
   "personalityTypes": [
     {
       "type": "INTJ",
-      "title": "The Architect",
-      "subtitle": "Strategic Mastermind",
-      "description": ""
+      "title": ["Архітектор", "Аналітик"],
+      "subtitle": "Стратег-мислитель",
+      "persons": [
+        "Ілон Маск",
+        "Крістофер Нолан",
+        "Арнольд Шварценеггер",
+        "Фрідріх Ніцше",
+        "Робесп'єр"
+      ],
+      "description": "",
+      "traitSet": ["інтроверт", "інтуїт", "логік", "раціоналіст"]
     },
     {
       "type": "ENTJ",
-      "title": "The Commander",
-      "subtitle": "Decisive Leader",
-      "description": ""
+      "title": ["Командир", "Підприємець"],
+      "subtitle": "Рішучий лідер",
+      "persons": [
+        "Стів Джобс",
+        "Гордон Рамзі",
+        "Наполеон Бонапарт",
+        "Маргарет Тетчер",
+        "Джек Лондон"
+      ],
+      "description": "",
+      "traitSet": ["екстраверт", "інтуїт", "логік", "раціоналіст"]
     },
     {
       "type": "INTP",
-      "title": "The Logician",
-      "subtitle": "Philosophical Thinker",
-      "description": ""
+      "title": ["Логік", "Критик"],
+      "subtitle": "Філософ-мислитель",
+      "persons": [
+        "Альберт Ейнштейн",
+        "Білл Гейтс",
+        "Ісаак Ньютон",
+        "Сьорен К'єркегор",
+        "Бальзак"
+      ],
+      "description": "",
+      "traitSet": ["інтроверт", "інтуїт", "логік", "ірраціоналіст"]
     },
     {
       "type": "ENTP",
-      "title": "The Debater",
-      "subtitle": "Inventive Debater",
-      "description": ""
+      "title": ["Дискусійник", "Генератор ідей"],
+      "subtitle": "Винахідливий дебатер",
+      "persons": [
+        "Томас Едісон",
+        "Марк Твен",
+        "Том Генкс",
+        "Саша Барон Коен",
+        "Дон Кіхот"
+      ],
+      "description": "",
+      "traitSet": ["екстраверт", "інтуїт", "логік", "ірраціоналіст"]
     },
     {
       "type": "INFJ",
-      "title": "The Advocate",
-      "subtitle": "Visionary Counselor",
-      "description": ""
+      "title": ["Адвокат", "Гуманіст"],
+      "subtitle": "Візіонер-консультант",
+      "persons": [
+        "Карл Юнг",
+        "Мартін Лютер Кінг",
+        "Ніколь Кідман",
+        "Бенедикт Камбербетч",
+        "Достоєвський"
+      ],
+      "description": "",
+      "traitSet": ["інтроверт", "інтуїт", "етик", "раціоналіст"]
     },
     {
       "type": "ENFJ",
-      "title": "The Protagonist",
-      "subtitle": "Charismatic Mentor",
-      "description": ""
+      "title": ["Протагоніст", "Наставник"],
+      "subtitle": "Харизматичний лідер",
+      "persons": [
+        "Барак Обама",
+        "Опри Вінфрі",
+        "Бен Аффлек",
+        "Дженніфер Лоуренс",
+        "Гамлет"
+      ],
+      "description": "",
+      "traitSet": ["екстраверт", "інтуїт", "етик", "раціоналіст"]
     },
     {
       "type": "INFP",
-      "title": "The Mediator",
-      "subtitle": "Idealistic Dreamer",
-      "description": ""
+      "title": ["Посередник", "Мислитель"],
+      "subtitle": "Ідеалістичний шукач",
+      "persons": [
+        "Вільям Шекспір",
+        "Вінсент ван Гог",
+        "Дж. Р. Р. Толкін",
+        "Бйорк",
+        "Єсенін"
+      ],
+      "description": "",
+      "traitSet": ["інтроверт", "інтуїт", "етик", "ірраціоналіст"]
     },
     {
       "type": "ENFP",
-      "title": "The Campaigner",
-      "subtitle": "Energetic Visionary",
-      "description": ""
+      "title": ["Агітатор", "Журналіст"],
+      "subtitle": "Творчий натхненник",
+      "persons": [
+        "Робін Вільямс",
+        "Оскар Уайльд",
+        "Квентін Тарантіно",
+        "Роберт Дауні-молодший",
+        "Гакслі"
+      ],
+      "description": "",
+      "traitSet": ["екстраверт", "інтуїт", "етик", "ірраціоналіст"]
     },
     {
       "type": "ISTJ",
-      "title": "The Inspector",
-      "subtitle": "Responsible Planner",
-      "description": ""
+      "title": ["Логіст", "Інспектор"],
+      "subtitle": "Організований виконавець",
+      "persons": [
+        "Джордж Вашингтон",
+        "Наталі Портман",
+        "Ангела Меркель",
+        "Максим Горький"
+      ],
+      "description": "",
+      "traitSet": ["інтроверт", "сенсор", "логік", "раціоналіст"]
     },
     {
       "type": "ESTJ",
-      "title": "The Executive",
-      "subtitle": "Efficient Organizer",
-      "description": ""
+      "title": ["Керівник", "Адміністратор"],
+      "subtitle": "Практичний організатор",
+      "persons": [
+        "Суддя Джуді",
+        "Джон Д. Рокфеллер",
+        "Ліндон Джонсон",
+        "Штірліц"
+      ],
+      "description": "",
+      "traitSet": ["екстраверт", "сенсор", "логік", "раціоналіст"]
     },
     {
       "type": "ISFJ",
-      "title": "The Defender",
-      "subtitle": "Supportive Protector",
-      "description": ""
+      "title": ["Захисник", "Опікун"],
+      "subtitle": "Вірний охоронець",
+      "persons": ["Мати Тереза", "Королева Єлизавета II", "Бейонсе", "Драйзер"],
+      "description": "",
+      "traitSet": ["інтроверт", "сенсор", "етик", "раціоналіст"]
     },
     {
       "type": "ESFJ",
-      "title": "The Consul",
-      "subtitle": "Warmhearted Caregiver",
-      "description": ""
+      "title": ["Консул", "Ентузіаст"],
+      "subtitle": "Відданий комунікатор",
+      "persons": ["Тейлор Свіфт", "Білл Клінтон", "Дженніфер Гарнер", "Гюго"],
+      "description": "",
+      "traitSet": ["екстраверт", "сенсор", "етик", "раціоналіст"]
     },
     {
       "type": "ISTP",
-      "title": "The Virtuoso",
-      "subtitle": "Logical Craftsman",
-      "description": ""
+      "title": ["Віртуоз", "Ремісник"],
+      "subtitle": "Практичний дослідник",
+      "persons": ["Клінт Іствуд", "Брюс Лі", "Скарлетт Йоганссон", "Габен"],
+      "description": "",
+      "traitSet": ["інтроверт", "сенсор", "логік", "ірраціоналіст"]
     },
     {
       "type": "ESTP",
-      "title": "The Entrepreneur",
-      "subtitle": "Energetic Doer",
-      "description": ""
+      "title": ["Підприємець", "Тактик"],
+      "subtitle": "Спонтанний діяч",
+      "persons": ["Ернест Хемінгуей", "Мадонна", "Брюс Вілліс", "Жуков"],
+      "description": "",
+      "traitSet": ["екстраверт", "сенсор", "логік", "ірраціоналіст"]
     },
     {
       "type": "ISFP",
-      "title": "The Adventurer",
-      "subtitle": "Creative Individualist",
-      "description": ""
+      "title": ["Авантюрист", "Посередник"],
+      "subtitle": "Чутливий реаліст",
+      "persons": ["Боб Ділан", "Майкл Джексон", "Брітні Спірс", "Дюма"],
+      "description": "",
+      "traitSet": ["інтроверт", "сенсор", "етик", "ірраціоналіст"]
     },
     {
       "type": "ESFP",
-      "title": "The Entertainer",
-      "subtitle": "Spontaneous Performer",
-      "description": ""
+      "title": ["Артист", "Політик"],
+      "subtitle": "Енергійний оптиміст",
+      "persons": ["Мерилін Монро", "Елвіс Преслі", "Джеймі Олівер", "Наполеон"],
+      "description": "",
+      "traitSet": ["екстраверт", "сенсор", "етик", "ірраціоналіст"]
     }
   ],
   "cleanUpResultsPrompt": "Очистити результати?"

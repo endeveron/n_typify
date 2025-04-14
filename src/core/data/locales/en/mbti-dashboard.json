@@ -90,99 +90,189 @@
   "personalityTypes": [
     {
       "type": "INTJ",
-      "title": "The Architect",
+      "title": ["Architect", "Analyst"],
       "subtitle": "Strategic Mastermind",
-      "description": ""
+      "persons": [
+        "Elon Musk",
+        "Christopher Nolan",
+        "Arnold Schwarzenegger",
+        "Friedrich Nietzsche",
+        "Robespierre"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "logician", "rationalist"]
     },
     {
       "type": "ENTJ",
-      "title": "The Commander",
+      "title": ["Commander", "Entrepreneur"],
       "subtitle": "Decisive Leader",
-      "description": ""
+      "persons": [
+        "Steve Jobs",
+        "Napoleon Bonaparte",
+        "Margaret Thatcher",
+        "Harrison Ford",
+        "Jack London"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "logician", "rationalist"]
     },
     {
       "type": "INTP",
-      "title": "The Logician",
+      "title": ["Logician", "Critic"],
       "subtitle": "Philosophical Thinker",
-      "description": ""
+      "persons": [
+        "Albert Einstein",
+        "Bill Gates",
+        "Isaac Newton",
+        "Avicii",
+        "Balzac"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "logician", "irrationalist"]
     },
     {
       "type": "ENTP",
-      "title": "The Debater",
+      "title": ["Debater", "Generator"],
       "subtitle": "Inventive Debater",
-      "description": ""
+      "persons": [
+        "Thomas Edison",
+        "Mark Twain",
+        "Tom Hanks",
+        "Sacha Baron Cohen",
+        "Don Quixote"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "logician", "irrationalist"]
     },
     {
       "type": "INFJ",
-      "title": "The Advocate",
-      "subtitle": "Visionary Counselor",
-      "description": ""
+      "title": ["Advocate", "Humanist"],
+      "subtitle": "Visionary Advisor",
+      "persons": [
+        "Carl Jung",
+        "Martin Luther King Jr.",
+        "Nicole Kidman",
+        "Benedict Cumberbatch",
+        "Dostoevsky"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "ethicist", "rationalist"]
     },
     {
       "type": "ENFJ",
-      "title": "The Protagonist",
-      "subtitle": "Charismatic Mentor",
-      "description": ""
+      "title": ["Protagonist", "Mentor"],
+      "subtitle": "Charismatic Leader",
+      "persons": [
+        "Barack Obama",
+        "Oprah Winfrey",
+        "Ben Affleck",
+        "Jennifer Lawrence",
+        "Hamlet"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "ethicist", "rationalist"]
     },
     {
       "type": "INFP",
-      "title": "The Mediator",
-      "subtitle": "Idealistic Dreamer",
-      "description": ""
+      "title": ["Mediator", "Thinker"],
+      "subtitle": "Idealistic Seeker",
+      "persons": [
+        "William Shakespeare",
+        "Vincent van Gogh",
+        "J.R.R. Tolkien",
+        "Johnny Depp",
+        "Yesenin"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "ethicist", "irrationalist"]
     },
     {
       "type": "ENFP",
-      "title": "The Campaigner",
-      "subtitle": "Energetic Visionary",
-      "description": ""
+      "title": ["Campaigner", "Journalist"],
+      "subtitle": "Creative Inspirer",
+      "persons": [
+        "Will Smith",
+        "Robert Downey Jr.",
+        "Quentin Tarantino",
+        "Oscar Wilde",
+        "Huxley"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "ethicist", "irrationalist"]
     },
     {
       "type": "ISTJ",
-      "title": "The Inspector",
-      "subtitle": "Responsible Planner",
-      "description": ""
+      "title": ["Logistician", "Inspector"],
+      "subtitle": "Organized Implementer",
+      "persons": [
+        "Denzel Washington",
+        "Anthony Hopkins",
+        "Natalie Portman",
+        "Maxim Gorky"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "logician", "rationalist"]
     },
     {
       "type": "ESTJ",
-      "title": "The Executive",
-      "subtitle": "Efficient Organizer",
-      "description": ""
+      "title": ["Executive", "Administrator"],
+      "subtitle": "Practical Organizer",
+      "persons": [
+        "Judge Judy",
+        "John D. Rockefeller",
+        "Lyndon B. Johnson",
+        "Stierlitz"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "logician", "rationalist"]
     },
     {
       "type": "ISFJ",
-      "title": "The Defender",
-      "subtitle": "Supportive Protector",
-      "description": ""
+      "title": ["Defender", "Caretaker"],
+      "subtitle": "Loyal Guardian",
+      "persons": ["Vin Diesel", "Mother Teresa", "Beyoncé", "Dreiser"],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "ethicist", "rationalist"]
     },
     {
       "type": "ESFJ",
-      "title": "The Consul",
-      "subtitle": "Warmhearted Caregiver",
-      "description": ""
+      "title": ["Consul", "Enthusiast"],
+      "subtitle": "Dedicated Communicator",
+      "persons": ["Taylor Swift", "Bill Clinton", "Jennifer Lopez", "Hugo"],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "ethicist", "rationalist"]
     },
     {
       "type": "ISTP",
-      "title": "The Virtuoso",
-      "subtitle": "Logical Craftsman",
-      "description": ""
+      "title": ["Virtuoso", "Craftsman"],
+      "subtitle": "Practical Explorer",
+      "persons": ["Daniel Craig", "Scarlett Johansson", "Bruce Lee", "Gabin"],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "logician", "irrationalist"]
     },
     {
       "type": "ESTP",
-      "title": "The Entrepreneur",
-      "subtitle": "Energetic Doer",
-      "description": ""
+      "title": ["Entrepreneur", "Tactician"],
+      "subtitle": "Spontaneous Doer",
+      "persons": ["Ernest Hemingway", "Madonna", "Bruce Willis", "Zhukov"],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "logician", "irrationalist"]
     },
     {
       "type": "ISFP",
-      "title": "The Adventurer",
-      "subtitle": "Creative Individualist",
-      "description": ""
+      "title": ["Adventurer", "Mediator"],
+      "subtitle": "Sensitive Realist",
+      "persons": ["Bob Dylan", "Michael Jackson", "Britney Spears", "Dumas"],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "ethicist", "irrationalist"]
     },
     {
       "type": "ESFP",
-      "title": "The Entertainer",
-      "subtitle": "Spontaneous Performer",
-      "description": ""
+      "title": ["Entertainer", "Politician"],
+      "subtitle": "Energetic Optimist",
+      "persons": ["Marilyn Monroe", "Elvis Presley", "Elton John", "Napoleon"],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "ethicist", "irrationalist"]
     }
   ],
   "cleanUpResultsPrompt": "Clean up results?"

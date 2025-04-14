@@ -1,10 +1,11 @@
 import { QUESTION_DATA_ARRAY } from '@/core/data/questions';
 import {
   CognFunctionArr,
-  MBTIMapItem,
-  MBTIMapStatus,
+  cognFnPatternMapStatus,
   MBTIResult,
   TraitIndex,
+  MBTIPersonalityType,
+  MBTIMapItem,
 } from '@/core/types/mbti';
 
 export const cognFnColorMap = new Map<string, string>([
@@ -12,8 +13,8 @@ export const cognFnColorMap = new Map<string, string>([
   ['Ti', 'bg-teal'],
   ['Fe', 'bg-rose'],
   ['Fi', 'bg-rose'],
-  ['Se', 'bg-amber'],
-  ['Si', 'bg-amber'],
+  ['Se', 'bg-gold'],
+  ['Si', 'bg-gold'],
   ['Ne', 'bg-sky'],
   ['Ni', 'bg-sky'],
 ]);
@@ -31,179 +32,284 @@ export const defaultCognFnCounterMap = new Map<string, number>([
 ]);
 
 // The map of MBTI types
-const MBTIMap = new Map<string, MBTIMapItem>([
+export const MBTIMap = new Map<string, MBTIMapItem>([
   [
-    'NiTeFiSe',
+    'INTJ',
     {
-      personalityType: 'INTJ',
-      shadowFnPattern: 'NeTiFeSi',
-      functions: ['Ni', 'Te', 'Fi', 'Se', 'Ne', 'Ti', 'Fe', 'Si'],
+      cognitiveFns: ['Ni', 'Te', 'Fi', 'Se', 'Ne', 'Ti', 'Fe', 'Si'],
+      valuableFnsPattern: 'NiTeFiSe',
+      shadowFnsPattern: 'NeTiFeSi',
     },
   ],
+  [
+    'ENTJ',
+    {
+      cognitiveFns: ['Te', 'Ni', 'Se', 'Fi', 'Ti', 'Ne', 'Si', 'Fe'],
+      valuableFnsPattern: 'TeNiSeFi',
+      shadowFnsPattern: 'TiNeSiFe',
+    },
+  ],
+  [
+    'INTP',
+    {
+      cognitiveFns: ['Ti', 'Ne', 'Si', 'Fe', 'Te', 'Ni', 'Se', 'Fi'],
+      valuableFnsPattern: 'TiNeSiFe',
+      shadowFnsPattern: 'TeNiSeFi',
+    },
+  ],
+  [
+    'ENTP',
+    {
+      cognitiveFns: ['Ne', 'Ti', 'Fe', 'Si', 'Ni', 'Te', 'Fi', 'Se'],
+      valuableFnsPattern: 'NeTiFeSi',
+      shadowFnsPattern: 'NiTeFiSe',
+    },
+  ],
+  [
+    'INFJ',
+    {
+      cognitiveFns: ['Ni', 'Fe', 'Ti', 'Se', 'Ne', 'Fi', 'Te', 'Si'],
+      valuableFnsPattern: 'NiFeTiSe',
+      shadowFnsPattern: 'NeFiTeSi',
+    },
+  ],
+  [
+    'ENFJ',
+    {
+      cognitiveFns: ['Fe', 'Ni', 'Se', 'Ti', 'Fi', 'Ne', 'Si', 'Te'],
+      valuableFnsPattern: 'FeNiSeTi',
+      shadowFnsPattern: 'FiNeSiTe',
+    },
+  ],
+  [
+    'INFP',
+    {
+      cognitiveFns: ['Fi', 'Ne', 'Si', 'Te', 'Fe', 'Ni', 'Se', 'Ti'],
+      valuableFnsPattern: 'FiNeSiTe',
+      shadowFnsPattern: 'FeNiSeTi',
+    },
+  ],
+  [
+    'ENFP',
+    {
+      cognitiveFns: ['Ne', 'Fi', 'Te', 'Si', 'Ni', 'Fe', 'Ti', 'Se'],
+      valuableFnsPattern: 'NeFiTeSi',
+      shadowFnsPattern: 'NiFeTiSe',
+    },
+  ],
+  [
+    'ISTJ',
+    {
+      cognitiveFns: ['Si', 'Te', 'Fi', 'Ne', 'Se', 'Ti', 'Fe', 'Ni'],
+      valuableFnsPattern: 'SiTeFiNe',
+      shadowFnsPattern: 'SeTiFeNi',
+    },
+  ],
+  [
+    'ESTJ',
+    {
+      cognitiveFns: ['Te', 'Si', 'Ne', 'Fi', 'Ti', 'Se', 'Ni', 'Fe'],
+      valuableFnsPattern: 'TeSiNeFi',
+      shadowFnsPattern: 'TiSeNiFe',
+    },
+  ],
+  [
+    'ISFJ',
+    {
+      cognitiveFns: ['Si', 'Fe', 'Ti', 'Ne', 'Se', 'Fi', 'Te', 'Ni'],
+      valuableFnsPattern: 'SiFeTiNe',
+      shadowFnsPattern: 'SeFiTeNi',
+    },
+  ],
+  [
+    'ESFJ',
+    {
+      cognitiveFns: ['Fe', 'Si', 'Ne', 'Ti', 'Fi', 'Se', 'Ni', 'Te'],
+      valuableFnsPattern: 'FeSiNeTi',
+      shadowFnsPattern: 'FiSeNiTe',
+    },
+  ],
+  [
+    'ISTP',
+    {
+      cognitiveFns: ['Ti', 'Se', 'Ni', 'Fe', 'Te', 'Si', 'Ne', 'Fi'],
+      valuableFnsPattern: 'TiSeNiFe',
+      shadowFnsPattern: 'TeSiNeFi',
+    },
+  ],
+  [
+    'ESTP',
+    {
+      cognitiveFns: ['Se', 'Ti', 'Fe', 'Ni', 'Si', 'Te', 'Fi', 'Ne'],
+      valuableFnsPattern: 'SeTiFeNi',
+      shadowFnsPattern: 'SiTiFeNe',
+    },
+  ],
+  [
+    'ISFP',
+    {
+      cognitiveFns: ['Fi', 'Se', 'Ni', 'Te', 'Fe', 'Si', 'Ne', 'Ti'],
+      valuableFnsPattern: 'FiSeNiTe',
+      shadowFnsPattern: 'FeSiNeTi',
+    },
+  ],
+  [
+    'ESFP',
+    {
+      cognitiveFns: ['Se', 'Fi', 'Te', 'Ni', 'Si', 'Fe', 'Ti', 'Ne'],
+      valuableFnsPattern: 'SeFiTeNi',
+      shadowFnsPattern: 'SiFiTeNe',
+    },
+  ],
+]);
 
-  [
-    'TeNiSeFi',
-    {
-      personalityType: 'ENTJ',
-      shadowFnPattern: 'TiNeSiFe',
-      functions: ['Te', 'Ni', 'Se', 'Fi', 'Ti', 'Ne', 'Si', 'Fe'],
-    },
-  ],
-  [
-    'TiNeSiFe',
-    {
-      personalityType: 'INTP',
-      shadowFnPattern: 'TeNiSeFi',
-      functions: ['Ti', 'Ne', 'Si', 'Fe', 'Te', 'Ni', 'Se', 'Fi'],
-    },
-  ],
-  [
-    'NeTiFeSi',
-    {
-      personalityType: 'ENTP',
-      shadowFnPattern: 'NiTeFiSe',
-      functions: ['Ne', 'Ti', 'Fe', 'Si', 'Ni', 'Te', 'Fi', 'Se'],
-    },
-  ],
-  [
-    'NiFeTiSe',
-    {
-      personalityType: 'INFJ',
-      shadowFnPattern: 'NeFiTeSi',
-      functions: ['Ni', 'Fe', 'Ti', 'Se', 'Ne', 'Fi', 'Te', 'Si'],
-    },
-  ],
+// The map of cognitive function pattern match
+const valuableCognFnPartialMatchMap = new Map<string, MBTIPersonalityType>([
+  ['NiTe', 'INTJ'],
+  ['TeNi', 'ENTJ'],
+  ['TiNe', 'INTP'],
+  ['NeTi', 'ENTP'],
+  ['NiFe', 'INFJ'],
+  ['FeNi', 'ENFJ'],
+  ['FiNe', 'INFP'],
+  ['NeFi', 'ENFP'],
+  ['SiTe', 'ISTJ'],
+  ['TeSi', 'ESTJ'],
+  ['SiFe', 'ISFJ'],
+  ['FeSi', 'ESFJ'],
+  ['TiSe', 'ISTP'],
+  ['SeTi', 'ESTP'],
+  ['FiSe', 'ISFP'],
+  ['SeFi', 'ESFP'],
+]);
 
-  [
-    'FeNiSeTi',
-    {
-      personalityType: 'ENFJ',
-      shadowFnPattern: 'FiNeSiTe',
-      functions: ['Fe', 'Ni', 'Se', 'Ti', 'Fi', 'Ne', 'Si', 'Te'],
-    },
-  ],
-  [
-    'FiNeSiTe',
-    {
-      personalityType: 'INFP',
-      shadowFnPattern: 'FeNiSeTi',
-      functions: ['Fi', 'Ne', 'Si', 'Te', 'Fe', 'Ni', 'Se', 'Ti'],
-    },
-  ],
-  [
-    'NeFiTeSi',
-    {
-      personalityType: 'ENFP',
-      shadowFnPattern: 'NiFeTiSe',
-      functions: ['Ne', 'Fi', 'Te', 'Si', 'Ni', 'Fe', 'Ti', 'Se'],
-    },
-  ],
-  [
-    'SiTeFiNe',
-    {
-      personalityType: 'ISTJ',
-      shadowFnPattern: 'SeTiFeNi',
-      functions: ['Si', 'Te', 'Fi', 'Ne', 'Se', 'Ti', 'Fe', 'Ni'],
-    },
-  ],
+const valuableCognFnMatchMap = new Map<string, MBTIPersonalityType>([
+  ['NiTeFiSe', 'INTJ'],
+  ['TeNiSeFi', 'ENTJ'],
+  ['TiNeSiFe', 'INTP'],
+  ['NeTiFeSi', 'ENTP'],
+  ['NiFeTiSe', 'INFJ'],
+  ['FeNiSeTi', 'ENFJ'],
+  ['FiNeSiTe', 'INFP'],
+  ['NeFiTeSi', 'ENFP'],
+  ['SiTeFiNe', 'ISTJ'],
+  ['TeSiNeFi', 'ESTJ'],
+  ['SiFeTiNe', 'ISFJ'],
+  ['FeSiNeTi', 'ESFJ'],
+  ['TiSeNiFe', 'ISTP'],
+  ['SeTiFeNi', 'ESTP'],
+  ['FiSeNiTe', 'ISFP'],
+  ['SeFiTeNi', 'ESFP'],
+]);
 
-  [
-    'TeSiNeFi',
-    {
-      personalityType: 'ESTJ',
-      shadowFnPattern: 'TiSeNiFe',
-      functions: ['Te', 'Si', 'Ne', 'Fi', 'Ti', 'Se', 'Ni', 'Fe'],
-    },
-  ],
-  [
-    'SiFeTiNe',
-    {
-      personalityType: 'ISFJ',
-      shadowFnPattern: 'SeFiTeNi',
-      functions: ['Si', 'Fe', 'Ti', 'Ne', 'Se', 'Fi', 'Te', 'Ni'],
-    },
-  ],
-  [
-    'FeSiNeTi',
-    {
-      personalityType: 'ESFJ',
-      shadowFnPattern: 'FiSeNiTe',
-      functions: ['Fe', 'Si', 'Ne', 'Ti', 'Fi', 'Se', 'Ni', 'Te'],
-    },
-  ],
-  [
-    'TiSeNiFe',
-    {
-      personalityType: 'ISTP',
-      shadowFnPattern: 'TeSiNeFi',
-      functions: ['Ti', 'Se', 'Ni', 'Fe', 'Te', 'Si', 'Ne', 'Fi'],
-    },
-  ],
+const shadowCognFnPartialMatchMap = new Map<string, MBTIPersonalityType>([
+  ['NiTeFiSeNeTi', 'INTJ'],
+  ['TeNiSeFiFiNe', 'ENTJ'],
+  ['TiNeSiFeFeSi', 'INTP'],
+  ['NeTiFeSiSiTe', 'ENTP'],
+  ['NiFeTiSeTiNe', 'INFJ'],
+  ['FeNiSeTiTeSi', 'ENFJ'],
+  ['FiNeSiTeTeNi', 'INFP'],
+  ['NeFiTeSiSiFe', 'ENFP'],
+  ['SiTeFiNeNiTe', 'ISTJ'],
+  ['TeSiNeFiFiSe', 'ESTJ'],
+  ['SiFeTiNeNeTe', 'ISFJ'],
+  ['FeSiNeTiTiSe', 'ESFJ'],
+  ['TiSeNiFeFeNi', 'ISTP'],
+  ['SeTiFeNiNiFi', 'ESTP'],
+  ['FiSeNiTeTeSi', 'ISFP'],
+  ['SeFiTeNiNiFe', 'ESFP'],
+]);
 
-  [
-    'SeTiFeNi',
-    {
-      personalityType: 'ESTP',
-      shadowFnPattern: 'SiTiFeNe',
-      functions: ['Se', 'Ti', 'Fe', 'Ni', 'Si', 'Te', 'Fi', 'Ne'],
-    },
-  ],
-  [
-    'FiSeNiTe',
-    {
-      personalityType: 'ISFP',
-      shadowFnPattern: 'FeSiNeTi',
-      functions: ['Fi', 'Se', 'Ni', 'Te', 'Fe', 'Si', 'Ne', 'Ti'],
-    },
-  ],
-  [
-    'SeFiTeNi',
-    {
-      personalityType: 'ESFP',
-      shadowFnPattern: 'SiFiTeNe',
-      functions: ['Se', 'Fi', 'Te', 'Ni', 'Si', 'Fe', 'Ti', 'Ne'],
-    },
-  ],
+const cognFnAbsoluteMatchMap = new Map<string, MBTIPersonalityType>([
+  ['NiTeFiSeNeTiFeSi', 'INTJ'],
+  ['TeNiSeFiFiNeTiSi', 'ENTJ'],
+  ['TiNeSiFeFeSiTeNi', 'INTP'],
+  ['NeTiFeSiSiTeFiNi', 'ENTP'],
+  ['NiFeTiSeTiNeFiTe', 'INFJ'],
+  ['FeNiSeTiTeSiFiNe', 'ENFJ'],
+  ['FiNeSiTeTeNiFeSi', 'INFP'],
+  ['NeFiTeSiSiFeTiNi', 'ENFP'],
+  ['SiTeFiNeNiTeFeTi', 'ISTJ'],
+  ['TeSiNeFiFiSeTiNi', 'ESTJ'],
+  ['SiFeTiNeNeTeFiNi', 'ISFJ'],
+  ['FeSiNeTiTiSeFiNi', 'ESFJ'],
+  ['TiSeNiFeFeNiTeSi', 'ISTP'],
+  ['SeTiFeNiNiFiTeSi', 'ESTP'],
+  ['FiSeNiTeTeSiFeNi', 'ISFP'],
+  ['SeFiTeNiNiFeTiSi', 'ESFP'],
 ]);
 
 export const getMBTITypeByCognFnPattern = (
   cognFnPattern: string
 ): {
-  status: MBTIMapStatus;
-  data: MBTIMapItem | null;
+  status: cognFnPatternMapStatus;
+  matchPercent: number;
+  type: MBTIPersonalityType | null;
 } => {
-  if (cognFnPattern.length < 8)
+  // Exit if the number of functions is less than 2
+  if (cognFnPattern.length < 4) {
     return {
-      status: MBTIMapStatus.INVALID_PATTERN,
-      data: null,
-    };
-
-  const valuableFnPattern = cognFnPattern.slice(0, 8);
-
-  // Lookup in MBTIMap
-  const MBTIMapItem = MBTIMap.get(valuableFnPattern);
-  if (!MBTIMapItem) {
-    return {
-      status: MBTIMapStatus.NO_MATCH,
-      data: null,
+      status: cognFnPatternMapStatus.INVALID_PATTERN,
+      matchPercent: 0,
+      type: null,
     };
   }
 
-  if (cognFnPattern.length === 16) {
-    const isShadowFnPatternMatch =
-      cognFnPattern.slice(8) === MBTIMapItem.shadowFnPattern;
-    if (isShadowFnPatternMatch) {
-      return {
-        status: MBTIMapStatus.ABSOLUTE_MATCH,
-        data: MBTIMapItem,
-      };
-    }
-  }
-
-  return {
-    status: MBTIMapStatus.MATCH,
-    data: MBTIMapItem,
+  const noMatchResult = {
+    status: cognFnPatternMapStatus.NO_MATCH,
+    matchPercent: 0,
+    type: null,
   };
+
+  // Check for absolute match
+  if (cognFnPattern.length === 16) {
+    const mapItem = cognFnAbsoluteMatchMap.get(cognFnPattern);
+    if (mapItem)
+      return {
+        status: cognFnPatternMapStatus.ABSOLUTE_MATCH,
+        matchPercent: 100,
+        type: mapItem,
+      };
+  }
+
+  // Check for all the valuable and 2 shadow functions match
+  if (cognFnPattern.length >= 12) {
+    const pattern = cognFnPattern.slice(0, 12);
+    const mapItem = shadowCognFnPartialMatchMap.get(pattern);
+    if (mapItem)
+      return {
+        status: cognFnPatternMapStatus.SHADOW_PARTIAL_MATCH,
+        matchPercent: 80,
+        type: mapItem,
+      };
+  }
+
+  // Check for all the valuable functions match
+  if (cognFnPattern.length >= 8) {
+    const pattern = cognFnPattern.slice(0, 8);
+    const mapItem = valuableCognFnMatchMap.get(pattern);
+    if (mapItem)
+      return {
+        status: cognFnPatternMapStatus.VALUABLE_MATCH,
+        matchPercent: 60,
+        type: mapItem,
+      };
+  }
+
+  // Check for 2 valuable functions match
+  if (cognFnPattern.length >= 4) {
+    const pattern = cognFnPattern.slice(0, 4);
+    const mapItem = valuableCognFnPartialMatchMap.get(pattern);
+    if (mapItem)
+      return {
+        status: cognFnPatternMapStatus.VALUABLE_PARTIAL_MATCH,
+        matchPercent: 30,
+        type: mapItem,
+      };
+  }
+
+  return noMatchResult;
 };
 
 export const getCognFnPattern = (cognFnArray: CognFunctionArr) => {

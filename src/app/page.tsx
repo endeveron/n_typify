@@ -6,7 +6,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import SignInButton from '@/core/components/auth/sign-in-button';
 import ToggleLanguage from '@/core/components/shared/toggle-language';
 import { WelcomeTranslation } from '@/core/types/translation';
 import { getWelcomeTranslation } from '@/core/utils/dictionary';
@@ -15,13 +14,20 @@ import { useLangCode } from '@/core/context/LangContext';
 import WelcomeImage from '~/public/images/welcome.jpg';
 import Image from 'next/image';
 import { welcomeImgBlured } from '@/core/data/blured-images';
+import { Button } from '@/core/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 const Welcome = () => {
   // await mongoDB.connect();
   // const users = await UserModel.find();
   // console.log('users', users);
   const { langCode } = useLangCode();
+  const router = useRouter();
   const [translation, setTranslation] = useState<WelcomeTranslation>();
+
+  const handleActionBtnClick = () => {
+    router.push('/dashboard');
+  };
 
   // Load translations
   useEffect(() => {
@@ -109,7 +115,9 @@ const Welcome = () => {
           </div>
 
           <div className="px-6">
-            <SignInButton title={translation.signInBtnTitle} />
+            <Button variant="accent" onClick={handleActionBtnClick}>
+              {translation.signInBtnTitle}
+            </Button>
           </div>
         </div>
       </div>

@@ -86,7 +86,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
      * type MBTIPersonalityData: {
      *   personalityType,
      *   functions,
-     *   shadowFnPattern,
+     *   matchPercent,
      *   status,
      * }
      */
@@ -291,14 +291,13 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
             onMatch={handleMBTIPersonalityMatch}
           />
         </div>
+
         {/* Personality Cards */}
-        <div className="h-[106px]">
-          <MBTIPersonalityCards
-            cognitiveFnArr={cognitiveFnArr}
-            personality={personality}
-            personalityTranslations={translation.personalityTypes}
-          />
-        </div>
+        <MBTIPersonalityCards
+          cognitiveFnArr={cognitiveFnArr}
+          personality={personality}
+          personalityTranslations={translation.personalityTypes}
+        />
       </div>
 
       <div className="bottom flex flex-1 flex-col">

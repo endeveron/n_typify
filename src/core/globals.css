@@ -18,7 +18,7 @@
   --blue: #3eabfa;
   --neutral: #9fa8b9;
 
-  --amber: #fe9a00; /* amber-600 */
+  --gold: #e1ab56;
   --purple: #9810fa; /* purple-600 */
   --rose: #ec003f; /* rose-600 */
   --sky: #0084d1; /* sky-000 */
@@ -26,7 +26,7 @@
   --teal: #009689; /* teal-600 */
   --violet: #7f22fe; /* violet-600 */
 
-  --accent: var(--amber);
+  --accent: var(--gold);
   --brand: var(--sky);
 
   --muted: #8c96a8;
@@ -95,7 +95,7 @@
     --blue: #3eabfa; /* -000 */
     --neutral: #737373; /* neutral-500 */
 
-    --amber: #fe9a00; /* amber-600 */
+    --gold: #e1ab56;
     --purple: #9810fa; /* purple-600 */
     --rose: #ec003f; /* rose-600 */
     --sky: #0084d1; /* sky-000 */
@@ -142,7 +142,7 @@
   --color-blue: var(--blue);
   --color-neutral: var(--neutral);
 
-  --color-amber: var(--amber);
+  --color-gold: var(--gold);
   --color-purple: var(--purple);
   --color-rose: var(--rose);
   --color-sky: var(--sky);

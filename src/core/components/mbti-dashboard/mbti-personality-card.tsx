@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
-import { MBTIMapStatus, MBTIPersonalityItem } from '@/core/types/mbti';
+import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { PersonalityTypeTranslation } from '@/core/types/translation';
 import { cognFnColorMap } from '@/core/utils/mbti';
 import { cn } from '@/core/utils/common';
+import { ProgressSmall } from '@/core/components/ui/progress-small';
 
 type FunctionItem = {
   functionId: string;
@@ -15,11 +16,11 @@ const MBTIPersonCardFunctionItem = ({ functionId }: FunctionItem) => {
   const bgColor = cognFnColorMap.get(functionId);
 
   return (
-    <div className="w-4 flex flex-col items-center gap-2">
+    <div className="w-4 flex flex-col items-center gap-1">
       {/* Colored line */}
       <div className={cn(`w-[14px] h-1 rounded-full`, bgColor)}></div>
       {/* Function ID */}
-      <div className="text-[11px] text-muted font-bold leading-none">
+      <div className="text-[11px] text-muted font-bold leading-none opacity-80">
         {functionId}
       </div>
     </div>
@@ -42,9 +43,7 @@ const MBTIPersonalityCard = ({
   const [functionItems, setFunctionItems] = useState<FunctionItem[]>();
 
   const personalityType = personality.personalityType;
-  const matchStatus = personality.status;
-  const isAbsoluteMatch =
-    personalityData?.status === MBTIMapStatus.ABSOLUTE_MATCH;
+  const matchPercent = personality.matchPercent;
 
   const handleCardClick = () => {
     onClick(personalityData!);
@@ -52,10 +51,12 @@ const MBTIPersonalityCard = ({
 
   // Init data
   useEffect(() => {
-    const currentMatchStatus = personalityData?.status;
-    if (currentMatchStatus && currentMatchStatus === matchStatus) {
+    const currentMatchPercent = personalityData?.matchPercent;
+    if (currentMatchPercent && currentMatchPercent === matchPercent) {
       return;
     }
+
+    // Set personality data
     setPersonalityData(personality);
 
     // Init functions
@@ -65,7 +66,7 @@ const MBTIPersonalityCard = ({
     setFunctionItems(fnItems);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [personality, matchStatus]);
+  }, [personality, matchPercent]);
 
   // Init translation
   useEffect(() => {
@@ -86,32 +87,31 @@ const MBTIPersonalityCard = ({
     <div
       onClick={handleCardClick}
       className={cn(
-        `flex flex-col items-center p-2 bg-background border-2 rounded-xl select-none`,
-        {
-          'border-accent': isAbsoluteMatch,
-          'border-background': !isAbsoluteMatch,
-        }
+        `flex flex-col items-center p-2 bg-background rounded-xl select-none cursor-pointer`
       )}
     >
       {/* Title */}
-      <div
-        className={cn(
-          `text-[11px] leading-none uppercase font-bold tracking-wider`,
-          {
-            'text-accent': isAbsoluteMatch,
-          }
-        )}
-      >
-        {translation?.title.split(' ')[1]}
+      <div className="my-0.5 text-[11px] leading-none uppercase font-bold text-accent tracking-wider">
+        {translation?.title[0]}
       </div>
 
       {/* MBTI Personality Type */}
-      <div className="my-1 text-4xl text-muted font-bold leading-none opacity-40">
+      <div
+        className={cn(`my-1 text-2xl font-bold leading-none`, {
+          'text-accent': matchPercent === 100,
+          'text-muted opacity-60': matchPercent < 100,
+        })}
+      >
         {personalityType}
       </div>
 
+      {/* Match Scale */}
+      <div className="relative my-0.5 h-1 w-full">
+        <ProgressSmall value={matchPercent} />
+      </div>
+
       {/* Functions */}
-      <div className="flex justify-center gap-1.5">
+      <div className="mt-2 flex justify-center gap-1.5">
         {functionItems?.map((item) => (
           <MBTIPersonCardFunctionItem
             functionId={item.functionId}

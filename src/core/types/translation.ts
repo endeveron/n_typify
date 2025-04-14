@@ -42,9 +42,11 @@ export type MBTICognitiveFnMapTranslation = {
 
 export type PersonalityTypeTranslation = {
   type: MBTIPersonalityType;
-  title: string;
+  title: string[];
   subtitle: string;
+  persons: string[];
   description: string;
+  traitSet: string[];
 };
 
 export type MBTIDashboardTranslation = {

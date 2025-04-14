@@ -21,7 +21,7 @@ const MBTICardButton = ({ id, title, icon, onClick }: TMBTICardButtonProps) => {
       >
         <div className="scale-75">{icon}</div>
       </div>
-      <div className="text-[10px] tracking-wider text-muted font-bold uppercase cursor-default opacity-60">
+      <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default opacity-80">
         {title}
       </div>
     </div>

@@ -46,20 +46,14 @@ export type MBTIPersonalityType =
 
 export type CognFunctionArr = [string, number][];
 
-export enum MBTIMapStatus {
-  MATCH = 'MATCH',
-  ABSOLUTE_MATCH = 'ABSOLUTE_MATCH',
-  NO_MATCH = 'NO_MATCH',
+export enum cognFnPatternMapStatus {
   INVALID_PATTERN = 'INVALID_PATTERN',
+  NO_MATCH = 'NO_MATCH',
+  VALUABLE_PARTIAL_MATCH = 'VALUABLE_PARTIAL_MATCH',
+  VALUABLE_MATCH = 'VALUABLE_MATCH',
+  SHADOW_PARTIAL_MATCH = 'SHADOW_PARTIAL_MATCH',
+  ABSOLUTE_MATCH = 'ABSOLUTE_MATCH',
 }
-
-export type MBTIPersonalityData = MBTIMapItem & {
-  status: MBTIMapStatus;
-};
-
-export type MBTIPersonalityItem = MBTIPersonalityData & {
-  cognitiveFnArr: CognFunctionArr;
-};
 
 export type CognFunction = {
   id: string;
@@ -89,9 +83,28 @@ export type CognitiveFnCard = {
 };
 
 export type MBTIMapItem = {
+  cognitiveFns: string[];
+  valuableFnsPattern: string;
+  shadowFnsPattern: string;
+};
+
+export type CognFnPatternMapItem = {
   personalityType: MBTIPersonalityType;
-  shadowFnPattern: string;
   functions: string[];
+};
+
+export type CognFnPatternMatchMapItem = {
+  personalityType: MBTIPersonalityType;
+  matchValue: number;
+};
+
+export type MBTIPersonalityData = CognFnPatternMapItem & {
+  status: cognFnPatternMapStatus;
+  matchPercent: number;
+};
+
+export type MBTIPersonalityItem = MBTIPersonalityData & {
+  cognitiveFnArr: CognFunctionArr;
 };
 
 // MBTI Test
