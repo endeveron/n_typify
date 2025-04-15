@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'NeurAI - Authentication',
+  title: 'Typify - Authentication',
   description: '',
 };
 

@@ -8,13 +8,13 @@ import '@/core/globals.css';
 import { LangProvider } from '@/core/context/LangContext';
 
 export const metadata: Metadata = {
-  title: 'NeurAI - Find Clarity Within',
-  applicationName: 'NeurAI',
-  description: 'NeurAI - Find Clarity Within',
+  title: 'Typify - Find Clarity Within',
+  applicationName: 'Typify',
+  description: 'Typify - Find Clarity Within',
   // openGraph: {
-  //   title: 'NeurAI',
+  //   title: 'Typify',
   //   description: 'Find Clarity Within',
-  //   siteName: 'NeurAI',
+  //   siteName: 'Typify',
   //   type: 'website',
   //   images: [
   //     {

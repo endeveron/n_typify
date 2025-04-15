@@ -2,18 +2,16 @@ import { redirect } from 'next/navigation';
 
 import { verifyEmailToken } from '@/core/actions/auth';
 import { DEFAULT_REDIRECT } from '@/core/routes';
+import { SearchParams } from '@/core/types/common';
 
-type TPageProps = {
-  searchParams: {
-    [key: string]: string | undefined;
-  };
-};
-
-const Page = async ({ searchParams }: TPageProps) => {
-  const { e: email, t: token, i: userObjId } = await searchParams;
+const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const { e, t, i } = await searchParams;
+  const email = e as string;
+  const token = t as string;
+  const userObjId = i as string;
 
   if (!email || !token || !userObjId) {
-    throw new Error('Invalid page search params');
+    throw new Error('Invalid search params');
   }
 
   // Verify the token

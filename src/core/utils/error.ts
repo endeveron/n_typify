@@ -27,22 +27,17 @@ export const handleActionError = (
   };
 };
 
-type TSearchParams = {
-  [key: string]: string | undefined;
-};
-
 /**
  * Takes in search parameters and an error code map, and returns the corresponding error message.
  *
- * @param {TSearchParams} searchParams - an interface that represents the search parameters.
+ * @param {SearchParams} searchParams - an interface that represents the search parameters.
  * @param errCodeMap - a `Map` object that maps error codes (numbers) to error messages (strings).
  * @returns the error message corresponding to the error code provided in the search parameters.
  */
 export const getErrorMessageFromSearchParams = (
-  searchParams: TSearchParams,
+  errCodeStr: string,
   errCodeMap: Map<number, string>
 ) => {
-  const errCodeStr = searchParams.c;
   if (!errCodeStr) throw new Error('Invalid search params.');
   const errCodeNum = parseInt(errCodeStr);
   const isErrCodeExist = errCodeMap.has(errCodeNum);

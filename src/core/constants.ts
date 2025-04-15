@@ -16,6 +16,10 @@ if (
   throw new Error(`Cannot access environment variables`);
 }
 
+// Dev
+const AUTH_EMAIL = process.env.AUTH_EMAIL as string;
+const AUTH_PASSWORD = process.env.AUTH_PASSWORD as string;
+
 export {
   BASE_URL,
   DB_CONNECTION_STRING,
@@ -23,4 +27,6 @@ export {
   EMAIL_JWT,
   NODEMAILER_USER,
   NODEMAILER_PASSWORD,
+  AUTH_EMAIL,
+  AUTH_PASSWORD,
 };

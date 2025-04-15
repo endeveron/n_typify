@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-// import SocialButtons from '@/core/components/auth/social-buttons';
+import { signIn } from '@/core/actions/auth';
 import VisibilityToggle from '@/core/components/auth/visibility-toggle';
 import FormLoading from '@/core/components/shared/form-loading';
 import { Button } from '@/core/components/ui/button';
@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from '@/core/components/ui/form';
 import { Input } from '@/core/components/ui/input';
-import { signIn } from '@/core/actions/auth';
+import { AUTH_EMAIL, AUTH_PASSWORD } from '@/core/constants';
 import { useErrorHandler } from '@/core/hooks/error';
 import { TSignInSchema, signInSchema } from '@/core/schemas/auth';
 import { TSignInArgs } from '@/core/types/auth';
@@ -37,8 +37,8 @@ const SignInForm = () => {
   const form = useForm<TSignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: 'nextauth@proton.me',
-      password: 'Guest01',
+      email: AUTH_EMAIL,
+      password: AUTH_PASSWORD,
     },
   });
 

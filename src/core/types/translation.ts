@@ -1,5 +1,3 @@
-import { MBTIPersonalityType } from '@/core/types/mbti';
-
 export type LangCode = 'en' | 'uk';
 
 // Define the structure of the imported JSON
@@ -41,7 +39,7 @@ export type MBTICognitiveFnMapTranslation = {
 };
 
 export type PersonalityTypeTranslation = {
-  type: MBTIPersonalityType;
+  type: string;
   title: string[];
   subtitle: string;
   persons: string[];

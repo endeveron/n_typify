@@ -1,3 +1,4 @@
+import { verifyUserObjId } from '@/core/actions/auth';
 import OnboardingForm from '@/core/components/auth/onboarding-form';
 import {
   Card,
@@ -6,17 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/core/components/ui/card';
-import { verifyUserObjId } from '@/core/actions/auth';
+import { SearchParams } from '@/core/types/common';
 
-type TPageProps = {
-  searchParams: {
-    [key: string]: string | undefined;
-  };
-};
+const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const { t } = await searchParams;
+  const userObjId = t as string;
 
-const Page = async ({ searchParams }: TPageProps) => {
-  const { t: userObjId } = await searchParams;
-  if (!userObjId) throw new Error('Invalid userObjectId param.');
+  if (!userObjId) throw new Error(`Invalid search param for user's objectId.`);
 
   // Check the validity of the user objectId
   await verifyUserObjId(userObjId);

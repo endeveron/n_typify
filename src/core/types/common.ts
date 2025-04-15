@@ -1,6 +1,8 @@
-export type TSearchParams = {
-  [key: string]: string | undefined;
-};
+export type PageParams = Promise<{ slug: string }>;
+
+export type SearchParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
 
 export type TWithChildren<T = object> = T & { children?: React.ReactNode };
 

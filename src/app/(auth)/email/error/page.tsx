@@ -1,22 +1,20 @@
-import DialogCard from '@/core/components/shared/dialog-card';
 import GenerateTokenButton from '@/core/components/auth/generate-token-button';
+import DialogCard from '@/core/components/shared/dialog-card';
 import { emailErrors } from '@/core/data/errors';
+import { SearchParams } from '@/core/types/common';
 import { getErrorMessageFromSearchParams } from '@/core/utils/error';
 
-type TPageProps = {
-  searchParams: {
-    [key: string]: string | undefined;
-  };
-};
+const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
+  const { e, c } = await searchParams;
+  const email = e as string;
+  const errCodeStr = c as string;
 
-const Page = async ({ searchParams }: TPageProps) => {
-  const { e: email, c: errorCode } = await searchParams;
-  if (!email || !errorCode) {
-    throw new Error('Invalid page search params');
+  if (!email || !errCodeStr) {
+    throw new Error('Invalid search params');
   }
 
   const errorMessage = getErrorMessageFromSearchParams(
-    searchParams,
+    errCodeStr as string,
     emailErrors
   );
 
