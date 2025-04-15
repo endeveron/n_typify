@@ -127,8 +127,8 @@
 
     --placeholder-background: white;
     --card: #171717; /* neutral-900 */
-    --popover: #e5e5e5; /* neutral-200 */
-    --popover-foreground: #0a0a0a; /* neutral-950 */
+    --popover: var(--accent);
+    --popover-foreground: black;
   }
 }
 

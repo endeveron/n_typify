@@ -53,8 +53,8 @@ const SignInForm = () => {
     try {
       setPending(true);
       const res = await signIn(signinData);
-      if (!res?.success && res?.error) {
-        toastError(res.error);
+      if (!res?.success) {
+        toastError(res);
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err: unknown) {
