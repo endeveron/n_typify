@@ -13,12 +13,13 @@ const ErrorDialog = ({ error, onReset }: TErrorProps) => {
 
   return (
     <div className="error-dialog card rounded-xl w-full max-w-xl flex flex-col items-center p-8 m-auto">
-      <h2 className="cursor-default">Oops!</h2>
-      <p className="!mt-5 text-sm">
+      <h2 className="text-5xl font-bold text-accent cursor-default">Oops!</h2>
+      <p className="my-4 font-medium">
         {error?.message || 'Something went wrong.'}
       </p>
-      <div className="mt-7 flex flex-wrap max-xs:gap-4 gap-8">
+      <div className="mt-4 flex flex-wrap max-xs:gap-4 gap-8">
         <Button
+          variant="accent"
           onClick={
             // Attempt to recover by trying to re-render the segment
             () => onReset()

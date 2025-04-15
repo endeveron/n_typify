@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from '@/core/components/ui/form';
 import { Input } from '@/core/components/ui/input';
-import { AUTH_EMAIL, AUTH_PASSWORD } from '@/core/constants';
 import { useErrorHandler } from '@/core/hooks/error';
 import { TSignInSchema, signInSchema } from '@/core/schemas/auth';
 import { TSignInArgs } from '@/core/types/auth';
@@ -37,8 +36,8 @@ const SignInForm = () => {
   const form = useForm<TSignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: AUTH_EMAIL,
-      password: AUTH_PASSWORD,
+      email: '',
+      password: '',
     },
   });
 
