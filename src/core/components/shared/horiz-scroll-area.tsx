@@ -5,20 +5,37 @@ import { PropsWithChildren, useCallback, useEffect, useRef } from 'react';
 
 type HorizScrollAreaProps = PropsWithChildren & {
   className: string;
+  itemsNumber?: number;
+  minItemsNumberToEnableScroll?: number;
 };
 
-const HorizScrollArea = ({ children, className }: HorizScrollAreaProps) => {
+const HorizScrollArea = ({
+  children,
+  className,
+  itemsNumber,
+  minItemsNumberToEnableScroll,
+}: HorizScrollAreaProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleWheel = useCallback((e: WheelEvent) => {
-    if (!scrollRef.current) return;
+  const handleWheel = useCallback(
+    (e: WheelEvent) => {
+      if (
+        !scrollRef.current ||
+        (itemsNumber &&
+          minItemsNumberToEnableScroll &&
+          itemsNumber < minItemsNumberToEnableScroll)
+      ) {
+        return;
+      }
 
-    // Only prevent default if we're doing horizontal scrolling
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      e.preventDefault();
-      scrollRef.current.scrollLeft += e.deltaY * 2; // Adjust multiplier for scroll speed
-    }
-  }, []);
+      // Only prevent default if we're doing horizontal scrolling
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        scrollRef.current.scrollLeft += e.deltaY * 2; // Adjust multiplier for scroll speed
+      }
+    },
+    [itemsNumber, minItemsNumberToEnableScroll]
+  );
 
   useEffect(() => {
     const element = scrollRef.current;

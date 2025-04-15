@@ -1,3 +1,4 @@
+import { PersonalityTypeTranslation } from '@/core/types/translation';
 import { ReactElement } from 'react';
 
 export type TraitIndex =
@@ -83,14 +84,14 @@ export type CognitiveFnCard = {
 };
 
 export type MBTIMapItem = {
-  cognitiveFns: string[];
+  cognitiveFns: CognitiveFnId[];
   valuableFnsPattern: string;
   shadowFnsPattern: string;
 };
 
 export type CognFnPatternMapItem = {
   personalityType: MBTIPersonalityType;
-  functions: string[];
+  functions: CognitiveFnId[];
 };
 
 export type CognFnPatternMatchMapItem = {
@@ -103,8 +104,29 @@ export type MBTIPersonalityData = CognFnPatternMapItem & {
   matchPercent: number;
 };
 
-export type MBTIPersonalityItem = MBTIPersonalityData & {
-  cognitiveFnArr: CognFunctionArr;
+/**
+ * MBTIPersonalityItem
+ * mbti: {
+ *   cognitiveFnArr: CognFunctionArr;
+ *   functions: CognitiveFnId[];
+ *   matchPercent: number;
+ *   personalityType: MBTIPersonalityType;
+ *   status: cognFnPatternMapStatus;
+ * },
+ * translation: {
+ *   type: MBTIPersonalityType;
+ *   title: string[];
+ *   subtitle: string;
+ *   persons: string[];
+ *   description: string;
+ *   traitSet: string[];
+ * }
+ */
+export type MBTIPersonalityItem = {
+  mbti: MBTIPersonalityData & {
+    cognitiveFnArr: CognFunctionArr;
+  };
+  translation: PersonalityTypeTranslation;
 };
 
 // MBTI Test

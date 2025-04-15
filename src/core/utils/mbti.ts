@@ -6,6 +6,7 @@ import {
   TraitIndex,
   MBTIPersonalityType,
   MBTIMapItem,
+  MBTIPersonalityItem,
 } from '@/core/types/mbti';
 
 export const cognFnColorMap = new Map<string, string>([
@@ -397,4 +398,10 @@ export const calculateMBTI = (
   personality = `${typeWithoutIdentity}-${identity}`;
 
   return { personality, percentageMap };
+};
+
+export const sortPersonalityItems = (
+  items: MBTIPersonalityItem[]
+): MBTIPersonalityItem[] => {
+  return items.sort((a, b) => b.mbti.matchPercent - a.mbti.matchPercent);
 };

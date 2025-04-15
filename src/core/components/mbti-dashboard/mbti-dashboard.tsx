@@ -3,16 +3,19 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import { LangCode, MBTIDashboardTranslation } from '@/core/types/translation';
-import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 import {
-  CognitiveFnCard,
   CognFunctionArr,
-  MBTIPersonalityData,
-  MBTIPersonalityItem,
+  CognitiveFnCard,
   CognitiveFnId,
-  // TraitCard,
+  MBTIMapItem,
+  MBTIPersonalityItem,
 } from '@/core/types/mbti';
+import {
+  LangCode,
+  MBTIDashboardTranslation,
+  PersonalityTypeTranslation,
+} from '@/core/types/translation';
+import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 
 // // `energy` trait
 // import IntroversionIcon from '~/public/icons/mbti/arrows-minimize.svg';
@@ -34,13 +37,19 @@ import ExtravertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
 import IntrovertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
 
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
-import { defaultCognFnCounterMap } from '@/core/utils/mbti';
-import MBTIDashboardHeader from '@/core/components/mbti-dashboard/mbti-dashboard-header';
-import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-function-list';
-import MBTICognFunctionCards from '@/core/components/mbti-dashboard/mbti-cogn-function-cards';
-import MBTIPersonalityCards from '@/core/components/mbti-dashboard/mbti-personality-cards';
-import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
 import SignOutButton from '@/core/components/auth/sign-out-btn';
+import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
+import MBTICognFunctionCards from '@/core/components/mbti-dashboard/mbti-cogn-function-cards';
+import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-function-list';
+import MBTIDashboardHeader from '@/core/components/mbti-dashboard/mbti-dashboard-header';
+import MBTIPersonalityCards from '@/core/components/mbti-dashboard/mbti-personality-cards';
+import {
+  defaultCognFnCounterMap,
+  getCognFnPattern,
+  getMBTITypeByCognFnPattern,
+  MBTIMap,
+  sortPersonalityItems,
+} from '@/core/utils/mbti';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],
@@ -65,7 +74,12 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
     []
   );
   const [cognitiveFnArr, setCognitiveFnArr] = useState<CognFunctionArr>([]);
-  const [personality, setPersonality] = useState<MBTIPersonalityItem>();
+  const [personality, setPersonality] = useState<MBTIPersonalityItem | null>(
+    null
+  );
+  const [personalities, setPersonalities] = useState<MBTIPersonalityItem[]>([]);
+
+  const cognFnArrayLength = cognitiveFnArr.length;
 
   const handleCognFnButtonClick = (cognFnId: string): void => {
     // Increase counter value by 1
@@ -81,24 +95,24 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
     setCognitiveFnArr(cognFnArray);
   };
 
-  const handleMBTIPersonalityMatch = (data: MBTIPersonalityData) => {
-    /**
-     * type MBTIPersonalityData: {
-     *   personalityType,
-     *   functions,
-     *   matchPercent,
-     *   status,
-     * }
-     */
+  // const handleMBTIPersonalityMatch = (data: MBTIPersonalityData) => {
+  //   /**
+  //    * type MBTIPersonalityData: {
+  //    *   personalityType,
+  //    *   functions,
+  //    *   matchPercent,
+  //    *   status,
+  //    * }
+  //    */
 
-    // Add `cognitiveFnArr` and save as MBTIPersonalityItem
-    const MBTIPersonalityItem: MBTIPersonalityItem = {
-      ...data,
-      cognitiveFnArr,
-    };
+  //   // Add `cognitiveFnArr` and save as MBTIPersonalityItem
+  //   const MBTIPersonalityItem: MBTIPersonalityItem = {
+  //     ...data,
+  //     cognitiveFnArr,
+  //   };
 
-    setPersonality(MBTIPersonalityItem);
-  };
+  //   setPersonality(MBTIPersonalityItem);
+  // };
 
   const updateCognFnCounterMap = (
     cognFnId: string,
@@ -262,7 +276,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   // Init data
   useEffect(() => {
     const initData = async () => {
-      // Get translations
+      // Get the translation
       const translations = await getMBTIDashboardTranslation(langCode);
       if (!translations) {
         toast(`Unable to get translations`);
@@ -278,26 +292,111 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
     initData();
   }, [langCode]);
 
+  // Update the personality
+  useEffect(() => {
+    if (!translation) return;
+
+    // Exit if there is not enough data
+    if (personality && cognFnArrayLength < 2) {
+      setPersonality(null);
+      return;
+    }
+
+    // Generate the cognitive fn pattern (serializing the cognitive fn array)
+    const cognFnPattern = getCognFnPattern(cognitiveFnArr);
+
+    // Check whether the cognitive fn pattern is matches to a personality type
+    const { type, matchPercent, status } =
+      getMBTITypeByCognFnPattern(cognFnPattern);
+
+    // Exit if there is no match
+    if (!type) {
+      if (personality) setPersonality(null);
+      return;
+    }
+
+    const curPersonalityType = personality?.mbti.personalityType;
+
+    // Set a new personality
+    if (type !== curPersonalityType) {
+      // Get translation
+      const translationData = translation.personalityTypes.find(
+        (item) => item.type === type
+      ) as PersonalityTypeTranslation;
+      // Get MBTIMap data
+      const mapItem = MBTIMap.get(type) as MBTIMapItem;
+      // Configure the personality item
+      const personItem: MBTIPersonalityItem = {
+        mbti: {
+          cognitiveFnArr,
+          personalityType: type,
+          functions: mapItem.cognitiveFns,
+          matchPercent,
+          status,
+        },
+        translation: translationData,
+      };
+      setPersonality(personItem);
+    }
+
+    // Update the existed personality match data
+    if (type === curPersonalityType) {
+      const updPersonItem = { ...(personality as MBTIPersonalityItem) };
+      updPersonItem.mbti.matchPercent = matchPercent;
+      updPersonItem.mbti.status = status;
+      setPersonality(updPersonItem);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cognitiveFnArr, translation]);
+
+  // Update the personalities
+  useEffect(() => {
+    if (!personality) return;
+
+    // Add the first item
+    if (!personalities.length) {
+      setPersonalities([personality]);
+      return;
+    }
+
+    // Update the existing item
+    const index = personalities.findIndex(
+      (item) => item.mbti.personalityType === personality.mbti.personalityType
+    );
+    if (index > -1) {
+      const updPersonalities = [...personalities];
+      const updPersonality = updPersonalities[index];
+      updPersonality.mbti.cognitiveFnArr = personality.mbti.cognitiveFnArr;
+      updPersonality.mbti.matchPercent = personality.mbti.matchPercent;
+      updPersonality.mbti.status = personality.mbti.status;
+      updPersonalities[index] = updPersonality;
+      const sortedItems = sortPersonalityItems(updPersonalities);
+      setPersonalities(sortedItems);
+    } else {
+      // Add a new item
+      setPersonalities((prev) => sortPersonalityItems([...prev, personality]));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [personality]);
+
+  // Reset personalities
+  useEffect(() => {
+    if (cognFnArrayLength === 0) setPersonalities([]);
+  }, [cognFnArrayLength]);
+
   if (!translation) return null;
 
   return (
     <div className="mbti-dashboard max-h-[900px] w-[400px] max-w-[400px] mx-auto relative flex flex-1 flex-col justify-between">
       <div className="top flex flex-1 flex-col max-h-[300px]">
-        {/* Personality Type */}
+        {/* Header: Personality Type */}
         <div className="h-28 my-4 flex flex-1 flex-col justify-center">
-          <MBTIDashboardHeader
-            cognitiveFnArr={cognitiveFnArr}
-            translation={translation}
-            onMatch={handleMBTIPersonalityMatch}
-          />
+          <MBTIDashboardHeader personality={personality} />
         </div>
 
         {/* Personality Cards */}
-        <MBTIPersonalityCards
-          cognitiveFnArr={cognitiveFnArr}
-          personality={personality}
-          personalityTranslations={translation.personalityTypes}
-        />
+        <MBTIPersonalityCards personalities={personalities} />
       </div>
 
       <div className="bottom flex flex-1 flex-col">
@@ -310,8 +409,8 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
         </div>
       ) : null} */}
 
-        {/* Cognitive Functions */}
-        <div className="flex flex-1 flex-col justify-center my-4">
+        {/* Cognitive Function List */}
+        <div className="my-4 flex flex-1 flex-col justify-center">
           <MBTICognFunctions
             cognitiveFnArr={cognitiveFnArr}
             translation={translation}
@@ -319,15 +418,15 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
           />
         </div>
 
+        {/* Toolbar */}
         {/* Cognitive Function Cards */}
-        {cognitiveFnCards.length ? (
-          <MBTICognFunctionCards
-            cognitiveFnCards={cognitiveFnCards}
-            onClick={handleCognFnButtonClick}
-          />
-        ) : null}
+        <MBTICognFunctionCards
+          cognitiveFnCards={cognitiveFnCards}
+          onClick={handleCognFnButtonClick}
+        />
       </div>
 
+      {/* Absolute position (Topbar) */}
       <div className="absolute top-4 left-2 z-10">
         <SignOutButton />
       </div>

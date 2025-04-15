@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
-import { MBTIPersonalityItem } from '@/core/types/mbti';
-import { PersonalityTypeTranslation } from '@/core/types/translation';
-import { cognFnColorMap } from '@/core/utils/mbti';
-import { cn } from '@/core/utils/common';
 import { ProgressSmall } from '@/core/components/ui/progress-small';
+import { MBTIPersonalityItem } from '@/core/types/mbti';
+import { cn } from '@/core/utils/common';
+import { cognFnColorMap } from '@/core/utils/mbti';
 
 type FunctionItem = {
   functionId: string;
@@ -29,70 +28,39 @@ const MBTIPersonCardFunctionItem = ({ functionId }: FunctionItem) => {
 
 type MBTIPersonalityCardProps = {
   personality: MBTIPersonalityItem;
-  personalityTranslations: PersonalityTypeTranslation[];
   onClick: (data: MBTIPersonalityItem) => void;
 };
 
 const MBTIPersonalityCard = ({
   personality,
-  personalityTranslations,
   onClick,
 }: MBTIPersonalityCardProps) => {
-  const [personalityData, setPersonalityData] = useState<MBTIPersonalityItem>();
-  const [translation, setTranslation] = useState<PersonalityTypeTranslation>();
-  const [functionItems, setFunctionItems] = useState<FunctionItem[]>();
-
-  const personalityType = personality.personalityType;
-  const matchPercent = personality.matchPercent;
-
-  const handleCardClick = () => {
-    onClick(personalityData!);
-  };
-
-  // Init data
-  useEffect(() => {
-    const currentMatchPercent = personalityData?.matchPercent;
-    if (currentMatchPercent && currentMatchPercent === matchPercent) {
-      return;
-    }
-
-    // Set personality data
-    setPersonalityData(personality);
-
-    // Init functions
-    const fnItems = personality.functions
+  const personalityType = personality.mbti.personalityType;
+  const matchPercent = personality.mbti.matchPercent;
+  const functions = useMemo(() => {
+    return personality.mbti.functions
       .slice(0, 4)
       .map((id) => ({ functionId: id }));
-    setFunctionItems(fnItems);
+  }, [personality.mbti.functions]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [personality, matchPercent]);
+  const handleCardClick = () => {
+    onClick(personality);
+  };
 
-  // Init translation
-  useEffect(() => {
-    if (!personalityTranslations.length) {
-      throw new Error('Unable to get translations for personality card');
-    }
-    const personalityTranslation = personalityTranslations.find(
-      (item) => item.type === personalityType
-    );
-    if (!personalityTranslation) {
-      throw new Error('Unable to get translation for personality card');
-    }
-
-    setTranslation(personalityTranslation);
-  }, [personalityType, personalityTranslations]);
-
-  return personalityData ? (
+  return (
     <div
       onClick={handleCardClick}
       className={cn(
-        `flex flex-col items-center p-2 bg-background rounded-xl select-none cursor-pointer`
+        `flex flex-col items-center p-2 bg-background rounded-xl select-none cursor-pointer transition-opacity`,
+        {
+          'opacity-0': !personality,
+          'opacity-100': !!personality,
+        }
       )}
     >
       {/* Title */}
       <div className="my-0.5 text-[11px] leading-none uppercase font-bold text-accent tracking-wider">
-        {translation?.title[0]}
+        {personality.translation.title[0]}
       </div>
 
       {/* MBTI Personality Type */}
@@ -112,7 +80,7 @@ const MBTIPersonalityCard = ({
 
       {/* Functions */}
       <div className="mt-2 flex justify-center gap-1.5">
-        {functionItems?.map((item) => (
+        {functions?.map((item) => (
           <MBTIPersonCardFunctionItem
             functionId={item.functionId}
             key={item.functionId}
@@ -120,7 +88,7 @@ const MBTIPersonalityCard = ({
         ))}
       </div>
     </div>
-  ) : null;
+  );
 };
 
 export default MBTIPersonalityCard;

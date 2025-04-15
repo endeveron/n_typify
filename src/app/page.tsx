@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import ToggleLanguage from '@/core/components/shared/toggle-language';
+// import ToggleLanguage from '@/core/components/shared/toggle-language';
 import { WelcomeTranslation } from '@/core/types/translation';
 import { getWelcomeTranslation } from '@/core/utils/dictionary';
 import { useLangCode } from '@/core/context/LangContext';
@@ -123,11 +123,10 @@ const Welcome = () => {
       </div>
 
       {/* <MBTITest langCode="uk" /> */}
-      {/* <MBTIDashboard langCode="en" /> */}
 
-      <div className="absolute bottom-6 inset-x-0 flex justify-center">
+      {/* <div className="absolute bottom-6 inset-x-0 flex justify-center">
         <ToggleLanguage />
-      </div>
+      </div> */}
     </main>
   ) : null;
 };

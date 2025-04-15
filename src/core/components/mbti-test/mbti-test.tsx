@@ -51,8 +51,6 @@ const MBTITest = ({ langCode }: MBTITestProps) => {
   };
 
   const handleQuestionCardSelect = (data: AnswerMapData) => {
-    // console.log('data', data);
-
     if (Number(data.questionId) >= activeQuestionId) {
       updateCurrentQuestionId();
     }

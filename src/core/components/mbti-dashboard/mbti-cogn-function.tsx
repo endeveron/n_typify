@@ -3,6 +3,7 @@
 import { CognFunction } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 import { cognFnColorMap } from '@/core/utils/mbti';
+import { useEffect, useState } from 'react';
 
 type MBTICognFunctionProps = CognFunction & {
   counter: number;
@@ -18,12 +19,24 @@ const MBTICognFunction = ({
   onClick,
   isShadow,
 }: MBTICognFunctionProps) => {
+  const [isReady, setIsReady] = useState(false);
+
   const bgColor = cognFnColorMap.get(id);
+
+  useEffect(() => {
+    setIsReady(!!id);
+  }, [id]);
 
   return (
     <div
       onClick={onClick}
-      className="flex items-center gap-2 text-xs uppercase cursor-pointer"
+      className={cn(
+        `flex items-center gap-2 text-xs uppercase cursor-pointer transition-opacity`,
+        {
+          'opacity-0': !isReady,
+          'opacity-100': isReady,
+        }
+      )}
     >
       <div className="w-24 text-right text-muted text-[11px] font-medium tracking-wide opacity-80">
         {title}

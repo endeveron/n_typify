@@ -59,8 +59,6 @@ export const sendVerificationEmail = async ({
     // Check if the user exists for the sign up case
     const user = await UserModel.findOne({ email: email });
 
-    console.log('user', user);
-
     // Signup case: check if email in use
     if (isSignup && user) {
       return handleActionError('Email already in use');
@@ -96,7 +94,6 @@ export const sendVerificationEmail = async ({
     const emailData = createVerificationEmail({ email, url: encodeURI(url) });
     // Send the email
     const messageId = await sendEmail(emailData);
-    console.log('messageId', messageId);
     if (!messageId) {
       handleActionError('An email transporter error occured', null, true);
     }
@@ -205,10 +202,10 @@ export const verifyUserObjId = async (
  *
  * @param {string} userObjId user._id, a mongoDb ObjectId prop of the user object.
  * @returns a JSON Web Token (JWT) that is signed with the userObjId and jwtAuthKey. The token has an
- * expiration time of 24 hours.
+ * expiration time of 72 hours.
  */
 export const generateAuthToken = async (userObjId: string) => {
-  return jwt.sign({ userObjId }, EMAIL_JWT, { expiresIn: '24h' });
+  return jwt.sign({ userObjId }, EMAIL_JWT, { expiresIn: '72h' });
 };
 
 /**

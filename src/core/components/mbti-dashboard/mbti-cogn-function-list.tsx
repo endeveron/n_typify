@@ -61,34 +61,34 @@ const MBTICognFunctions = ({
     setCognFnItems(items);
   }, [cognitiveFnArr, cognitiveFnMap, cognitiveFnNameStack]);
 
+  if (!cognFnItems) return null;
+
   return (
     <div className="flex justify-center">
-      {cognFnItems ? (
-        <div>
-          <div className="flex flex-col gap-1">
-            {cognFnItems.slice(0, 4).map((data) => (
+      <div>
+        <div className="flex flex-col gap-1">
+          {cognFnItems.slice(0, 4).map((data) => (
+            <MBTICognFunction
+              {...data}
+              onClick={() => onFunctionClick(data.id as CognitiveFnId)}
+              key={data.id}
+            />
+          ))}
+        </div>
+
+        {cognFnItems.length > 4 ? (
+          <div className="mt-3 flex flex-col gap-1 opacity-50">
+            {cognFnItems.slice(4).map((data) => (
               <MBTICognFunction
                 {...data}
-                onClick={() => onFunctionClick(data.id as CognitiveFnId)}
+                onClick={() => handleItemClick(data.id as CognitiveFnId)}
+                isShadow={true}
                 key={data.id}
               />
             ))}
           </div>
-
-          {cognFnItems.length > 4 ? (
-            <div className="mt-3 flex flex-col gap-1 opacity-50">
-              {cognFnItems.slice(4).map((data) => (
-                <MBTICognFunction
-                  {...data}
-                  onClick={() => handleItemClick(data.id as CognitiveFnId)}
-                  isShadow={true}
-                  key={data.id}
-                />
-              ))}
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 };
