@@ -45,7 +45,7 @@ const SignInForm = () => {
 
   const onSubmit = async (values: TSignInSchema) => {
     const signinData: TSignInArgs = {
-      email: values.email,
+      email: values.email.toLowerCase(),
       password: values.password,
       redirectTo,
     };

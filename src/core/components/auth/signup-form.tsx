@@ -37,7 +37,7 @@ const SignUpForm = () => {
   const onSubmit = async (values: TSignUpSchema) => {
     try {
       setPending(true);
-      const res = await signUp({ email: values.email });
+      const res = await signUp({ email: values.email.toLowerCase() });
       if (!res?.success) {
         toastError(res);
         setPending(false);
