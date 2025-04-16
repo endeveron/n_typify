@@ -386,7 +386,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
   if (!translation) return null;
 
   return (
-    <div className="mbti-dashboard max-h-[900px] w-[400px] max-w-[400px] mx-auto relative flex flex-1 flex-col justify-between">
+    <div className="mbti-dashboard max-h-[920px] w-[400px] max-w-[400px] mx-auto relative flex flex-1 flex-col justify-between">
       <div className="top flex flex-1 flex-col max-h-[300px]">
         {/* Header: Personality Type */}
         <div className="h-28 my-4 flex flex-1 flex-col justify-center">

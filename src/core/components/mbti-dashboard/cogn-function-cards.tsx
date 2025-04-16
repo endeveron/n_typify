@@ -1,8 +1,8 @@
 'use client';
 
 import CognFunctionCard from '@/core/components/mbti-dashboard/cogn-function-card';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { CognitiveFnCard, CognitiveFnId } from '@/core/types/mbti';
-import { cn } from '@/core/utils/common';
 
 type CognFunctionCardsProps = {
   cognitiveFnCards: CognitiveFnCard[];
@@ -13,22 +13,12 @@ const CognFunctionCards = ({
   cognitiveFnCards,
   onClick,
 }: CognFunctionCardsProps) => {
-  const isCards = !!cognitiveFnCards.length;
-
   return (
-    <div
-      className={cn(
-        `pb-1 flex flex-wrap items-center justify-center gap-1 transition-opacity`,
-        {
-          'opacity-0': !isCards,
-          'opacity-100': isCards,
-        }
-      )}
-    >
+    <AnimatedAppear className="pb-1 flex flex-wrap items-center justify-center gap-1">
       {cognitiveFnCards?.map((data) => (
         <CognFunctionCard {...data} onClick={onClick} key={data.title} />
       ))}
-    </div>
+    </AnimatedAppear>
   );
 };
 

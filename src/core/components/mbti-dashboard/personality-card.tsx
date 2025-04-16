@@ -6,6 +6,7 @@ import { ProgressSmall } from '@/core/components/ui/progress-small';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 import { cognFnColorMap } from '@/core/utils/mbti';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 
 type FunctionItemProps = {
   functionId: string;
@@ -45,14 +46,11 @@ const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
   };
 
   return (
-    <div
+    <AnimatedAppear
+      isShown={!!personality}
       onClick={handleCardClick}
       className={cn(
-        `flex flex-col items-center p-2 bg-background rounded-xl select-none cursor-pointer transition-opacity`,
-        {
-          'opacity-0': !personality,
-          'opacity-100': !!personality,
-        }
+        `flex flex-col items-center p-2 bg-background rounded-xl select-none cursor-pointer`
       )}
     >
       {/* Title */}
@@ -84,7 +82,7 @@ const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
           />
         ))}
       </div>
-    </div>
+    </AnimatedAppear>
   );
 };
 

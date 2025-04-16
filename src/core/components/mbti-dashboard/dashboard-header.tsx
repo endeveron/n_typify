@@ -1,30 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
-import { cn } from '@/core/utils/common';
 
 type DashboardHeaderProps = {
   personality: MBTIPersonalityItem | null;
 };
 
 const DashboardHeader = ({ personality }: DashboardHeaderProps) => {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    setIsReady(!!personality);
-  }, [personality]);
-
   return (
-    <div
-      className={cn(
-        `flex flex-col items-center uppercase cursor-default transition-opacity`,
-        {
-          'opacity-0': !isReady,
-          'opacity-100': isReady,
-        }
-      )}
+    <AnimatedAppear
+      isShown={!!personality}
+      className="flex flex-col items-center uppercase cursor-default"
     >
       {!!personality ? (
         <>
@@ -42,7 +29,7 @@ const DashboardHeader = ({ personality }: DashboardHeaderProps) => {
           </div>
         </>
       ) : null}
-    </div>
+    </AnimatedAppear>
   );
 };
 

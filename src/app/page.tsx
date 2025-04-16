@@ -115,7 +115,7 @@ const Welcome = () => {
           </div>
 
           <div className="px-6">
-            <Button variant="accent" onClick={handleActionBtnClick}>
+            <Button variant="accent" size="lg" onClick={handleActionBtnClick}>
               {translation.signInBtnTitle}
             </Button>
           </div>

@@ -11,6 +11,7 @@ import {
   MBTICognitiveFnTranslation,
   MBTIDashboardTranslation,
 } from '@/core/types/translation';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 
 type CognFunctionsProps = {
   cognitiveFnArr: CognFunctionArr;
@@ -64,7 +65,10 @@ const CognFunctions = ({
   if (!cognFnItems) return null;
 
   return (
-    <div className="flex justify-center">
+    <AnimatedAppear
+      isShown={!!cognitiveFnArr.length}
+      className="flex justify-center"
+    >
       <div>
         <div className="flex flex-col gap-1">
           {cognFnItems.slice(0, 4).map((data, index) => (
@@ -90,7 +94,7 @@ const CognFunctions = ({
           </div>
         ) : null}
       </div>
-    </div>
+    </AnimatedAppear>
   );
 };
 
