@@ -33,8 +33,8 @@ import IntrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
 import ExtravertedSensingIcon from '~/public/icons/mbti/bolt.svg';
 import IntrovertedSensingIcon from '~/public/icons/mbti/home.svg';
 // `intuition` cognitive functions
-import ExtravertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
-import IntrovertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
+import ExtravertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
+import IntrovertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
 
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
 import SignOutButton from '@/core/components/auth/sign-out-btn';
@@ -211,18 +211,18 @@ const Dashboard = ({ langCode }: DashboardProps) => {
         title: translation.feelingCard.title,
         cognitiveFunctions: [
           {
-            id: 'Fe',
-            title: translation.feelingCard.extraverted_function.title,
-            description:
-              translation.feelingCard.extraverted_function.description,
-            icon: <ExtravertedFeelingIcon />,
-          },
-          {
             id: 'Fi',
             title: translation.feelingCard.introverted_function.title,
             description:
               translation.feelingCard.introverted_function.description,
             icon: <IntrovertedFeelingIcon />,
+          },
+          {
+            id: 'Fe',
+            title: translation.feelingCard.extraverted_function.title,
+            description:
+              translation.feelingCard.extraverted_function.description,
+            icon: <ExtravertedFeelingIcon />,
           },
         ],
       },
@@ -251,18 +251,18 @@ const Dashboard = ({ langCode }: DashboardProps) => {
         title: translation.intuitionCard.title,
         cognitiveFunctions: [
           {
-            id: 'Ne',
-            title: translation.intuitionCard.extraverted_function.title,
-            description:
-              translation.intuitionCard.extraverted_function.description,
-            icon: <ExtravertedIntuitionIcon />,
-          },
-          {
             id: 'Ni',
             title: translation.intuitionCard.introverted_function.title,
             description:
               translation.intuitionCard.introverted_function.description,
             icon: <IntrovertedIntuitionIcon />,
+          },
+          {
+            id: 'Ne',
+            title: translation.intuitionCard.extraverted_function.title,
+            description:
+              translation.intuitionCard.extraverted_function.description,
+            icon: <ExtravertedIntuitionIcon />,
           },
         ],
       },

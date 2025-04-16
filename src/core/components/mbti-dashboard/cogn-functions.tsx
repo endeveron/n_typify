@@ -83,12 +83,13 @@ const CognFunctions = ({
 
         {cognFnItems.length > 4 ? (
           <div className="mt-3 flex flex-col gap-1 opacity-50">
-            {cognFnItems.slice(4).map((data) => (
+            {cognFnItems.slice(4).map((data, index) => (
               <CognFunction
                 {...data}
                 onClick={() => handleItemClick(data.id as CognitiveFnId)}
                 isShadow={true}
                 key={data.id}
+                index={index}
               />
             ))}
           </div>

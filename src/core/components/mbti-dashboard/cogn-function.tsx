@@ -54,6 +54,9 @@ const CognFunction = ({
         <div
           className={cn(`w-[208px] font-medium tracking-wide`, {
             'text-accent': !isShadow,
+            'font-semibold': !isShadow && (index === 0 || index === 1),
+            'opacity-80': index === 2,
+            'opacity-60': index === 3,
           })}
         >
           {description}
