@@ -1,24 +1,26 @@
 'use client';
 
-import { CognFunction } from '@/core/types/mbti';
+import { CognFunction as TCognFunction } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 import { cognFnColorMap } from '@/core/utils/mbti';
 import { useEffect, useState } from 'react';
 
-type MBTICognFunctionProps = CognFunction & {
+type CognFunctionProps = TCognFunction & {
   counter: number;
   onClick: () => void;
   isShadow?: boolean;
+  index?: number;
 };
 
-const MBTICognFunction = ({
+const CognFunction = ({
   id,
   title,
   description,
   counter,
   onClick,
   isShadow,
-}: MBTICognFunctionProps) => {
+  index,
+}: CognFunctionProps) => {
   const [isReady, setIsReady] = useState(false);
 
   const bgColor = cognFnColorMap.get(id);
@@ -31,14 +33,22 @@ const MBTICognFunction = ({
     <div
       onClick={onClick}
       className={cn(
-        `flex items-center gap-2 text-xs uppercase cursor-pointer transition-opacity`,
+        `flex items-center gap-2 text-xs uppercase cursor-pointer select-none transition-opacity`,
         {
           'opacity-0': !isReady,
           'opacity-100': isReady,
         }
       )}
     >
-      <div className="w-24 text-right text-muted text-[11px] font-medium tracking-wide opacity-80">
+      <div
+        className={cn(
+          `w-24 text-right text-[11px] text-muted font-medium tracking-wide opacity-80`,
+          {
+            'text-foreground opacity-100': !isShadow && index === 0,
+            'text-foreground': !isShadow && index === 1,
+          }
+        )}
+      >
         {title}
       </div>
       <div className={cn(`relative h-5 w-5 flex items-center justify-center`)}>
@@ -59,4 +69,4 @@ const MBTICognFunction = ({
   );
 };
 
-export default MBTICognFunction;
+export default CognFunction;

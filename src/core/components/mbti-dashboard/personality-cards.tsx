@@ -1,15 +1,15 @@
 'use client';
 
-import MBTIPersonalityCard from '@/core/components/mbti-dashboard/mbti-personality-card';
+import MBTIPersonalityCard from '@/core/components/mbti-dashboard/personality-card';
 import HorizScrollArea from '@/core/components/shared/horiz-scroll-area';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 
-type MBTIPersonalityCardsProps = {
+type PersonalityCardsProps = {
   personalities: MBTIPersonalityItem[];
 };
 
-const MBTIPersonalityCards = ({ personalities }: MBTIPersonalityCardsProps) => {
+const PersonalityCards = ({ personalities }: PersonalityCardsProps) => {
   const itemsNumber = personalities.length;
   const isItems = itemsNumber > 0;
 
@@ -40,4 +40,4 @@ const MBTIPersonalityCards = ({ personalities }: MBTIPersonalityCardsProps) => {
   );
 };
 
-export default MBTIPersonalityCards;
+export default PersonalityCards;

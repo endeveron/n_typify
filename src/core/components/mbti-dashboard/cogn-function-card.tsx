@@ -1,17 +1,17 @@
 'use client';
 
 import MBTICardButton from '@/core/components/mbti-dashboard/mbti-card-button';
-import { CognitiveFnCard } from '@/core/types/mbti';
+import { CognitiveFnCard, CognitiveFnId } from '@/core/types/mbti';
 
-type MBTICognitiveFnCardProps = CognitiveFnCard & {
-  onClick: (id: string) => void;
+type CognitiveFnCardProps = CognitiveFnCard & {
+  onClick: (id: CognitiveFnId) => void;
 };
 
-const MBTICognFunctionCard = ({
+const CognFunctionCard = ({
   title,
   cognitiveFunctions,
   onClick,
-}: MBTICognitiveFnCardProps) => {
+}: CognitiveFnCardProps) => {
   return (
     <div className="flex flex-col p-4 bg-card rounded-3xl select-none">
       {/* Title */}
@@ -43,4 +43,4 @@ const MBTICognFunctionCard = ({
   );
 };
 
-export default MBTICognFunctionCard;
+export default CognFunctionCard;

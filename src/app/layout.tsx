@@ -8,9 +8,10 @@ import '@/core/globals.css';
 import { LangProvider } from '@/core/context/LangContext';
 
 export const metadata: Metadata = {
-  title: 'Typify - Find Clarity Within',
+  title: 'Typify - Psychological architecture',
   applicationName: 'Typify',
-  description: 'Typify - Find Clarity Within',
+  description:
+    'Wandering the halls of your inner architecture, where each room unveils a unique voice in your cognitive symphony.',
   // openGraph: {
   //   title: 'Typify',
   //   description: 'Find Clarity Within',

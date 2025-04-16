@@ -7,11 +7,11 @@ import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 import { cognFnColorMap } from '@/core/utils/mbti';
 
-type FunctionItem = {
+type FunctionItemProps = {
   functionId: string;
 };
 
-const MBTIPersonCardFunctionItem = ({ functionId }: FunctionItem) => {
+const PersonCardFunctionItem = ({ functionId }: FunctionItemProps) => {
   const bgColor = cognFnColorMap.get(functionId);
 
   return (
@@ -26,15 +26,12 @@ const MBTIPersonCardFunctionItem = ({ functionId }: FunctionItem) => {
   );
 };
 
-type MBTIPersonalityCardProps = {
+type PersonalityCardProps = {
   personality: MBTIPersonalityItem;
   onClick: (data: MBTIPersonalityItem) => void;
 };
 
-const MBTIPersonalityCard = ({
-  personality,
-  onClick,
-}: MBTIPersonalityCardProps) => {
+const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
   const personalityType = personality.mbti.personalityType;
   const matchPercent = personality.mbti.matchPercent;
   const functions = useMemo(() => {
@@ -81,7 +78,7 @@ const MBTIPersonalityCard = ({
       {/* Functions */}
       <div className="mt-2 flex justify-center gap-1.5">
         {functions?.map((item) => (
-          <MBTIPersonCardFunctionItem
+          <PersonCardFunctionItem
             functionId={item.functionId}
             key={item.functionId}
           />
@@ -91,4 +88,4 @@ const MBTIPersonalityCard = ({
   );
 };
 
-export default MBTIPersonalityCard;
+export default PersonalityCard;

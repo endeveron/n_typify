@@ -1,18 +1,18 @@
 'use client';
 
-import MBTICognFunctionCard from '@/core/components/mbti-dashboard/mbti-cogn-function-card';
-import { CognitiveFnCard } from '@/core/types/mbti';
+import CognFunctionCard from '@/core/components/mbti-dashboard/cogn-function-card';
+import { CognitiveFnCard, CognitiveFnId } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 
-type MBTICognFunctionCardsProps = {
+type CognFunctionCardsProps = {
   cognitiveFnCards: CognitiveFnCard[];
-  onClick: (id: string) => void;
+  onClick: (id: CognitiveFnId) => void;
 };
 
-const MBTICognFunctionCards = ({
+const CognFunctionCards = ({
   cognitiveFnCards,
   onClick,
-}: MBTICognFunctionCardsProps) => {
+}: CognFunctionCardsProps) => {
   const isCards = !!cognitiveFnCards.length;
 
   return (
@@ -26,10 +26,10 @@ const MBTICognFunctionCards = ({
       )}
     >
       {cognitiveFnCards?.map((data) => (
-        <MBTICognFunctionCard {...data} onClick={onClick} key={data.title} />
+        <CognFunctionCard {...data} onClick={onClick} key={data.title} />
       ))}
     </div>
   );
 };
 
-export default MBTICognFunctionCards;
+export default CognFunctionCards;

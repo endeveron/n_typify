@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import MBTICognFunction from '@/core/components/mbti-dashboard/mbti-cogn-function';
+import CognFunction from '@/core/components/mbti-dashboard/cogn-function';
 import {
-  CognFunction,
+  CognFunction as TCognFunction,
   CognFunctionArr,
   CognitiveFnId,
 } from '@/core/types/mbti';
@@ -12,21 +12,21 @@ import {
   MBTIDashboardTranslation,
 } from '@/core/types/translation';
 
-type MBTICognFunctionsProps = {
+type CognFunctionsProps = {
   cognitiveFnArr: CognFunctionArr;
   translation: MBTIDashboardTranslation;
   onFunctionClick: (functionId: CognitiveFnId) => void;
 };
 
-const MBTICognFunctions = ({
+const CognFunctions = ({
   cognitiveFnArr,
   translation,
   onFunctionClick,
-}: MBTICognFunctionsProps) => {
+}: CognFunctionsProps) => {
   const [cognitiveFnNameStack, setCognitiveFnNameStack] = useState<string[]>();
   const [cognitiveFnMap, setCognitiveFnMap] =
     useState<Map<string, MBTICognitiveFnTranslation>>();
-  const [cognFnItems, setCognFnItems] = useState<CognFunction[]>();
+  const [cognFnItems, setCognFnItems] = useState<TCognFunction[]>();
 
   const handleItemClick = (functionId: CognitiveFnId) => {
     onFunctionClick(functionId);
@@ -50,7 +50,7 @@ const MBTICognFunctions = ({
   useEffect(() => {
     if (!cognitiveFnNameStack || !cognitiveFnMap) return;
 
-    const items: CognFunction[] = cognitiveFnArr.map(
+    const items: TCognFunction[] = cognitiveFnArr.map(
       ([id, counter], index) => ({
         id,
         title: cognitiveFnNameStack[index],
@@ -67,11 +67,12 @@ const MBTICognFunctions = ({
     <div className="flex justify-center">
       <div>
         <div className="flex flex-col gap-1">
-          {cognFnItems.slice(0, 4).map((data) => (
-            <MBTICognFunction
+          {cognFnItems.slice(0, 4).map((data, index) => (
+            <CognFunction
               {...data}
               onClick={() => onFunctionClick(data.id as CognitiveFnId)}
               key={data.id}
+              index={index}
             />
           ))}
         </div>
@@ -79,7 +80,7 @@ const MBTICognFunctions = ({
         {cognFnItems.length > 4 ? (
           <div className="mt-3 flex flex-col gap-1 opacity-50">
             {cognFnItems.slice(4).map((data) => (
-              <MBTICognFunction
+              <CognFunction
                 {...data}
                 onClick={() => handleItemClick(data.id as CognitiveFnId)}
                 isShadow={true}
@@ -93,4 +94,4 @@ const MBTICognFunctions = ({
   );
 };
 
-export default MBTICognFunctions;
+export default CognFunctions;

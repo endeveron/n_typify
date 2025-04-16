@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Typify - Authentication',
-  description: '',
+  title: 'Typify - Begin the Journey',
 };
 
 export default function AuthLayout({

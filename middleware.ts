@@ -16,11 +16,6 @@ export default NextAuth(authConfig).auth((req) => {
   const isPublicRoute = publicRoutes.includes(pathname);
   const isAuthRoute = authRoutes.includes(pathname);
 
-  console.log('isSignedIn', isSignedIn);
-  console.log('isApiAuthRoute', isApiAuthRoute);
-  console.log('isPublicRoute', isPublicRoute);
-  console.log('isAuthRoute', isAuthRoute);
-
   // The order is matter.
 
   // Allow the api next-auth routes (start with `api/auth`).

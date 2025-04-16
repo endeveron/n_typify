@@ -1,4 +1,4 @@
-import MBTIDashboard from '@/core/components/mbti-dashboard/mbti-dashboard';
+import MBTIDashboard from '@/core/components/mbti-dashboard/dashboard';
 
 export default async function Dashboard() {
   return (

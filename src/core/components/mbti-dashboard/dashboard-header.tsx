@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 
-type MBTIPersonalityProps = {
+type DashboardHeaderProps = {
   personality: MBTIPersonalityItem | null;
 };
 
-const MBTIPersonality = ({ personality }: MBTIPersonalityProps) => {
+const DashboardHeader = ({ personality }: DashboardHeaderProps) => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -46,4 +46,4 @@ const MBTIPersonality = ({ personality }: MBTIPersonalityProps) => {
   );
 };
 
-export default MBTIPersonality;
+export default DashboardHeader;

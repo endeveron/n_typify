@@ -39,10 +39,10 @@ import IntrovertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
 import SignOutButton from '@/core/components/auth/sign-out-btn';
 import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
-import MBTICognFunctionCards from '@/core/components/mbti-dashboard/mbti-cogn-function-cards';
-import MBTICognFunctions from '@/core/components/mbti-dashboard/mbti-cogn-function-list';
-import MBTIDashboardHeader from '@/core/components/mbti-dashboard/mbti-dashboard-header';
-import MBTIPersonalityCards from '@/core/components/mbti-dashboard/mbti-personality-cards';
+import CognFunctionCards from '@/core/components/mbti-dashboard/cogn-function-cards';
+import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
+import DashboardHeader from '@/core/components/mbti-dashboard/dashboard-header';
+import PersonalityCards from '@/core/components/mbti-dashboard/personality-cards';
 import {
   defaultCognFnCounterMap,
   getCognFnPattern,
@@ -62,11 +62,11 @@ const cognFnCounterMap = new Map<string, number>([
   ['Ni', 0],
 ]);
 
-type TMBTIDashboardProps = {
+type DashboardProps = {
   langCode?: LangCode;
 };
 
-const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
+const Dashboard = ({ langCode }: DashboardProps) => {
   const [translation, setTranslation] = useState<MBTIDashboardTranslation>();
 
   // const [traitCards, setTraitCards] = useState<TraitCard[]>([]);
@@ -81,45 +81,59 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
 
   const cognFnArrayLength = cognitiveFnArr.length;
 
-  const handleCognFnButtonClick = (cognFnId: string): void => {
+  /**
+   * Converts map entries into an array, filters out zero values,
+   * and sorts by count descending.
+   * Complexity: O(1) since n = 8.
+   */
+  const updateCognFnArray = (
+    cognFnId: CognitiveFnId,
+    map: Map<string, number>
+  ): CognFunctionArr => {
+    const counter = map.get(cognFnId) as number;
+    if (cognFnArrayLength) {
+      const updCognFnArr = [...cognitiveFnArr];
+      const index = updCognFnArr.findIndex((item) => item[0] === cognFnId);
+
+      // Update the existing item
+      if (index !== -1 && counter > 0) {
+        const item = updCognFnArr[index];
+        item[1] = counter;
+        updCognFnArr[index] = item;
+        return updCognFnArr.sort((a, b) => b[1] - a[1]);
+      }
+      // Remove the existing item
+      if (index !== -1 && counter <= 0) {
+        return updCognFnArr.filter((item) => item[0] !== cognFnId);
+      }
+      // Add a new item
+      return [...cognitiveFnArr, [cognFnId, counter]];
+    } else {
+      // Add the first item
+      return [[cognFnId, counter]];
+    }
+  };
+
+  const handleCognFnButtonClick = (cognFnId: CognitiveFnId): void => {
     // Increase counter value by 1
     const updCognFnCountMap = updateCognFnCounterMap(cognFnId);
-    const cognFnArray = createCognFnArray(updCognFnCountMap);
+    const cognFnArray = updateCognFnArray(cognFnId, updCognFnCountMap);
     setCognitiveFnArr(cognFnArray);
   };
 
   const handleCognFnListItemClick = (cognFnId: CognitiveFnId) => {
     // Decrease counter value by 1
     const updCognFnCountMap = updateCognFnCounterMap(cognFnId, true);
-    const cognFnArray = createCognFnArray(updCognFnCountMap);
+    const cognFnArray = updateCognFnArray(cognFnId, updCognFnCountMap);
     setCognitiveFnArr(cognFnArray);
   };
 
-  // const handleMBTIPersonalityMatch = (data: MBTIPersonalityData) => {
-  //   /**
-  //    * type MBTIPersonalityData: {
-  //    *   personalityType,
-  //    *   functions,
-  //    *   matchPercent,
-  //    *   status,
-  //    * }
-  //    */
-
-  //   // Add `cognitiveFnArr` and save as MBTIPersonalityItem
-  //   const MBTIPersonalityItem: MBTIPersonalityItem = {
-  //     ...data,
-  //     cognitiveFnArr,
-  //   };
-
-  //   setPersonality(MBTIPersonalityItem);
-  // };
-
   const updateCognFnCounterMap = (
     cognFnId: string,
-    isDecrease?: boolean
+    isDecrease = false
   ): Map<string, number> => {
     const curValue = cognFnCounterMap.get(cognFnId) ?? 0;
-    const updValue = isDecrease ? curValue - 1 : curValue + 1;
+    const updValue = isDecrease ? Math.max(0, curValue - 1) : curValue + 1;
     cognFnCounterMap.set(cognFnId, updValue);
     return cognFnCounterMap;
   };
@@ -131,22 +145,6 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
       cognFnCounterMap.set(key, value);
     }
     setCognitiveFnArr([]);
-  };
-
-  /**
-   * Converts map entries into an array, filters out zero values,
-   * and sorts by count descending.
-   * Complexity: O(1) since n = 8.
-   */
-  const createCognFnArray = (map: Map<string, number>): CognFunctionArr => {
-    return Array.from(map.entries())
-      .map((entry, index) => ({ entry, index })) // keep original order
-      .filter(({ entry: [, count] }) => count > 0)
-      .sort((a, b) => {
-        const countDiff = b.entry[1] - a.entry[1];
-        return countDiff !== 0 ? countDiff : a.index - b.index; // stable fallback
-      })
-      .map(({ entry }) => entry);
   };
 
   // const initTraitCards = (translation: MBTIDashboardTranslation) => {
@@ -276,7 +274,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   // Init data
   useEffect(() => {
     const initData = async () => {
-      // Get the translation
+      // Get translation
       const translations = await getMBTIDashboardTranslation(langCode);
       if (!translations) {
         toast(`Unable to get translations`);
@@ -292,7 +290,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
     initData();
   }, [langCode]);
 
-  // Update the personality
+  // Update personality
   useEffect(() => {
     if (!translation) return;
 
@@ -350,7 +348,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cognitiveFnArr, translation]);
 
-  // Update the personalities
+  // Update personalities
   useEffect(() => {
     if (!personality) return;
 
@@ -392,11 +390,11 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
       <div className="top flex flex-1 flex-col max-h-[300px]">
         {/* Header: Personality Type */}
         <div className="h-28 my-4 flex flex-1 flex-col justify-center">
-          <MBTIDashboardHeader personality={personality} />
+          <DashboardHeader personality={personality} />
         </div>
 
         {/* Personality Cards */}
-        <MBTIPersonalityCards personalities={personalities} />
+        <PersonalityCards personalities={personalities} />
       </div>
 
       <div className="bottom flex flex-1 flex-col">
@@ -411,7 +409,7 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
 
         {/* Cognitive Function List */}
         <div className="my-4 flex flex-1 flex-col justify-center">
-          <MBTICognFunctions
+          <CognFunctions
             cognitiveFnArr={cognitiveFnArr}
             translation={translation}
             onFunctionClick={handleCognFnListItemClick}
@@ -420,13 +418,13 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
 
         {/* Toolbar */}
         {/* Cognitive Function Cards */}
-        <MBTICognFunctionCards
+        <CognFunctionCards
           cognitiveFnCards={cognitiveFnCards}
           onClick={handleCognFnButtonClick}
         />
       </div>
 
-      {/* Absolute position (Topbar) */}
+      {/* Topbar - position absolute */}
       <div className="absolute top-4 left-2 z-10">
         <SignOutButton />
       </div>
@@ -441,4 +439,4 @@ const MBTIDashboard = ({ langCode }: TMBTIDashboardProps) => {
   );
 };
 
-export default MBTIDashboard;
+export default Dashboard;

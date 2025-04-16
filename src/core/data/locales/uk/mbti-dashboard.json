@@ -47,7 +47,7 @@
       "description": "The flow of time, cycles, cause and effect. Sees the future through the present."
     },
     "introverted_function": {
-      "title": "Ability",
+      "title": "Possibilities",
       "description": "Flight of fancy, lots of ideas, freedom of options."
     }
   },
@@ -63,28 +63,28 @@
   ],
   "cognitiveFunctions": {
     "Ni": {
-      "description": "Connects patterns and insights"
+      "description": "Sees patterns and meaning"
     },
     "Ne": {
-      "description": "Explores emerging ideas"
+      "description": "Sees future possibilities"
     },
     "Si": {
-      "description": "References detailed memories"
+      "description": "Refines comfort by detail"
     },
     "Se": {
-      "description": "Engages with present reality"
+      "description": "Acts boldly in the moment"
     },
     "Ti": {
-      "description": "Analyzes with internal logic"
+      "description": "Structures clear thoughts"
     },
     "Te": {
-      "description": "Organizes for effectiveness"
+      "description": "Applies logic efficiently"
     },
     "Fi": {
-      "description": "Aligns with inner values"
+      "description": "Stands for inner values"
     },
     "Fe": {
-      "description": "Seeks external group harmony"
+      "description": "Tunes into social moods"
     }
   },
   "personalityTypes": [
