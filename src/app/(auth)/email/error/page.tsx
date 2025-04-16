@@ -1,4 +1,5 @@
 import GenerateTokenButton from '@/core/components/auth/generate-token-button';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import DialogCard from '@/core/components/shared/dialog-card';
 import { emailErrors } from '@/core/data/errors';
 import { SearchParams } from '@/core/types/common';
@@ -19,9 +20,11 @@ const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
   );
 
   return (
-    <DialogCard title={`Oops! ${errorMessage}`}>
-      <GenerateTokenButton email={email} />
-    </DialogCard>
+    <AnimatedAppear>
+      <DialogCard title={`Oops! ${errorMessage}`}>
+        <GenerateTokenButton email={email} />
+      </DialogCard>
+    </AnimatedAppear>
   );
 };
 

@@ -1,4 +1,5 @@
 import SignInForm from '@/core/components/auth/signin-form';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import {
   Card,
   CardContent,
@@ -8,14 +9,16 @@ import {
 
 const Page = async () => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Sign In</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <SignInForm />
-      </CardContent>
-    </Card>
+    <AnimatedAppear>
+      <Card>
+        <CardHeader>
+          <CardTitle>Sign In</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <SignInForm />
+        </CardContent>
+      </Card>
+    </AnimatedAppear>
   );
 };
 

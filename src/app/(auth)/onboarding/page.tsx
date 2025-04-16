@@ -1,5 +1,6 @@
 import { verifyUserObjId } from '@/core/actions/auth';
 import OnboardingForm from '@/core/components/auth/onboarding-form';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import {
   Card,
   CardContent,
@@ -19,15 +20,17 @@ const Page = async ({ searchParams }: { searchParams: SearchParams }) => {
   await verifyUserObjId(userObjId);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Onboarding</CardTitle>
-        <CardDescription>Email successfully verified</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <OnboardingForm userObjId={userObjId} />
-      </CardContent>
-    </Card>
+    <AnimatedAppear>
+      <Card>
+        <CardHeader>
+          <CardTitle>Onboarding</CardTitle>
+          <CardDescription>Email successfully verified</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <OnboardingForm userObjId={userObjId} />
+        </CardContent>
+      </Card>
+    </AnimatedAppear>
   );
 };
 

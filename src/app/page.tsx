@@ -16,6 +16,7 @@ import Image from 'next/image';
 import { welcomeImgBlured } from '@/core/data/blured-images';
 import { Button } from '@/core/components/ui/button';
 import { useRouter } from 'next/navigation';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 
 const Welcome = () => {
   // await mongoDB.connect();
@@ -47,50 +48,11 @@ const Welcome = () => {
   }, [langCode]);
 
   return translation ? (
-    <main className="relative pb-16 flex flex-col items-center">
-      <div className="dev">
-        {/* <div className="flex gap-4 mt-8">
-          <Button size="sm">Default</Button>
-          <Button size="sm" variant="secondary">
-            Secondary
-          </Button>
-          <Button size="sm" variant="outline">
-            Outline
-          </Button>
-          <Button size="sm" variant="ghost">
-            Ghost
-          </Button>
-          <Button size="sm" variant="link">
-            Link
-          </Button>
-        </div>
-
-        <div className="flex gap-4 mt-8">
-          <Button>Default</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="link">Link</Button>
-        </div>
-
-        <div className="flex gap-4 mt-8">
-          <Button size="lg">Default</Button>
-          <Button size="lg" variant="secondary">
-            Secondary
-          </Button>
-          <Button size="lg" variant="outline">
-            Outline
-          </Button>
-          <Button size="lg" variant="ghost">
-            Ghost
-          </Button>
-          <Button size="lg" variant="link">
-            Link
-          </Button>
-        </div> */}
-      </div>
-
-      <div className="max-w-[400px] flex flex-col">
+    <AnimatedAppear
+      timeout={1000}
+      className="relative flex flex-1 flex-col items-center"
+    >
+      <main className="max-w-[400px] flex flex-col">
         <div className="w-[400px] h-[420px] bg-orange-200 rounded-br-[64px] overflow-hidden">
           <Image
             src={WelcomeImage}
@@ -120,14 +82,11 @@ const Welcome = () => {
             </Button>
           </div>
         </div>
-      </div>
-
-      {/* <MBTITest langCode="uk" /> */}
-
+      </main>
       {/* <div className="absolute bottom-6 inset-x-0 flex justify-center">
         <ToggleLanguage />
       </div> */}
-    </main>
+    </AnimatedAppear>
   ) : null;
 };
 
