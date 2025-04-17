@@ -72,8 +72,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
 
   /**
    * Converts map entries into an array, filters out zero values,
-   * and sorts by count descending.
-   * Complexity: O(1) since n = 8.
+   * and sorts by count descending. Complexity: O(1) since n = 8.
    */
   const updateCognFnArray = (
     cognFnId: CognitiveFnId,

@@ -54,13 +54,13 @@ const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
       )}
     >
       {/* Title */}
-      <div className="my-0.5 text-[11px] leading-none uppercase font-bold text-accent tracking-wider">
+      <div className="my-0.5 text-[11px] leading-none uppercase font-bold text-accent tracking-wide">
         {personality.translation.title[0]}
       </div>
 
       {/* MBTI Personality Type */}
       <div
-        className={cn(`my-1 text-2xl font-bold leading-none`, {
+        className={cn(`my-1 text-2xl font-bold tracking-wide leading-none`, {
           'text-accent': matchPercent === 100,
           'text-muted opacity-60': matchPercent < 100,
         })}

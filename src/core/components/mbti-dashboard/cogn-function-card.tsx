@@ -20,11 +20,11 @@ const CognFunctionCard = ({
       </div>
 
       {/* Cognitive Function Indexes */}
-      <div className="-mt-1.5 flex items-center justify-between opacity-40">
+      <div className="-mt-1 flex items-center justify-between opacity-40">
         <div className="text-muted text-xs uppercase font-semibold cursor-default">
           {cognitiveFunctions[0].id}
         </div>
-        <div className="text-muted text-sm uppercase font-semibold cursor-default">
+        <div className="text-muted text-xs uppercase font-semibold cursor-default">
           {cognitiveFunctions[1].id}
         </div>
       </div>
