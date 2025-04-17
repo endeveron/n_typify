@@ -7,7 +7,9 @@ import {
   MBTIPersonalityType,
   MBTIMapItem,
   MBTIPersonalityItem,
+  CognitiveFnCard,
 } from '@/core/types/mbti';
+import { MBTIDashboardTranslation } from '@/core/types/translation';
 
 export const cognFnColorMap = new Map<string, string>([
   ['Te', 'bg-teal'],
@@ -315,6 +317,81 @@ export const getMBTITypeByCognFnPattern = (
 
 export const getCognFnPattern = (cognFnArray: CognFunctionArr) => {
   return cognFnArray.map(([id]) => id).join('');
+};
+
+export const configureCognitiveFnCards = (
+  translation: MBTIDashboardTranslation
+): CognitiveFnCard[] => {
+  return [
+    // thinking
+    {
+      title: translation.thinkingCard.title,
+      cognitiveFunctions: [
+        {
+          id: 'Te',
+          title: translation.thinkingCard.extraverted_function.title,
+          description:
+            translation.thinkingCard.extraverted_function.description,
+        },
+        {
+          id: 'Ti',
+          title: translation.thinkingCard.introverted_function.title,
+          description:
+            translation.thinkingCard.introverted_function.description,
+        },
+      ],
+    },
+    // feeling
+    {
+      title: translation.feelingCard.title,
+      cognitiveFunctions: [
+        {
+          id: 'Fi',
+          title: translation.feelingCard.introverted_function.title,
+          description: translation.feelingCard.introverted_function.description,
+        },
+        {
+          id: 'Fe',
+          title: translation.feelingCard.extraverted_function.title,
+          description: translation.feelingCard.extraverted_function.description,
+        },
+      ],
+    },
+    // sensing
+    {
+      title: translation.sensingCard.title,
+      cognitiveFunctions: [
+        {
+          id: 'Se',
+          title: translation.sensingCard.extraverted_function.title,
+          description: translation.sensingCard.extraverted_function.description,
+        },
+        {
+          id: 'Si',
+          title: translation.sensingCard.introverted_function.title,
+          description: translation.sensingCard.introverted_function.description,
+        },
+      ],
+    },
+    // intuition
+    {
+      title: translation.intuitionCard.title,
+      cognitiveFunctions: [
+        {
+          id: 'Ni',
+          title: translation.intuitionCard.introverted_function.title,
+          description:
+            translation.intuitionCard.introverted_function.description,
+        },
+        {
+          id: 'Ne',
+          title: translation.intuitionCard.extraverted_function.title,
+          description:
+            translation.intuitionCard.extraverted_function.description,
+        },
+      ],
+    },
+  ];
 };
 
 /**

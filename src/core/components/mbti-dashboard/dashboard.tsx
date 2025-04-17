@@ -5,16 +5,12 @@ import { toast } from 'sonner';
 
 import {
   CognFunctionArr,
-  CognitiveFnCard,
   CognitiveFnId,
+  MBTIDashboardState,
   MBTIMapItem,
   MBTIPersonalityItem,
 } from '@/core/types/mbti';
-import {
-  LangCode,
-  MBTIDashboardTranslation,
-  PersonalityTypeTranslation,
-} from '@/core/types/translation';
+import { LangCode, PersonalityTypeTranslation } from '@/core/types/translation';
 import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 
 // // `energy` trait
@@ -23,33 +19,26 @@ import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 // // `tactics` trait
 // import JudgingIcon from '~/public/icons/mbti/list.svg';
 // import PerceivingIcon from '~/public/icons/mbti/network.svg';
-// `thinking` cognitive functions
-import ExtravertedThinkingIcon from '~/public/icons/mbti/gear.svg';
-import IntrovertedThinkingIcon from '~/public/icons/mbti/graph.svg';
-// `feeling` cognitive functions
-import ExtravertedFeelingIcon from '~/public/icons/mbti/heart.svg';
-import IntrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
-// `sensing` cognitive functions
-import ExtravertedSensingIcon from '~/public/icons/mbti/bolt.svg';
-import IntrovertedSensingIcon from '~/public/icons/mbti/home.svg';
-// `intuition` cognitive functions
-import ExtravertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
-import IntrovertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
-
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
+
 import SignOutButton from '@/core/components/auth/sign-out-btn';
 import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
 import CognFunctionCards from '@/core/components/mbti-dashboard/cogn-function-cards';
 import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
 import DashboardHeader from '@/core/components/mbti-dashboard/dashboard-header';
 import PersonalityCards from '@/core/components/mbti-dashboard/personality-cards';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
+  configureCognitiveFnCards,
   defaultCognFnCounterMap,
   getCognFnPattern,
   getMBTITypeByCognFnPattern,
   MBTIMap,
   sortPersonalityItems,
 } from '@/core/utils/mbti';
+
+const STATE_SAVE_INTERVAL_SEC = 20;
+const STATE_KEY = 'dashboard_state';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],
@@ -62,24 +51,24 @@ const cognFnCounterMap = new Map<string, number>([
   ['Ni', 0],
 ]);
 
+const initialState: MBTIDashboardState = {
+  translation: null,
+  personality: null,
+  personalities: [],
+  cognitiveFnArr: [],
+  cognitiveFnCards: [],
+};
+
 type DashboardProps = {
   langCode?: LangCode;
 };
 
 const Dashboard = ({ langCode }: DashboardProps) => {
-  const [translation, setTranslation] = useState<MBTIDashboardTranslation>();
+  const [getState, saveState] = useLocalStorage();
 
-  // const [traitCards, setTraitCards] = useState<TraitCard[]>([]);
-  const [cognitiveFnCards, setCognitiveFnCards] = useState<CognitiveFnCard[]>(
-    []
-  );
-  const [cognitiveFnArr, setCognitiveFnArr] = useState<CognFunctionArr>([]);
-  const [personality, setPersonality] = useState<MBTIPersonalityItem | null>(
-    null
-  );
-  const [personalities, setPersonalities] = useState<MBTIPersonalityItem[]>([]);
+  const [state, setState] = useState<MBTIDashboardState>(initialState);
 
-  const cognFnArrayLength = cognitiveFnArr.length;
+  const cognFnArrayLength = state.cognitiveFnArr.length;
 
   /**
    * Converts map entries into an array, filters out zero values,
@@ -92,7 +81,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
   ): CognFunctionArr => {
     const counter = map.get(cognFnId) as number;
     if (cognFnArrayLength) {
-      const updCognFnArr = [...cognitiveFnArr];
+      const updCognFnArr = [...state.cognitiveFnArr];
       const index = updCognFnArr.findIndex((item) => item[0] === cognFnId);
 
       // Update the existing item
@@ -107,7 +96,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
         return updCognFnArr.filter((item) => item[0] !== cognFnId);
       }
       // Add a new item
-      return [...cognitiveFnArr, [cognFnId, counter]];
+      return [...state.cognitiveFnArr, [cognFnId, counter]];
     } else {
       // Add the first item
       return [[cognFnId, counter]];
@@ -117,15 +106,21 @@ const Dashboard = ({ langCode }: DashboardProps) => {
   const handleCognFnButtonClick = (cognFnId: CognitiveFnId): void => {
     // Increase counter value by 1
     const updCognFnCountMap = updateCognFnCounterMap(cognFnId);
-    const cognFnArray = updateCognFnArray(cognFnId, updCognFnCountMap);
-    setCognitiveFnArr(cognFnArray);
+    const cognitiveFnArr = updateCognFnArray(cognFnId, updCognFnCountMap);
+    setState((prev) => ({
+      ...prev,
+      cognitiveFnArr,
+    }));
   };
 
   const handleCognFnListItemClick = (cognFnId: CognitiveFnId) => {
     // Decrease counter value by 1
     const updCognFnCountMap = updateCognFnCounterMap(cognFnId, true);
-    const cognFnArray = updateCognFnArray(cognFnId, updCognFnCountMap);
-    setCognitiveFnArr(cognFnArray);
+    const cognitiveFnArr = updateCognFnArray(cognFnId, updCognFnCountMap);
+    setState((prev) => ({
+      ...prev,
+      cognitiveFnArr,
+    }));
   };
 
   const updateCognFnCounterMap = (
@@ -144,7 +139,11 @@ const Dashboard = ({ langCode }: DashboardProps) => {
     for (const [key, value] of defaultCognFnCounterMap) {
       cognFnCounterMap.set(key, value);
     }
-    setCognitiveFnArr([]);
+    setState((prev) => ({
+      ...prev,
+      cognitiveFnArr: [],
+    }));
+    saveState(STATE_KEY, initialState);
   };
 
   // const initTraitCards = (translation: MBTIDashboardTranslation) => {
@@ -184,107 +183,25 @@ const Dashboard = ({ langCode }: DashboardProps) => {
   //   setTraitCards(data);
   // };
 
-  const initCognitiveFnCards = (translation: MBTIDashboardTranslation) => {
-    const data: CognitiveFnCard[] = [
-      // thinking
-      {
-        title: translation.thinkingCard.title,
-        cognitiveFunctions: [
-          {
-            id: 'Te',
-            title: translation.thinkingCard.extraverted_function.title,
-            description:
-              translation.thinkingCard.extraverted_function.description,
-            icon: <ExtravertedThinkingIcon />,
-          },
-          {
-            id: 'Ti',
-            title: translation.thinkingCard.introverted_function.title,
-            description:
-              translation.thinkingCard.introverted_function.description,
-            icon: <IntrovertedThinkingIcon />,
-          },
-        ],
-      },
-      // feeling
-      {
-        title: translation.feelingCard.title,
-        cognitiveFunctions: [
-          {
-            id: 'Fi',
-            title: translation.feelingCard.introverted_function.title,
-            description:
-              translation.feelingCard.introverted_function.description,
-            icon: <IntrovertedFeelingIcon />,
-          },
-          {
-            id: 'Fe',
-            title: translation.feelingCard.extraverted_function.title,
-            description:
-              translation.feelingCard.extraverted_function.description,
-            icon: <ExtravertedFeelingIcon />,
-          },
-        ],
-      },
-      // sensing
-      {
-        title: translation.sensingCard.title,
-        cognitiveFunctions: [
-          {
-            id: 'Se',
-            title: translation.sensingCard.extraverted_function.title,
-            description:
-              translation.sensingCard.extraverted_function.description,
-            icon: <ExtravertedSensingIcon />,
-          },
-          {
-            id: 'Si',
-            title: translation.sensingCard.introverted_function.title,
-            description:
-              translation.sensingCard.introverted_function.description,
-            icon: <IntrovertedSensingIcon />,
-          },
-        ],
-      },
-      // intuition
-      {
-        title: translation.intuitionCard.title,
-        cognitiveFunctions: [
-          {
-            id: 'Ni',
-            title: translation.intuitionCard.introverted_function.title,
-            description:
-              translation.intuitionCard.introverted_function.description,
-            icon: <IntrovertedIntuitionIcon />,
-          },
-          {
-            id: 'Ne',
-            title: translation.intuitionCard.extraverted_function.title,
-            description:
-              translation.intuitionCard.extraverted_function.description,
-            icon: <ExtravertedIntuitionIcon />,
-          },
-        ],
-      },
-    ];
-
-    setCognitiveFnCards(data);
-  };
-
-  // Init data
+  // Init toolbar cards and translation
   useEffect(() => {
     const initData = async () => {
       // Get translation
-      const translations = await getMBTIDashboardTranslation(langCode);
-      if (!translations) {
+      const translation = await getMBTIDashboardTranslation(langCode);
+      if (!translation) {
         toast(`Unable to get translations`);
         return;
       }
-      setTranslation(translations);
 
-      // Init cards
-      // initTraitCards(translations);
-      initCognitiveFnCards(translations);
+      // Init toolbar cards
+      const cognitiveFnCards = configureCognitiveFnCards(translation);
+
+      // Update local state
+      setState((prev) => ({
+        ...prev,
+        cognitiveFnCards,
+        translation,
+      }));
     };
 
     initData();
@@ -292,16 +209,19 @@ const Dashboard = ({ langCode }: DashboardProps) => {
 
   // Update personality
   useEffect(() => {
-    if (!translation) return;
+    if (!state.translation) return;
 
     // Exit if there is not enough data
-    if (personality && cognFnArrayLength < 2) {
-      setPersonality(null);
+    if (state.personality && cognFnArrayLength < 2) {
+      setState((prev) => ({
+        ...prev,
+        personality: null,
+      }));
       return;
     }
 
     // Generate the cognitive fn pattern (serializing the cognitive fn array)
-    const cognFnPattern = getCognFnPattern(cognitiveFnArr);
+    const cognFnPattern = getCognFnPattern(state.cognitiveFnArr);
 
     // Check whether the cognitive fn pattern is matches to a personality type
     const { type, matchPercent, status } =
@@ -309,24 +229,26 @@ const Dashboard = ({ langCode }: DashboardProps) => {
 
     // Exit if there is no match
     if (!type) {
-      if (personality) setPersonality(null);
+      if (state.personality) {
+        setState((prev) => ({ ...prev, personality: null }));
+      }
       return;
     }
 
-    const curPersonalityType = personality?.mbti.personalityType;
+    const curPersonalityType = state.personality?.mbti.personalityType;
 
     // Set a new personality
     if (type !== curPersonalityType) {
       // Get translation
-      const translationData = translation.personalityTypes.find(
+      const translationData = state.translation.personalityTypes.find(
         (item) => item.type === type
       ) as PersonalityTypeTranslation;
       // Get MBTIMap data
       const mapItem = MBTIMap.get(type) as MBTIMapItem;
       // Configure the personality item
-      const personItem: MBTIPersonalityItem = {
+      const personality: MBTIPersonalityItem = {
         mbti: {
-          cognitiveFnArr,
+          cognitiveFnArr: state.cognitiveFnArr,
           personalityType: type,
           functions: mapItem.cognitiveFns,
           matchPercent,
@@ -334,67 +256,103 @@ const Dashboard = ({ langCode }: DashboardProps) => {
         },
         translation: translationData,
       };
-      setPersonality(personItem);
+      setState((prev) => ({ ...prev, personality }));
     }
 
     // Update the existed personality match data
     if (type === curPersonalityType) {
-      const updPersonItem = { ...(personality as MBTIPersonalityItem) };
-      updPersonItem.mbti.matchPercent = matchPercent;
-      updPersonItem.mbti.status = status;
-      setPersonality(updPersonItem);
+      const personality = { ...(state.personality as MBTIPersonalityItem) };
+      personality.mbti.matchPercent = matchPercent;
+      personality.mbti.status = status;
+      setState((prev) => ({ ...prev, personality }));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cognitiveFnArr, translation]);
+  }, [state.cognitiveFnArr, state.translation]);
 
   // Update personalities
   useEffect(() => {
-    if (!personality) return;
+    if (!state.personality) return;
+
+    const personality = state.personality as MBTIPersonalityItem;
 
     // Add the first item
-    if (!personalities.length) {
-      setPersonalities([personality]);
+    if (!state.personalities.length) {
+      setState((prev) => ({
+        ...prev,
+        personalities: [personality],
+      }));
       return;
     }
 
     // Update the existing item
-    const index = personalities.findIndex(
+    const index = state.personalities.findIndex(
       (item) => item.mbti.personalityType === personality.mbti.personalityType
     );
     if (index > -1) {
-      const updPersonalities = [...personalities];
+      const updPersonalities = [...state.personalities];
       const updPersonality = updPersonalities[index];
       updPersonality.mbti.cognitiveFnArr = personality.mbti.cognitiveFnArr;
       updPersonality.mbti.matchPercent = personality.mbti.matchPercent;
       updPersonality.mbti.status = personality.mbti.status;
       updPersonalities[index] = updPersonality;
       const sortedItems = sortPersonalityItems(updPersonalities);
-      setPersonalities(sortedItems);
+      setState((prev) => ({
+        ...prev,
+        personalities: sortedItems,
+      }));
     } else {
       // Add a new item
-      setPersonalities((prev) => sortPersonalityItems([...prev, personality]));
+      const sortedItems = sortPersonalityItems([
+        ...state.personalities,
+        personality,
+      ]);
+      setState((prev) => ({
+        ...prev,
+        personalities: sortedItems,
+      }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [personality]);
+  }, [state.personality]);
 
   // Reset personalities
   useEffect(() => {
-    if (cognFnArrayLength === 0) setPersonalities([]);
+    if (cognFnArrayLength === 0) {
+      setState((prev) => ({ ...prev, personalities: [] }));
+    }
   }, [cognFnArrayLength]);
 
-  if (!translation) return null;
+  // Restore state from LocalStorage
+  useEffect(() => {
+    const stateFromStorage = getState<MBTIDashboardState>(STATE_KEY);
+    if (stateFromStorage) setState(stateFromStorage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Save state in LocalStorage
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      saveState(STATE_KEY, state);
+    }, STATE_SAVE_INTERVAL_SEC * 1000);
+
+    return () => {
+      clearInterval(timerId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [saveState]);
+
+  if (!state.translation) return null;
 
   return (
     <div className="mbti-dashboard max-h-[920px] w-[400px] max-w-[400px] mx-auto relative flex flex-1 flex-col justify-between">
       <div className="top flex flex-1 flex-col max-h-[300px]">
         {/* Header: Personality Type */}
         <div className="h-28 my-4 flex flex-1 flex-col justify-center">
-          <DashboardHeader personality={personality} />
+          <DashboardHeader personality={state.personality} />
         </div>
 
         {/* Personality Cards */}
-        <PersonalityCards personalities={personalities} />
+        <PersonalityCards personalities={state.personalities} />
       </div>
 
       <div className="bottom flex flex-1 flex-col">
@@ -410,16 +368,21 @@ const Dashboard = ({ langCode }: DashboardProps) => {
         {/* Cognitive Function List */}
         <div className="my-4 flex flex-1 flex-col justify-center">
           <CognFunctions
-            cognitiveFnArr={cognitiveFnArr}
-            translation={translation}
+            cognitiveFnArr={state.cognitiveFnArr}
+            translation={state.translation}
             onFunctionClick={handleCognFnListItemClick}
           />
         </div>
 
         {/* Toolbar */}
+        {/* <div className="my-4 flex justify-center gap-4">
+          <Button size="sm" onClick={handleSaveState}>
+            Save
+          </Button>
+        </div> */}
         {/* Cognitive Function Cards */}
         <CognFunctionCards
-          cognitiveFnCards={cognitiveFnCards}
+          cognitiveFnCards={state.cognitiveFnCards}
           onClick={handleCognFnButtonClick}
         />
       </div>
@@ -430,8 +393,8 @@ const Dashboard = ({ langCode }: DashboardProps) => {
       </div>
       <div className="absolute top-4 right-2 z-20">
         <CleanUpResults
-          cleanUpResultsPrompt={translation.cleanUpResultsPrompt}
-          isAllow={!!cognitiveFnArr.length}
+          cleanUpResultsPrompt={state.translation.cleanUpResultsPrompt}
+          isAllow={!!state.cognitiveFnArr.length}
           onCleanUp={cleanUpData}
         />
       </div>

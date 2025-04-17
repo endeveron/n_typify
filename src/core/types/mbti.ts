@@ -1,5 +1,7 @@
-import { PersonalityTypeTranslation } from '@/core/types/translation';
-import { ReactElement } from 'react';
+import {
+  MBTIDashboardTranslation,
+  PersonalityTypeTranslation,
+} from '@/core/types/translation';
 
 export type TraitIndex =
   | 'e'
@@ -66,7 +68,6 @@ export type CognFunction = {
 export type CardButton = {
   id: CognitiveFnId;
   title: string;
-  icon: ReactElement;
 };
 
 export type TraitCard = {
@@ -150,4 +151,12 @@ export type AnswerMapData = {
 export type MBTIResult = {
   personality: string;
   percentageMap: Map<TraitIndex, number>;
+};
+
+export type MBTIDashboardState = {
+  translation: MBTIDashboardTranslation | null;
+  personality: MBTIPersonalityItem | null;
+  personalities: MBTIPersonalityItem[];
+  cognitiveFnArr: CognFunctionArr;
+  cognitiveFnCards: CognitiveFnCard[];
 };

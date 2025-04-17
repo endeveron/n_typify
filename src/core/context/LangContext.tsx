@@ -10,6 +10,8 @@ import {
 import { LangCode } from '@/core/types/translation';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 
+const LANG_CODE_KEY = 'langCode';
+
 interface LangContextType {
   langCode?: LangCode;
   toggleLangCode: () => void;
@@ -19,26 +21,24 @@ const LangContext = createContext<LangContextType | undefined>(undefined);
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [langCode, setLangCode] = useState<LangCode>();
-  const [langCodeFromStorage, saveLangCode] = useLocalStorage<LangCode>(
-    'langCode',
-    'en'
-  );
+  const [getLangCodeFromStorage, saveLangCodeInStorage] = useLocalStorage();
 
   const toggleLangCode = () => {
     setLangCode((prev) => {
       const newLangCode = prev === 'en' ? 'uk' : 'en';
-      saveLangCode(newLangCode);
+      saveLangCodeInStorage(LANG_CODE_KEY, newLangCode);
       return newLangCode;
     });
   };
 
   useEffect(() => {
+    const langCodeFromStorage = getLangCodeFromStorage<LangCode>(LANG_CODE_KEY);
     if (langCodeFromStorage) {
       setLangCode(langCodeFromStorage);
     } else {
-      saveLangCode('en');
+      saveLangCodeInStorage(LANG_CODE_KEY, 'en');
     }
-  }, [langCodeFromStorage, saveLangCode]);
+  }, [getLangCodeFromStorage, saveLangCodeInStorage]);
 
   return (
     <LangContext.Provider value={{ langCode, toggleLangCode }}>

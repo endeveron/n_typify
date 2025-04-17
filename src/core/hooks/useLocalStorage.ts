@@ -1,35 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
-export function useLocalStorage<T>(
-  key: string,
-  initialValue: T
-): [T, (value: T) => void] {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const item = window.localStorage.getItem(key);
-        setStoredValue(item ? JSON.parse(item) : initialValue);
-      } catch (error) {
-        console.error(error);
-        setStoredValue(initialValue);
-      }
-    }
-  }, [key, initialValue]);
-
-  const setValue = (value: T) => {
+export function useLocalStorage(): [
+  getItem: <T>(key: string) => T | null,
+  setItem: <T>(key: string, item: T) => void
+] {
+  const getItem = <T>(key: string): T | null => {
+    if (typeof window === 'undefined') return null;
     try {
-      setStoredValue(value);
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(key, JSON.stringify(value));
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  const setItem = (key: string, item: unknown) => {
+    if (typeof window === 'undefined') return;
+    try {
+      if (typeof item === 'string') {
+        window.localStorage.setItem(key, item);
+      } else {
+        window.localStorage.setItem(key, JSON.stringify(item));
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  return [storedValue, setValue];
+  return [getItem, setItem];
 }
