@@ -11,7 +11,10 @@ import {
   MBTIPersonalityItem,
 } from '@/core/types/mbti';
 import { PersonalityTypeTranslation } from '@/core/types/translation';
-import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
+import {
+  getMBTIDashboardTranslation,
+  getMBTITypesTranslation,
+} from '@/core/utils/dictionary';
 
 // // `energy` trait
 // import IntroversionIcon from '~/public/icons/mbti/arrows-minimize.svg';
@@ -37,7 +40,7 @@ import {
   sortPersonalityItems,
 } from '@/core/utils/mbti';
 
-const STATE_SAVE_INTERVAL_SEC = 2000;
+const STATE_SAVE_INTERVAL_SEC = 20;
 export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
 const cognFnCounterMap = new Map<string, number>([
@@ -183,11 +186,18 @@ const Dashboard = () => {
   useEffect(() => {
     const initData = async () => {
       // Get translation
-      const translation = await getMBTIDashboardTranslation(langCode);
-      if (!translation) {
+      const dashboardTranslation = await getMBTIDashboardTranslation(langCode);
+      const typesTranslation = await getMBTITypesTranslation(langCode);
+      if (!dashboardTranslation || !typesTranslation) {
         toast(`Unable to get translations`);
         return;
       }
+
+      // Merge translations
+      const translation = {
+        ...dashboardTranslation,
+        personalityTypes: typesTranslation.personalityTypes,
+      };
 
       // Init toolbar cards
       const cognitiveFnCards = configureCognitiveFnCards(translation);
@@ -236,7 +246,7 @@ const Dashboard = () => {
     // Set a new personality
     if (type !== curPersonalityType) {
       // Get translation
-      const translationData = state.translation.personalityTypes.find(
+      const translationData = state.translation.personalityTypes!.find(
         (item) => item.type === type
       ) as PersonalityTypeTranslation;
       // Get MBTIMap data
@@ -343,12 +353,14 @@ const Dashboard = () => {
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col justify-between">
       <div className="top flex flex-1 flex-col max-h-[300px]">
         {/* Header: Personality Type */}
-        <div className="h-28 my-4 flex flex-1 flex-col justify-center">
+        <div className="h-24 p-2 flex flex-1 flex-col justify-center">
           <DashboardHeader personality={state.personality} />
         </div>
 
         {/* Personality Cards */}
-        <PersonalityCards personalities={state.personalities} />
+        <div className="px-2">
+          <PersonalityCards personalities={state.personalities} />
+        </div>
       </div>
 
       <div className="bottom flex flex-1 flex-col">

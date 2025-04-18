@@ -1,0 +1,315 @@
+{
+  "mainTitle": "MBTI Types",
+  "personalityTypes": [
+    {
+      "type": "INTJ",
+      "title": ["Architect", "Analyst"],
+      "subtitle": "Strategic Mastermind",
+      "persons": [
+        "Elon Musk",
+        "Christopher Nolan",
+        "Arnold Schwarzenegger",
+        "Friedrich Nietzsche",
+        "Robespierre"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "logician", "rationalist"]
+    },
+    {
+      "type": "ENTJ",
+      "title": ["Commander", "Entrepreneur"],
+      "subtitle": "Decisive Leader",
+      "persons": [
+        "Steve Jobs",
+        "Napoleon Bonaparte",
+        "Margaret Thatcher",
+        "Harrison Ford",
+        "Jack London"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "logician", "rationalist"]
+    },
+    {
+      "type": "INTP",
+      "title": ["Logician", "Critic"],
+      "subtitle": "Philosophical Thinker",
+      "persons": [
+        "Albert Einstein",
+        "Bill Gates",
+        "Isaac Newton",
+        "Avicii",
+        "Balzac"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "logician", "irrationalist"]
+    },
+    {
+      "type": "ENTP",
+      "title": ["Debater", "Generator"],
+      "subtitle": "Inventive Debater",
+      "persons": [
+        "Thomas Edison",
+        "Mark Twain",
+        "Tom Hanks",
+        "Sacha Baron Cohen",
+        "Don Quixote"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "logician", "irrationalist"]
+    },
+    {
+      "type": "INFJ",
+      "title": ["Advocate", "Humanist"],
+      "subtitle": "Visionary Advisor",
+      "persons": [
+        "Carl Jung",
+        "Martin Luther King Jr.",
+        "Nicole Kidman",
+        "Benedict Cumberbatch",
+        "Dostoevsky"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "ethicist", "rationalist"]
+    },
+    {
+      "type": "ENFJ",
+      "title": ["Protagonist", "Mentor"],
+      "subtitle": "Charismatic Leader",
+      "persons": [
+        "Barack Obama",
+        "Oprah Winfrey",
+        "Ben Affleck",
+        "Jennifer Lawrence",
+        "Hamlet"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "ethicist", "rationalist"]
+    },
+    {
+      "type": "INFP",
+      "title": ["Mediator", "Thinker"],
+      "subtitle": "Idealistic Seeker",
+      "persons": [
+        "William Shakespeare",
+        "Vincent van Gogh",
+        "J.R.R. Tolkien",
+        "Johnny Depp",
+        "Yesenin"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "intuitive", "ethicist", "irrationalist"]
+    },
+    {
+      "type": "ENFP",
+      "title": ["Campaigner", "Journalist"],
+      "subtitle": "Creative Inspirer",
+      "persons": [
+        "Will Smith",
+        "Robert Downey Jr.",
+        "Quentin Tarantino",
+        "Oscar Wilde",
+        "Huxley"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "intuitive", "ethicist", "irrationalist"]
+    },
+    {
+      "type": "ISTJ",
+      "title": ["Logistician", "Inspector"],
+      "subtitle": "Organized Implementer",
+      "persons": [
+        "Denzel Washington",
+        "Anthony Hopkins",
+        "Natalie Portman",
+        "Maxim Gorky"
+      ],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "logician", "rationalist"]
+    },
+    {
+      "type": "ESTJ",
+      "title": ["Executive", "Administrator"],
+      "subtitle": "Practical Organizer",
+      "persons": [
+        "Judge Judy",
+        "John D. Rockefeller",
+        "Lyndon B. Johnson",
+        "Stierlitz"
+      ],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "logician", "rationalist"]
+    },
+    {
+      "type": "ISFJ",
+      "title": ["Defender", "Caretaker"],
+      "subtitle": "Loyal Guardian",
+      "persons": ["Vin Diesel", "Mother Teresa", "Beyoncé", "Dreiser"],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "ethicist", "rationalist"]
+    },
+    {
+      "type": "ESFJ",
+      "title": ["Consul", "Enthusiast"],
+      "subtitle": "Dedicated Communicator",
+      "persons": ["Taylor Swift", "Bill Clinton", "Jennifer Lopez", "Hugo"],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "ethicist", "rationalist"]
+    },
+    {
+      "type": "ISTP",
+      "title": ["Virtuoso", "Craftsman"],
+      "subtitle": "Practical Explorer",
+      "persons": ["Daniel Craig", "Scarlett Johansson", "Bruce Lee", "Gabin"],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "logician", "irrationalist"]
+    },
+    {
+      "type": "ESTP",
+      "title": ["Entrepreneur", "Tactician"],
+      "subtitle": "Spontaneous Doer",
+      "persons": ["Ernest Hemingway", "Madonna", "Bruce Willis", "Zhukov"],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "logician", "irrationalist"]
+    },
+    {
+      "type": "ISFP",
+      "title": ["Adventurer", "Mediator"],
+      "subtitle": "Sensitive Realist",
+      "persons": ["Bob Dylan", "Michael Jackson", "Britney Spears", "Dumas"],
+      "description": "",
+      "traitSet": ["introvert", "sensor", "ethicist", "irrationalist"]
+    },
+    {
+      "type": "ESFP",
+      "title": ["Entertainer", "Politician"],
+      "subtitle": "Energetic Optimist",
+      "persons": ["Marilyn Monroe", "Elvis Presley", "Elton John", "Napoleon"],
+      "description": "",
+      "traitSet": ["extrovert", "sensor", "ethicist", "irrationalist"]
+    }
+  ],
+  "tableRowTitles": [
+    "Analysts / Intuitive Thinking / rationality and intellect",
+    "Diplomats / Intuitive Feeling / empathy and diplomatic skills",
+    "Sentinels / Observant Judjing / practicality and stability",
+    "Explorers / Observant Prospecting / ingenuity and flexibility"
+  ],
+  "typeGroupMap": [
+    [
+      "visionaries",
+      {
+        "title": "Visionaries",
+        "description": "Deep thinkers and idealists who are future-focused, introspective, and imaginative"
+      }
+    ],
+    [
+      "catalysts",
+      {
+        "title": "Catalysts",
+        "description": "Energetic change-makers who spark ideas, lead movements, and inspire others"
+      }
+    ],
+    [
+      "artisans",
+      {
+        "title": "Artisans",
+        "description": "Skilled doers who value tradition, craftsmanship, and hands-on experience"
+      }
+    ],
+    [
+      "navigators",
+      {
+        "title": "Navigators",
+        "description": "Grounded leaders and social stewards who organize, direct, and connect communities"
+      }
+    ],
+
+    [
+      "mentors",
+      {
+        "title": "Mentors",
+        "description": "Purpose-driven leaders who guide others through vision, insight, and structured direction"
+      }
+    ],
+    [
+      "explorers",
+      {
+        "title": "Explorers",
+        "description": "Curious innovators who seek new ideas, perspectives, and creative experiences"
+      }
+    ],
+    [
+      "stewards",
+      {
+        "title": "Stewards",
+        "description": "Principled organizers who lead with conviction, structure, and a sense of duty to others"
+      }
+    ],
+    [
+      "harmonizers",
+      {
+        "title": "Harmonizers",
+        "description": "Empathetic and community-driven types who value emotional connection and shared meaning."
+      }
+    ],
+    [
+      "realists",
+      {
+        "title": "Realists",
+        "description": "Practical decision-makers who value efficiency and results"
+      }
+    ],
+    [
+      "guardians",
+      {
+        "title": "Guardians",
+        "description": "Emotionally grounded, people-first types who focus on harmony and care"
+      }
+    ],
+
+    [
+      "architects",
+      {
+        "title": "Architects",
+        "description": "Supportive connectors who bring people together through empathy, trust, and emotional insight"
+      }
+    ],
+    [
+      "balancers",
+      {
+        "title": "Balancers",
+        "description": "Analytical yet community-minded types who balance innovation with care and tradition"
+      }
+    ],
+    [
+      "responders",
+      {
+        "title": "Responders",
+        "description": "Responsive and situationally aware types who lead with empathy or action under pressure"
+      }
+    ],
+    [
+      "freespirits",
+      {
+        "title": "Free Spirits",
+        "description": "Authentic and expressive individuals who seek beauty, connection, and freedom to be themselves"
+      }
+    ],
+
+    [
+      "bridgebuilders",
+      {
+        "title": "Bridgebuilders",
+        "description": "Supportive connectors who bring people together through empathy, trust, and emotional insight"
+      }
+    ],
+    [
+      "dreamers",
+      {
+        "title": "Dreamers",
+        "description": "Imaginative and values-driven types who seek personal meaning and creative expression"
+      }
+    ]
+  ],
+  "resetBtnTitle": "Reset"
+}

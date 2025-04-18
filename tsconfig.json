@@ -28,7 +28,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/core/components/mbti-types/mbti-types-table-rowtsx"
   ],
   "exclude": ["node_modules"]
 }

@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --base-w: 400px;
+  --base-w: 420px;
 
   --background: #ffffff;
   --foreground: #343c4b;
@@ -43,7 +43,6 @@
   --btn-accent-foreground: white;
   --btn-accent-background: var(--accent);
   --btn-accent-background-hover: #ee7118;
-  --btn-neutral-background: white;
 
   --placeholder-background: white;
   --card: white;
@@ -120,7 +119,6 @@
     --btn-accent-foreground: black;
     --btn-accent-background: var(--accent);
     --btn-accent-background-hover: #ffc889;
-    --btn-neutral-background: #404040; /* neutral-600 */
 
     --placeholder-background: white;
     --card: #171717; /* neutral-900 */
@@ -164,7 +162,6 @@
   --color-btn-accent-foreground: var(--btn-accent-foreground);
   --color-btn-accent-background: var(--btn-accent-background);
   --color-btn-accent-background-hover: var(--btn-accent-background-hover);
-  --color-btn-neutral-background: var(--btn-neutral-background);
   --color-placeholder-background: var(--placeholder-background);
   --color-card: var(--card);
   --color-popover: var(--popover);

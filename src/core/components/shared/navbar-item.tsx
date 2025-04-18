@@ -7,27 +7,26 @@ import { ReactElement } from 'react';
 type NavbarItemProps = TNavbarItem & {
   icon: ReactElement;
   title: string;
-  onClick: (itemId: string, path?: string) => void;
-  activeItemId?: string;
+  onClick: (path?: string) => void;
+  pathname?: string;
   isPending?: boolean;
 };
 
 const NavbarItem = ({
-  id,
   icon,
   path,
   title,
+  pathname,
   onClick,
-  activeItemId,
   isPending,
 }: NavbarItemProps) => {
   const handleClick = () => {
-    if (id === activeItemId) return;
-    onClick(id, path);
+    if (path === pathname) return;
+    onClick(path);
   };
 
-  const isActiveState = id === activeItemId || isPending;
-  const isNormalState = id !== activeItemId && !isPending;
+  const isActiveState = path ? path === pathname : isPending;
+  const isNormalState = path ? path !== pathname : !isPending;
 
   return (
     <div

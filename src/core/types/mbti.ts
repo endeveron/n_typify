@@ -1,6 +1,9 @@
 import {
   MBTIDashboardTranslation,
+  MBTITypesTranslation,
+  MBTITypeMapTranslation,
   PersonalityTypeTranslation,
+  MBTITypeGroupMapTranslation,
 } from '@/core/types/translation';
 
 export type TraitIndex =
@@ -27,7 +30,7 @@ export type CognitiveFnId =
   | 'Fi'
   | 'Fe';
 
-export type MBTIPersonalityType =
+export type MBTIType =
   | 'INTJ'
   | 'ENTJ'
   | 'INTP'
@@ -91,12 +94,12 @@ export type MBTIMapItem = {
 };
 
 export type CognFnPatternMapItem = {
-  personalityType: MBTIPersonalityType;
+  personalityType: MBTIType;
   functions: CognitiveFnId[];
 };
 
 export type CognFnPatternMatchMapItem = {
-  personalityType: MBTIPersonalityType;
+  personalityType: MBTIType;
   matchValue: number;
 };
 
@@ -111,11 +114,11 @@ export type MBTIPersonalityData = CognFnPatternMapItem & {
  *   cognitiveFnArr: CognFunctionArr;
  *   functions: CognitiveFnId[];
  *   matchPercent: number;
- *   personalityType: MBTIPersonalityType;
+ *   personalityType: MBTIType;
  *   status: cognFnPatternMapStatus;
  * },
  * translation: {
- *   type: MBTIPersonalityType;
+ *   type: MBTIType;
  *   title: string[];
  *   subtitle: string;
  *   persons: string[];
@@ -159,4 +162,13 @@ export type MBTIDashboardState = {
   personalities: MBTIPersonalityItem[];
   cognitiveFnArr: CognFunctionArr;
   cognitiveFnCards: CognitiveFnCard[];
+};
+
+export type MBTITypesState = {
+  translation: MBTITypesTranslation | null;
+  typeMapTranslation: MBTITypeMapTranslation | null;
+  typeGroupMapTranslation: MBTITypeGroupMapTranslation | null;
+  activeGroupId: string | null;
+  activeGroupDescription: string | null;
+  activeItems: MBTIType[];
 };

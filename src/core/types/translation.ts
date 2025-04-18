@@ -1,3 +1,5 @@
+import { MBTIType } from '@/core/types/mbti';
+
 export type LangCode = 'en' | 'uk';
 
 // Define the structure of the imported JSON
@@ -45,7 +47,7 @@ export type MBTICognitiveFnMapTranslation = {
 };
 
 export type PersonalityTypeTranslation = {
-  type: string;
+  type: MBTIType;
   title: string[];
   subtitle: string;
   persons: string[];
@@ -54,17 +56,36 @@ export type PersonalityTypeTranslation = {
 };
 
 export type MBTIDashboardTranslation = {
-  energyCard: MBTIDashboardTraitCardTranslation;
-  tacticsCard: MBTIDashboardTraitCardTranslation;
-  thinkingCard: MBTIDashboardFunctionCardTranslation;
-  feelingCard: MBTIDashboardFunctionCardTranslation;
-  sensingCard: MBTIDashboardFunctionCardTranslation;
-  intuitionCard: MBTIDashboardFunctionCardTranslation;
+  cleanUpResultsPrompt: string;
   cognitiveFnStack: string[];
   cognitiveFunctions: MBTICognitiveFnMapTranslation;
-  personalityTypes: PersonalityTypeTranslation[];
-  cleanUpResultsPrompt: string;
+  energyCard: MBTIDashboardTraitCardTranslation;
+  feelingCard: MBTIDashboardFunctionCardTranslation;
+  intuitionCard: MBTIDashboardFunctionCardTranslation;
+  sensingCard: MBTIDashboardFunctionCardTranslation;
+  tacticsCard: MBTIDashboardTraitCardTranslation;
+  thinkingCard: MBTIDashboardFunctionCardTranslation;
+  personalityTypes?: PersonalityTypeTranslation[];
 };
+
+// MBTI Types
+
+export type MBTITypeGroupMapItem = {
+  title: string;
+  description: string;
+};
+
+export type MBTITypesTranslation = {
+  mainTitle: string;
+  personalityTypes: PersonalityTypeTranslation[];
+  tableRowTitles: string[];
+  typeGroupMap: [string, MBTITypeGroupMapItem][];
+  resetBtnTitle: string;
+};
+
+export type MBTITypeMapTranslation = Map<MBTIType, PersonalityTypeTranslation>;
+
+export type MBTITypeGroupMapTranslation = Map<string, MBTITypeGroupMapItem>;
 
 // MBTI Test
 

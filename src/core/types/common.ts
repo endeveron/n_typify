@@ -30,5 +30,5 @@ export type NavbarItem = {
 
 export type NavbarState = {
   translation: Map<string, string> | null;
-  activeItemId: string;
+  pathname: string;
 };

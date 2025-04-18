@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -8,8 +8,7 @@ import SignOutButton from '@/core/components/auth/sign-out-btn';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import NavbarItem from '@/core/components/shared/navbar-item';
 import { useLangCode } from '@/core/context/LangContext';
-import { useLocalStorage } from '@/core/hooks/useLocalStorage';
-import { NavbarState, NavbarItem as TNavbarItem } from '@/core/types/common';
+import { NavbarItem as TNavbarItem } from '@/core/types/common';
 import { getNavbarTranslation } from '@/core/utils/dictionary';
 
 import HomeIcon from '~/public/icons/navbar/home-blank.svg';
@@ -30,32 +29,16 @@ const navbarItems: TNavbarItem[] = [
 
 export const NAVBAR_STATE_KEY = 'navbar_state';
 
-const initialState: NavbarState = {
-  translation: null,
-  activeItemId: 'main',
-};
-
 const Navbar = () => {
   const { langCode } = useLangCode();
-  const [getState, saveState] = useLocalStorage();
+  const pathname = usePathname();
   const router = useRouter();
 
-  const [state, setState] = useState(initialState);
   const [translationMap, setTranslationMap] = useState<Map<string, string>>();
   const [isPending, setIsPending] = useState(false);
 
-  const handleItemClick = (itemId: string, path?: string) => {
+  const handleItemClick = (path?: string) => {
     if (!path) return;
-
-    let newState: NavbarState = initialState;
-    setState((prev) => {
-      newState = {
-        ...prev,
-        activeItemId: itemId,
-      };
-      return newState;
-    });
-    saveState(NAVBAR_STATE_KEY, newState);
     router.push(path);
   };
 
@@ -78,13 +61,6 @@ const Navbar = () => {
     initData();
   }, [langCode]);
 
-  // Restore state from LocalStorage
-  useEffect(() => {
-    const stateFromStorage = getState<NavbarState>(NAVBAR_STATE_KEY);
-    if (stateFromStorage) setState(stateFromStorage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <AnimatedAppear className="p-2 w-full base-max-w mx-auto flex items-center justify-evenly bg-card rounded-full">
       <NavbarItem
@@ -100,7 +76,7 @@ const Navbar = () => {
           onClick={handleItemClick}
           {...data}
           title={translationMap?.get(data.id) ?? data.id}
-          activeItemId={state.activeItemId}
+          pathname={pathname}
           key={data.id}
         />
       ))}

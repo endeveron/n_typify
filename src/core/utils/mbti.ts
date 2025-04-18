@@ -4,7 +4,7 @@ import {
   cognFnPatternMapStatus,
   MBTIResult,
   TraitIndex,
-  MBTIPersonalityType,
+  MBTIType,
   MBTIMapItem,
   MBTIPersonalityItem,
   CognitiveFnCard,
@@ -33,6 +33,66 @@ export const defaultCognFnCounterMap = new Map<string, number>([
   ['Ne', 0],
   ['Ni', 0],
 ]);
+
+export const MBTITypeGroupMap = new Map<string, MBTIType[]>([
+  ['visionaries', ['INTJ', 'INTP', 'INFJ', 'INFP']],
+  ['catalysts', ['ENTJ', 'ENTP', 'ENFJ', 'ENFP']],
+  ['artisans', ['ISTJ', 'ISFJ', 'ISTP', 'ISFP']],
+  ['navigators', ['ESTJ', 'ESFJ', 'ESTP', 'ESFP']],
+
+  ['mentors', ['INTJ', 'INFJ', 'ENTJ', 'ENFJ']],
+  ['explorers', ['INTP', 'INFP', 'ENTP', 'ENFP']],
+  ['stewards', ['INFJ', 'ENFJ', 'ISTJ', 'ESTJ']],
+  ['harmonizers', ['INFP', 'ENFP', 'ISFJ', 'ESFJ']],
+  ['realists', ['ISTJ', 'ESTJ', 'ISTP', 'ESTP']],
+  ['guardians', ['ISFJ', 'ESFJ', 'ISFP', 'ESFP']],
+
+  ['architects', ['INTJ', 'ENTJ', 'ISTJ', 'ESTJ']],
+  ['balancers', ['INTP', 'ENTP', 'ISFJ', 'ESFJ']],
+  ['responders', ['INFJ', 'ENFJ', 'ISTP', 'ESTP']],
+  ['freespirits', ['INFP', 'ENFP', 'ISFP', 'ESFP']],
+
+  // ['bridgebuilders', ['INFJ', 'ENFJ', 'ISFJ', 'ESFJ']],
+  // ['dreamers', ['INFJ', 'INFP', 'ISFP', 'ENFP']],
+]);
+
+export const MBTITypeTableItems: MBTIType[] = [
+  'INTJ',
+  'INTP',
+  'ENTJ',
+  'ENTP',
+  'INFJ',
+  'INFP',
+  'ENFJ',
+  'ENFP',
+  'ISTJ',
+  'ISFJ',
+  'ESTJ',
+  'ESFJ',
+  'ISTP',
+  'ISFP',
+  'ESTP',
+  'ESFP',
+];
+
+export const MBTITypeArr: MBTIType[] = [
+  'INTJ',
+  'ENTJ',
+  'INTP',
+  'ENTP',
+  'INFJ',
+  'ENFJ',
+  'INFP',
+  'ENFP',
+  'ISTJ',
+  'ESTJ',
+  'ISFJ',
+  'ESFJ',
+  'ISTP',
+  'ESTP',
+  'ISFP',
+  'ESFP',
+];
 
 // The map of MBTI types
 export const MBTIMap = new Map<string, MBTIMapItem>([
@@ -167,7 +227,7 @@ export const MBTIMap = new Map<string, MBTIMapItem>([
 ]);
 
 // The map of cognitive function pattern match
-const valuableCognFnPartialMatchMap = new Map<string, MBTIPersonalityType>([
+const valuableCognFnPartialMatchMap = new Map<string, MBTIType>([
   ['NiTe', 'INTJ'],
   ['TeNi', 'ENTJ'],
   ['TiNe', 'INTP'],
@@ -186,7 +246,7 @@ const valuableCognFnPartialMatchMap = new Map<string, MBTIPersonalityType>([
   ['SeFi', 'ESFP'],
 ]);
 
-const valuableCognFnMatchMap = new Map<string, MBTIPersonalityType>([
+const valuableCognFnMatchMap = new Map<string, MBTIType>([
   ['NiTeFiSe', 'INTJ'],
   ['TeNiSeFi', 'ENTJ'],
   ['TiNeSiFe', 'INTP'],
@@ -205,7 +265,7 @@ const valuableCognFnMatchMap = new Map<string, MBTIPersonalityType>([
   ['SeFiTeNi', 'ESFP'],
 ]);
 
-const shadowCognFnPartialMatchMap = new Map<string, MBTIPersonalityType>([
+const shadowCognFnPartialMatchMap = new Map<string, MBTIType>([
   ['NiTeFiSeNeTi', 'INTJ'],
   ['TeNiSeFiTiNe', 'ENTJ'],
   ['TiNeSiFeTeNi', 'INTP'],
@@ -224,7 +284,7 @@ const shadowCognFnPartialMatchMap = new Map<string, MBTIPersonalityType>([
   ['SeFiTeNiSiFe', 'ESFP'],
 ]);
 
-const cognFnAbsoluteMatchMap = new Map<string, MBTIPersonalityType>([
+const cognFnAbsoluteMatchMap = new Map<string, MBTIType>([
   ['NiTeFiSeNeTiFeSi', 'INTJ'],
   ['TeNiSeFiTiNeSiFe', 'ENTJ'],
   ['TiNeSiFeTeNiSeFi', 'INTP'],
@@ -248,7 +308,7 @@ export const getMBTITypeByCognFnPattern = (
 ): {
   status: cognFnPatternMapStatus;
   matchPercent: number;
-  type: MBTIPersonalityType | null;
+  type: MBTIType | null;
 } => {
   // Exit if the number of functions is less than 2
   if (cognFnPattern.length < 4) {
