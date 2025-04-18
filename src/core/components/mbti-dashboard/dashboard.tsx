@@ -40,7 +40,7 @@ import {
   sortPersonalityItems,
 } from '@/core/utils/mbti';
 
-const STATE_SAVE_INTERVAL_SEC = 20;
+const STATE_SAVE_INTERVAL_SEC = 5;
 export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
 const cognFnCounterMap = new Map<string, number>([
@@ -358,7 +358,7 @@ const Dashboard = () => {
         </div>
 
         {/* Personality Cards */}
-        <div className="px-2">
+        <div className="px-1.5">
           <PersonalityCards personalities={state.personalities} />
         </div>
       </div>

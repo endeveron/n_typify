@@ -8,7 +8,6 @@ export function useLocalStorage(): [
     if (typeof window === 'undefined') return null;
     try {
       const item = window.localStorage.getItem(key);
-      if (typeof item === 'string') return item as T;
       return item ? JSON.parse(item) : null;
     } catch (error) {
       console.error(error);
@@ -19,11 +18,7 @@ export function useLocalStorage(): [
   const setItem = (key: string, item: unknown) => {
     if (typeof window === 'undefined') return;
     try {
-      if (typeof item === 'string') {
-        window.localStorage.setItem(key, item);
-      } else {
-        window.localStorage.setItem(key, JSON.stringify(item));
-      }
+      window.localStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
       console.error(error);
     }

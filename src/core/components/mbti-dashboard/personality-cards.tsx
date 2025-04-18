@@ -21,7 +21,7 @@ const PersonalityCards = ({ personalities }: PersonalityCardsProps) => {
     <AnimatedAppear isShown={itemsNumber > 0}>
       <HorizScrollArea
         itemsNumber={itemsNumber}
-        minItemsNumberToEnableScroll={5}
+        minItemsNumberToEnableScroll={4}
         className={cn(
           `w-full h-[106px] flex items-center gap-1 p-1 rounded-2xl bg-card`
         )}
