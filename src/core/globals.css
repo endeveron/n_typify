@@ -4,10 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --gap: 16px;
-  --gap-1-4: 4px;
-  --gap-1-2: 8px;
-  --gap-3-4: 12px;
+  --base-w: 400px;
 
   --background: #ffffff;
   --foreground: #343c4b;
@@ -213,8 +210,19 @@
   * {
     @apply border-border outline-ring;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .base-w {
+    width: var(--base-w);
+  }
+
+  .base-max-w {
+    max-width: var(--base-w);
   }
 }
 

@@ -17,12 +17,16 @@ import { welcomeImgBlured } from '@/core/data/blured-images';
 import { Button } from '@/core/components/ui/button';
 import { useRouter } from 'next/navigation';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
+import { DASHBOARD_STATE_KEY } from '@/core/components/mbti-dashboard/dashboard';
 
 const Welcome = () => {
   // await mongoDB.connect();
   // const users = await UserModel.find();
   // console.log('users', users);
   const { langCode } = useLangCode();
+  const [getState] = useLocalStorage();
+
   const router = useRouter();
   const [translation, setTranslation] = useState<WelcomeTranslation>();
 
@@ -30,12 +34,18 @@ const Welcome = () => {
     router.push('/dashboard');
   };
 
-  // Load translations
   useEffect(() => {
     if (!langCode) return;
 
-    const initData = async () => {
-      // Get translations
+    // Check if the dashboard state is saved in LockalStorage
+    const savedDashboardState = getState(DASHBOARD_STATE_KEY);
+    if (savedDashboardState) {
+      // Redirect to dashboard
+      router.push('/dashboard');
+      return;
+    }
+
+    const initTranslation = async () => {
       const translations = await getWelcomeTranslation(langCode);
       if (!translations) {
         toast(`Unable to get translations`);
@@ -44,16 +54,16 @@ const Welcome = () => {
       setTranslation(translations);
     };
 
-    initData();
-  }, [langCode]);
+    initTranslation();
+  }, [getState, langCode, router]);
 
   return translation ? (
     <AnimatedAppear
       timeout={1000}
       className="relative flex flex-1 flex-col items-center"
     >
-      <main className="max-w-[400px] flex flex-col">
-        <div className="w-[400px] h-[420px] bg-orange-200 rounded-br-[64px] overflow-hidden">
+      <main className="base-max-w flex flex-col">
+        <div className="w-sm h-[420px] bg-orange-200 rounded-br-[64px] overflow-hidden">
           <Image
             src={WelcomeImage}
             alt="welcome"
@@ -63,7 +73,7 @@ const Welcome = () => {
           />
         </div>
 
-        <div className="max-w-[400px] mx-8 flex flex-col cursor-default">
+        <div className="base-max-w mx-8 flex flex-col cursor-default">
           <div className="-mt-[72px]">
             <div className="text-6xl text-background font-black leading-none">
               {translation.title.split(' ').slice(0, 1)}

@@ -2,8 +2,26 @@ import {
   LangCode,
   MBTIDashboardTranslation,
   MBTITestTranslation,
+  NavbarTranslation,
   WelcomeTranslation,
 } from '@/core/types/translation';
+
+const NavbarLoadersMap = new Map<string, () => Promise<NavbarTranslation>>([
+  [
+    'en',
+    () =>
+      import('@/core/data/locales/en/navbar.json').then(
+        (module) => module.default as NavbarTranslation
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/navbar.json').then(
+        (module) => module.default as NavbarTranslation
+      ),
+  ],
+]);
 
 const WelcomeLoadersMap = new Map<string, () => Promise<WelcomeTranslation>>([
   [
@@ -70,9 +88,44 @@ export const getSupportedLanguages = (): LangCode[] => {
 };
 
 /**
- * Gets localized data for MBTI Dashboard for the specified language code
+ * Gets localized data for Welcome page for the specified language code
  * @param langCode Language code (e.g., 'en', 'uk')
- * @returns Promise resolving to data of type MBTIDashboardTranslation
+ * @returns Promise resolving to data of type WelcomeTranslation
+ * @throws Error if both requested language and fallback language fail to load
+ */
+export const getNavbarTranslation = async (
+  langCode: LangCode = 'en'
+): Promise<NavbarTranslation> => {
+  // Try to get the loader for the requested language
+  const loader = NavbarLoadersMap.get(langCode);
+  const errMsg = `Failed to load translations for Navbar`;
+  if (!loader) throw new Error(errMsg);
+
+  try {
+    // Load the translation
+    const translation = await loader();
+    // The imported data is already in the expected format
+    return translation;
+  } catch (error) {
+    // If requested language fails and it's not English, try English as fallback
+    if (langCode !== 'en') {
+      const fallbackLoader = NavbarLoadersMap.get('en');
+      if (fallbackLoader) {
+        try {
+          return await fallbackLoader();
+        } catch (fallbackError) {
+          throw new Error(`${errMsg}: ${fallbackError}`);
+        }
+      }
+    }
+    throw new Error(`${errMsg}: ${error}`);
+  }
+};
+
+/**
+ * Gets localized data for Welcome page for the specified language code
+ * @param langCode Language code (e.g., 'en', 'uk')
+ * @returns Promise resolving to data of type WelcomeTranslation
  * @throws Error if both requested language and fallback language fail to load
  */
 export const getWelcomeTranslation = async (

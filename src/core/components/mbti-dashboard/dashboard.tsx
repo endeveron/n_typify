@@ -10,7 +10,7 @@ import {
   MBTIMapItem,
   MBTIPersonalityItem,
 } from '@/core/types/mbti';
-import { LangCode, PersonalityTypeTranslation } from '@/core/types/translation';
+import { PersonalityTypeTranslation } from '@/core/types/translation';
 import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 
 // // `energy` trait
@@ -21,12 +21,12 @@ import { getMBTIDashboardTranslation } from '@/core/utils/dictionary';
 // import PerceivingIcon from '~/public/icons/mbti/network.svg';
 // import MBTITraitCard from '@/core/components/mbti-dashboard/mbti-trait-card';
 
-import SignOutButton from '@/core/components/auth/sign-out-btn';
 import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
 import CognFunctionCards from '@/core/components/mbti-dashboard/cogn-function-cards';
 import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
 import DashboardHeader from '@/core/components/mbti-dashboard/dashboard-header';
 import PersonalityCards from '@/core/components/mbti-dashboard/personality-cards';
+import { useLangCode } from '@/core/context/LangContext';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
   configureCognitiveFnCards,
@@ -37,8 +37,8 @@ import {
   sortPersonalityItems,
 } from '@/core/utils/mbti';
 
-const STATE_SAVE_INTERVAL_SEC = 20;
-const STATE_KEY = 'dashboard_state';
+const STATE_SAVE_INTERVAL_SEC = 2000;
+export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],
@@ -59,11 +59,8 @@ const initialState: MBTIDashboardState = {
   cognitiveFnCards: [],
 };
 
-type DashboardProps = {
-  langCode?: LangCode;
-};
-
-const Dashboard = ({ langCode }: DashboardProps) => {
+const Dashboard = () => {
+  const { langCode } = useLangCode();
   const [getState, saveState] = useLocalStorage();
 
   const [state, setState] = useState<MBTIDashboardState>(initialState);
@@ -142,7 +139,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
       ...prev,
       cognitiveFnArr: [],
     }));
-    saveState(STATE_KEY, initialState);
+    saveState(DASHBOARD_STATE_KEY, initialState);
   };
 
   // const initTraitCards = (translation: MBTIDashboardTranslation) => {
@@ -323,7 +320,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
 
   // Restore state from LocalStorage
   useEffect(() => {
-    const stateFromStorage = getState<MBTIDashboardState>(STATE_KEY);
+    const stateFromStorage = getState<MBTIDashboardState>(DASHBOARD_STATE_KEY);
     if (stateFromStorage) setState(stateFromStorage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -331,7 +328,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
   // Save state in LocalStorage
   useEffect(() => {
     const timerId = setInterval(() => {
-      saveState(STATE_KEY, state);
+      saveState(DASHBOARD_STATE_KEY, state);
     }, STATE_SAVE_INTERVAL_SEC * 1000);
 
     return () => {
@@ -343,7 +340,7 @@ const Dashboard = ({ langCode }: DashboardProps) => {
   if (!state.translation) return null;
 
   return (
-    <div className="mbti-dashboard max-h-[920px] w-[400px] max-w-[400px] mx-auto relative flex flex-1 flex-col justify-between">
+    <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col justify-between">
       <div className="top flex flex-1 flex-col max-h-[300px]">
         {/* Header: Personality Type */}
         <div className="h-28 my-4 flex flex-1 flex-col justify-center">
@@ -374,11 +371,6 @@ const Dashboard = ({ langCode }: DashboardProps) => {
         </div>
 
         {/* Toolbar */}
-        {/* <div className="my-4 flex justify-center gap-4">
-          <Button size="sm" onClick={handleSaveState}>
-            Save
-          </Button>
-        </div> */}
         {/* Cognitive Function Cards */}
         <CognFunctionCards
           cognitiveFnCards={state.cognitiveFnCards}
@@ -387,9 +379,9 @@ const Dashboard = ({ langCode }: DashboardProps) => {
       </div>
 
       {/* Topbar - position absolute */}
-      <div className="absolute top-4 left-2 z-10">
+      {/* <div className="absolute top-4 left-2 z-10">
         <SignOutButton />
-      </div>
+      </div> */}
       <div className="absolute top-4 right-2 z-20">
         <CleanUpResults
           cleanUpResultsPrompt={state.translation.cleanUpResultsPrompt}

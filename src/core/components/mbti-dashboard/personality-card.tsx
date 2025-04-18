@@ -2,30 +2,11 @@
 
 import { useMemo } from 'react';
 
+import CardFunction from '@/core/components/mbti-dashboard/card-function';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { ProgressSmall } from '@/core/components/ui/progress-small';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
-import { cognFnColorMap } from '@/core/utils/mbti';
-import AnimatedAppear from '@/core/components/shared/animated-appear';
-
-type FunctionItemProps = {
-  functionId: string;
-};
-
-const PersonCardFunctionItem = ({ functionId }: FunctionItemProps) => {
-  const bgColor = cognFnColorMap.get(functionId);
-
-  return (
-    <div className="w-4 flex flex-col items-center gap-1">
-      {/* Colored line */}
-      <div className={cn(`w-[14px] h-1 rounded-full`, bgColor)}></div>
-      {/* Function ID */}
-      <div className="text-[11px] text-muted font-bold leading-none opacity-80">
-        {functionId}
-      </div>
-    </div>
-  );
-};
 
 type PersonalityCardProps = {
   personality: MBTIPersonalityItem;
@@ -76,10 +57,7 @@ const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
       {/* Functions */}
       <div className="mt-2 flex justify-center gap-1.5">
         {functions?.map((item) => (
-          <PersonCardFunctionItem
-            functionId={item.functionId}
-            key={item.functionId}
-          />
+          <CardFunction functionId={item.functionId} key={item.functionId} />
         ))}
       </div>
     </AnimatedAppear>

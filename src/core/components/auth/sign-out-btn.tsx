@@ -3,7 +3,7 @@
 import { signOut } from 'next-auth/react';
 import { useState } from 'react';
 
-import SignOutIcon from '~/public/icons/auth/sign-out.svg';
+import LogoutIcon from '~/public/icons/auth/logout.svg';
 import LoadingIcon from '~/public/icons/loading.svg';
 
 const SignOutButton = () => {
@@ -16,12 +16,12 @@ const SignOutButton = () => {
   return (
     <div onClick={handleClick}>
       {pending ? (
-        <div className="w-14 h-14 flex items-center justify-center rounded-full bg-card opacity-60 animate-spin">
+        <div className="w-6 h-6 flex items-center justify-center animate-spin">
           <LoadingIcon />
         </div>
       ) : (
-        <div className="w-14 h-14 flex items-center justify-center rounded-full cursor-pointer bg-card opacity-30 hover:opacity-100 transition-opacity ">
-          <SignOutIcon />
+        <div className="w-6 h-6 flex items-center justify-center">
+          <LogoutIcon />
         </div>
       )}
     </div>

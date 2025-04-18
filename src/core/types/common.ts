@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 export type PageParams = Promise<{ slug: string }>;
 
 export type SearchParams = Promise<{
@@ -19,3 +21,14 @@ export type TServerActionResult<T = unknown> =
       data?: T;
     }
   | TServerActionError;
+
+export type NavbarItem = {
+  id: string;
+  icon: ReactElement;
+  path?: string;
+};
+
+export type NavbarState = {
+  translation: Map<string, string> | null;
+  activeItemId: string;
+};

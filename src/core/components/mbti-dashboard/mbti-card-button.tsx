@@ -9,16 +9,16 @@ import { cognFnColorMap } from '@/core/utils/mbti';
 // Icons
 // `thinking` cognitive functions
 import ExtravertedThinkingIcon from '~/public/icons/mbti/gear.svg';
-import IntrovertedThinkingIcon from '~/public/icons/mbti/graph.svg';
+import IntrovertedThinkingIcon from '~/public/icons/mbti/chart.svg';
 // `feeling` cognitive functions
 import ExtravertedFeelingIcon from '~/public/icons/mbti/heart.svg';
 import IntrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
 // `sensing` cognitive functions
-import ExtravertedSensingIcon from '~/public/icons/mbti/bolt.svg';
+import ExtravertedSensingIcon from '~/public/icons/mbti/bolt-lightning.svg';
 import IntrovertedSensingIcon from '~/public/icons/mbti/home.svg';
 // `intuition` cognitive functions
 import IntrovertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
-import ExtravertedIntuitionIcon from '~/public/icons/mbti/squares.svg';
+import ExtravertedIntuitionIcon from '~/public/icons/mbti/shapes.svg';
 
 const cognFnIconMap = new Map<string, ReactElement>([
   ['Te', <ExtravertedThinkingIcon key={0} />],
@@ -47,9 +47,9 @@ const MBTICardButton = ({ id, title, onClick }: TMBTICardButtonProps) => {
           bgColor
         )}
       >
-        <div className="scale-75">{icon}</div>
+        {icon}
       </div>
-      <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default opacity-80">
+      <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default opacity-80 select-none">
         {title}
       </div>
     </div>

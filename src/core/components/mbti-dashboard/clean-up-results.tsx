@@ -36,7 +36,7 @@ const CleanUpResults = ({
   return isAllow || isConfirmMode ? (
     <>
       {isConfirmMode ? (
-        <div className="relative w-[400px] h-36">
+        <div className="relative base-w h-36">
           <div className="relative z-10 flex items-center justify-end gap-2">
             <div className="text-accent font-semibold pr-4 cursor-default">
               {cleanUpResultsPrompt}

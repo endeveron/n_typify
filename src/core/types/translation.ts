@@ -10,6 +10,12 @@ export type WelcomeTranslation = {
   signInBtnTitle: string;
 };
 
+// Navbar
+
+export type NavbarTranslation = {
+  itemMap: [string, string][];
+};
+
 // MBTI Dashboard
 
 export type MBTIDashboardTraitCardTranslation = {

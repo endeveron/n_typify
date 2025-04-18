@@ -1,3 +1,4 @@
+import Navbar from '@/core/components/shared/navbar';
 import { redirect } from 'next/navigation';
 
 import { auth } from '~/auth';
@@ -10,5 +11,10 @@ export default async function ProtectedLayout({
   const session = await auth();
   if (!session?.user) return redirect('/sign-in');
 
-  return <>{children}</>;
+  return (
+    <div className="flex flex-1 flex-col">
+      <div className="flex flex-1">{children}</div>
+      <Navbar />
+    </div>
+  );
 }

@@ -16,7 +16,7 @@ const DashboardHeader = ({ personality }: DashboardHeaderProps) => {
       {!!personality ? (
         <>
           {/* MBTI Personality Type */}
-          <div className="mb-1 text-4xl leading-none text-muted font-extrabold tracking-wide opacity-50">
+          <div className="mb-1.5 text-5xl leading-none text-muted font-bold tracking-wide opacity-50">
             {personality.mbti.personalityType}
           </div>
           {/* Title */}

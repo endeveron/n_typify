@@ -1,0 +1,7 @@
+{
+  "itemMap": [
+    ["logout", "Log Out"],
+    ["main", "Main"],
+    ["types", "Types"]
+  ]
+}
