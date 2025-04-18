@@ -30,6 +30,8 @@ const Welcome = () => {
   const router = useRouter();
   const [translation, setTranslation] = useState<WelcomeTranslation>();
 
+  console.log('langCode', langCode);
+
   const handleActionBtnClick = () => {
     router.push('/dashboard');
   };
@@ -62,7 +64,7 @@ const Welcome = () => {
       timeout={1000}
       className="relative flex flex-1 flex-col items-center"
     >
-      <main className="base-max-w flex flex-col">
+      <main className="base-max-w flex flex-col items-center">
         <div className="w-sm h-[420px] bg-orange-200 rounded-br-[64px] overflow-hidden">
           <Image
             src={WelcomeImage}

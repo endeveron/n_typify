@@ -8,6 +8,7 @@ export function useLocalStorage(): [
     if (typeof window === 'undefined') return null;
     try {
       const item = window.localStorage.getItem(key);
+      if (typeof item === 'string') return item as T;
       return item ? JSON.parse(item) : null;
     } catch (error) {
       console.error(error);

@@ -26,7 +26,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const toggleLangCode = () => {
     setLangCode((prev) => {
       const newLangCode = prev === 'en' ? 'uk' : 'en';
-      saveLangCodeInStorage(LANG_CODE_KEY, newLangCode);
+      saveLangCodeInStorage<LangCode>(LANG_CODE_KEY, newLangCode);
       return newLangCode;
     });
   };
@@ -36,7 +36,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
     if (langCodeFromStorage) {
       setLangCode(langCodeFromStorage);
     } else {
-      saveLangCodeInStorage(LANG_CODE_KEY, 'en');
+      saveLangCodeInStorage<LangCode>(LANG_CODE_KEY, 'en');
     }
   }, [getLangCodeFromStorage, saveLangCodeInStorage]);
 
