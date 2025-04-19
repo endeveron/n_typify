@@ -1,10 +1,12 @@
 'use client';
 
+import { useCallback } from 'react';
+
 export function useLocalStorage(): [
   getItem: <T>(key: string) => T | null,
   setItem: <T>(key: string, item: T) => void
 ] {
-  const getItem = <T>(key: string): T | null => {
+  const getItem = useCallback<<T>(key: string) => T | null>((key) => {
     if (typeof window === 'undefined') return null;
     try {
       const item = window.localStorage.getItem(key);
@@ -13,16 +15,16 @@ export function useLocalStorage(): [
       console.error(error);
       return null;
     }
-  };
+  }, []);
 
-  const setItem = (key: string, item: unknown) => {
+  const setItem = useCallback((key: string, item: unknown) => {
     if (typeof window === 'undefined') return;
     try {
       window.localStorage.setItem(key, JSON.stringify(item));
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   return [getItem, setItem];
 }

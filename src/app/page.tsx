@@ -30,8 +30,6 @@ const Welcome = () => {
   const router = useRouter();
   const [translation, setTranslation] = useState<WelcomeTranslation>();
 
-  console.log('langCode', langCode);
-
   const handleActionBtnClick = () => {
     router.push('/dashboard');
   };

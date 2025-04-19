@@ -8,6 +8,7 @@ import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Button } from '@/core/components/ui/button';
 import { useLangCode } from '@/core/context/LangContext';
 // import { useLocalStorage } from '@/core/hooks/useLocalStorage';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { MBTIType, MBTITypesState } from '@/core/types/mbti';
 import {
   MBTITypeMapTranslation,
@@ -18,11 +19,11 @@ import { MBTITypeGroupMap, MBTITypeTableItems } from '@/core/utils/mbti';
 
 export const MBTI_TYPES_STATE_KEY = 'mbti_types_state';
 
-// type MBTITypesStateForLS = {
-//   activeGroupId: string | null;
-//   activeGroupDescription: string | null;
-//   activeItems: MBTIType[];
-// } | null;
+type MBTITypesStateForLS = {
+  activeGroupId: string | null;
+  activeGroupDescription: string | null;
+  activeItems: MBTIType[];
+} | null;
 
 const initialState: MBTITypesState = {
   translation: null,
@@ -35,16 +36,23 @@ const initialState: MBTITypesState = {
 
 const MBTITypes = () => {
   const { langCode } = useLangCode();
-  // const [getState, saveState] = useLocalStorage();
+  const [getState, saveState] = useLocalStorage();
 
   const [state, setState] = useState<MBTITypesState>(initialState);
+  const [hasUserInteracted, setHasUserInteracted] = useState(false);
+
+  const isTranslationsReady =
+    state.translation &&
+    state.typeMapTranslation &&
+    state.typeGroupMapTranslation;
 
   const handleCardClick = (type: MBTIType) => {
     console.log('handleCardClick type', type);
   };
 
   const handleSetGroup = (groupId: string | null, types: MBTIType[]) => {
-    // Update local state
+    if (!hasUserInteracted) setHasUserInteracted(true);
+
     setState((prev) => ({
       ...prev,
       activeItems: types,
@@ -55,17 +63,16 @@ const MBTITypes = () => {
     }));
   };
 
-  // Init translation
+  // Init translations, restore state from LocalStorage
   useEffect(() => {
     const initData = async () => {
-      // Get translation
       const translation = await getMBTITypesTranslation(langCode);
       if (!translation) {
         toast(`Unable to get localized data`);
         return;
       }
 
-      // Create type translation map
+      // Create the map of types
       const typeTranslationArr = translation.personalityTypes;
       const typeMapTranslation = new Map<
         MBTIType,
@@ -75,15 +82,16 @@ const MBTITypes = () => {
         typeMapTranslation.set(t.type, t);
       }
 
+      // Create the type group map
       const typeGroupMapTranslation = new Map(translation.typeGroupMap);
 
-      // // Check LocalStorage
-      // const dataFromLocalStorage =
-      //   getState<MBTITypesStateForLS>(MBTI_TYPES_STATE_KEY) || {};
+      // Try to restore state from LocalStorage
+      const stateFromStorage =
+        getState<MBTITypesStateForLS>(MBTI_TYPES_STATE_KEY) ?? {};
 
-      // Update local state
       setState((prev) => ({
         ...prev,
+        ...stateFromStorage,
         translation,
         typeMapTranslation,
         typeGroupMapTranslation,
@@ -91,39 +99,20 @@ const MBTITypes = () => {
     };
 
     initData();
-  }, [langCode]);
+  }, [getState, langCode]);
 
-  // // Save state in LocalStorage
-  // useEffect(() => {
-  //   if (
-  //     !state.translation ||
-  //     !state.typeMapTranslation ||
-  //     !state.typeGroupMapTranslation
-  //   ) {
-  //     return;
-  //   }
+  // Save state to LocalStorage when it changes
+  useEffect(() => {
+    if (!hasUserInteracted) return;
 
-  //   saveState<MBTITypesStateForLS>(MBTI_TYPES_STATE_KEY, {
-  //     activeItems: state.activeItems,
-  //     activeGroupId: state.activeGroupId,
-  //     activeGroupDescription: state.activeGroupDescription,
-  //   });
-  // }, [state, saveState]);
+    saveState<MBTITypesStateForLS>(MBTI_TYPES_STATE_KEY, {
+      activeItems: state.activeItems,
+      activeGroupId: state.activeGroupId,
+      activeGroupDescription: state.activeGroupDescription,
+    });
+  }, [hasUserInteracted, state, saveState]);
 
-  // // Restore state from LocalStorage
-  // useEffect(() => {
-  //   const stateFromStorage = getState<MBTITypesState>(MBTI_TYPES_STATE_KEY);
-  //   console.log('stateFromStorage', stateFromStorage);
-  //   // if (stateFromStorage) setState(stateFromStorage);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  if (
-    !state.translation ||
-    !state.typeMapTranslation ||
-    !state.typeGroupMapTranslation
-  )
-    return null;
+  if (!isTranslationsReady) return null;
 
   return (
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col items-center justify-between">
@@ -133,9 +122,9 @@ const MBTITypes = () => {
         {!state.activeGroupDescription ? (
           <AnimatedAppear
             isShown={!state.activeGroupDescription}
-            className="text-accent text-xl font-extrabold tracking-wider uppercase"
+            className="text-accent text-xl font-extrabold tracking-wider uppercase cursor-default select-none"
           >
-            {state.translation.mainTitle}
+            {state.translation!.mainTitle}
           </AnimatedAppear>
         ) : null}
         <AnimatedAppear
@@ -183,7 +172,7 @@ const MBTITypes = () => {
             variant="outline"
             key="reset"
           >
-            {state.translation.resetBtnTitle}
+            {state.translation!.resetBtnTitle}
           </Button>
         </AnimatedAppear>
       </div>
