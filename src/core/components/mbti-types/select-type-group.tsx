@@ -1,13 +1,13 @@
 'use client';
 
 import { Check, ChevronsUpDown } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Button } from '@/core/components/ui/button';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from '@/core/components/ui/command';
@@ -16,10 +16,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/core/components/ui/popover';
-import { cn } from '@/core/utils/common';
 import { MBTIType } from '@/core/types/mbti';
 import { MBTITypeGroupMapTranslation } from '@/core/types/translation';
-import { useEffect, useMemo, useState } from 'react';
+import { cn } from '@/core/utils/common';
 
 type SelectTypeGroupProps = {
   typeGroupMap: Map<string, MBTIType[]>;
@@ -63,9 +62,6 @@ const SelectTypeGroup = ({
     setGroupId(activeGroupId);
   }, [activeGroupId]);
 
-  // console.log('items', items);
-  // console.log('typeGroupMapTranslation', typeGroupMapTranslation);
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -82,12 +78,12 @@ const SelectTypeGroup = ({
           ) : (
             <span className="text-muted">Select group...</span>
           )}
-          <ChevronsUpDown className="opacity-50" />
+          <ChevronsUpDown className="opacity-40" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="w-48 p-0">
         <Command>
-          <CommandInput placeholder="Search group..." className="h-9" />
+          {/* <CommandInput placeholder="Search group..." className="h-9" /> */}
           <CommandList>
             <CommandEmpty>No group found.</CommandEmpty>
             <CommandGroup>
