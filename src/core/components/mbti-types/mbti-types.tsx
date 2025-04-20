@@ -43,10 +43,17 @@ const MBTITypes = () => {
   const [state, setState] = useState<MBTITypesState>(initialState);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
+  const {
+    activeGroupDescription,
+    activeGroupId,
+    activeItems,
+    translation,
+    typeGroupMapTranslation,
+    typeMapTranslation,
+  } = state;
+
   const isTranslationsReady =
-    state.translation &&
-    state.typeMapTranslation &&
-    state.typeGroupMapTranslation;
+    translation && state.typeMapTranslation && state.typeGroupMapTranslation;
 
   const handleCardClick = (type: MBTIType) => {
     console.log('handleCardClick type', type);
@@ -111,35 +118,37 @@ const MBTITypes = () => {
     if (!hasUserInteracted) return;
 
     saveState<MBTITypesStateForLS>(MBTI_TYPES_STATE_KEY, {
-      activeItems: state.activeItems,
-      activeGroupId: state.activeGroupId,
-      activeGroupDescription: state.activeGroupDescription,
+      activeItems,
+      activeGroupId,
+      activeGroupDescription,
     });
-  }, [hasUserInteracted, state, saveState]);
-
-  useEffect(() => {
-    console.log('state.activeGroupId', state.activeGroupId);
-  }, [state.activeGroupId]);
+  }, [
+    hasUserInteracted,
+    activeItems,
+    activeGroupId,
+    activeGroupDescription,
+    saveState,
+  ]);
 
   if (!isTranslationsReady) return null;
 
   return (
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col items-center justify-between">
       {/* Title */}
-      <div className="min-h-24 max-h-40 flex flex-1 flex-col items-center justify-center">
-        {!state.activeGroupDescription ? (
+      <div className="min-h-32 max-h-40 flex flex-1 flex-col items-center justify-center">
+        {!activeGroupDescription ? (
           <AnimatedAppear
-            isShown={!state.activeGroupDescription}
+            isShown={!activeGroupDescription}
             className="text-accent text-xl font-extrabold tracking-wider uppercase cursor-default select-none"
           >
-            {state.translation!.mainTitle}
+            {translation!.mainTitle}
           </AnimatedAppear>
         ) : null}
         <AnimatedAppear
-          isShown={!!state.activeGroupDescription}
-          className="px-4 text-center text-accent-text text-sm font-medium tracking-wide"
+          isShown={!!activeGroupDescription}
+          className="px-4 text-center text-accent-text text-sm font-medium"
         >
-          {state.activeGroupDescription}
+          {activeGroupDescription}
         </AnimatedAppear>
       </div>
 
@@ -147,14 +156,12 @@ const MBTITypes = () => {
       <div className="flex flex-1 flex-col gap-4">
         {[0, 4, 8, 12].map((startIndex, index) => (
           <MBTITypesTableRow
-            title={state.translation!.tableRowTitles[index]}
+            title={translation!.tableRowTitles[index]}
             items={MBTITypeTableItems}
-            activeItems={state.activeItems}
+            activeItems={activeItems}
             firstItemIndex={startIndex}
             lastItemIndex={startIndex + 4}
-            typeMapTranslation={
-              state.typeMapTranslation as MBTITypeMapTranslation
-            }
+            typeMapTranslation={typeMapTranslation as MBTITypeMapTranslation}
             onClick={handleCardClick}
             key={startIndex}
           />
@@ -164,10 +171,10 @@ const MBTITypes = () => {
       {/* Select Group */}
       <AnimatedAppear className="my-4 flex flex-1 items-center justify-center gap-4">
         <SelectTypeGroup
-          activeGroupId={state.activeGroupId}
+          activeGroupId={activeGroupId}
           typeGroupMap={MBTITypeGroupMap}
           typeGroupMapTranslation={
-            state.typeGroupMapTranslation as MBTITypeGroupMapTranslation
+            typeGroupMapTranslation as MBTITypeGroupMapTranslation
           }
           onSelect={handleSetGroup}
         />
@@ -175,8 +182,9 @@ const MBTITypes = () => {
           onClick={() => handleSetGroup(null, [])}
           variant="outline"
           key="reset"
+          className={activeGroupId ? '' : 'opacity-40 pointer-events-none'}
         >
-          {state.translation!.resetBtnTitle}
+          {translation!.resetBtnTitle}
         </Button>
       </AnimatedAppear>
     </div>

@@ -162,6 +162,7 @@ export type MBTIDashboardState = {
   personalities: MBTIPersonalityItem[];
   cognitiveFnArr: CognFunctionArr;
   cognitiveFnCards: CognitiveFnCard[];
+  isCleanUpConfirmMode: boolean;
 };
 
 export type MBTITypesState = {

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import {
@@ -32,6 +32,7 @@ import {
   sortPersonalityItems,
 } from '@/core/utils/mbti';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
+import { cn } from '@/core/utils/common';
 
 export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
@@ -52,6 +53,7 @@ const initialState: MBTIDashboardState = {
   personalities: [],
   cognitiveFnArr: [],
   cognitiveFnCards: [],
+  isCleanUpConfirmMode: false,
 };
 
 const Dashboard = () => {
@@ -121,6 +123,13 @@ const Dashboard = () => {
       cognitiveFnArr,
     }));
   };
+
+  const handleCleanUpModeChange = useCallback((isConfirmMode: boolean) => {
+    setState((prev) => ({
+      ...prev,
+      isCleanUpConfirmMode: isConfirmMode,
+    }));
+  }, []);
 
   const updateCognFnCounterMap = (
     cognFnId: string,
@@ -305,15 +314,18 @@ const Dashboard = () => {
 
   return (
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col justify-between">
-      {/* {isNoOutput ? (
-        
-      ) : null} */}
-
       {isOutput ? (
         <>
           <div className="flex flex-1 flex-col max-h-[300px]">
             {/* Header: Personality Type */}
-            <div className="h-24 p-2 flex flex-1 flex-col justify-center">
+            <div
+              className={cn(
+                `h-24 p-2 flex flex-1 flex-col justify-center transition-opacity`,
+                {
+                  'opacity-0': state.isCleanUpConfirmMode,
+                }
+              )}
+            >
               <DashboardHeader personality={personality} />
             </div>
 
@@ -354,11 +366,12 @@ const Dashboard = () => {
       />
 
       {/* Absolute Positioned Content (Top) */}
-      <div className="absolute top-4 right-2 z-20">
+      <div className="absolute top-2 right-0 z-20">
         <CleanUpResults
           cleanUpResultsPrompt={translation.cleanUpResultsPrompt}
           isAllow={!!cognitiveFnArr.length}
           onCleanUp={cleanUpData}
+          onModeChanged={handleCleanUpModeChange}
         />
       </div>
     </div>

@@ -76,7 +76,7 @@ const SelectTypeGroup = ({
           className="w-60 flex justify-between"
         >
           {groupId ? (
-            <span className="text-accent-text">
+            <span className="text-accent-text font-semibold tracking-wide">
               {items.find((item) => item.value === groupId)?.label}
             </span>
           ) : (
