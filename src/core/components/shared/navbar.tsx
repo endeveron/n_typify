@@ -62,7 +62,7 @@ const Navbar = () => {
   }, [langCode]);
 
   return (
-    <AnimatedAppear className="p-2 w-full base-max-w mx-auto flex items-center justify-evenly bg-card rounded-full">
+    <AnimatedAppear className="pt-2 pb-1 w-full base-max-w mx-auto flex items-center justify-evenly bg-card rounded-full">
       <NavbarItem
         id="logout"
         icon={<SignOutButton />}

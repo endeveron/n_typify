@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -15,7 +16,6 @@ import {
   getMBTIDashboardTranslation,
   getMBTITypesTranslation,
 } from '@/core/utils/dictionary';
-
 import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
 import CognFunctionCards from '@/core/components/mbti-dashboard/cogn-function-cards';
 import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
@@ -31,6 +31,7 @@ import {
   MBTIMap,
   sortPersonalityItems,
 } from '@/core/utils/mbti';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 
 export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
@@ -60,8 +61,16 @@ const Dashboard = () => {
   const [state, setState] = useState<MBTIDashboardState>(initialState);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
-  const { personality, personalities, cognitiveFnArr, translation } = state;
+  const {
+    cognitiveFnArr,
+    cognitiveFnCards,
+    personality,
+    personalities,
+    translation,
+  } = state;
   const cognFnArrayLength = cognitiveFnArr.length;
+  const personalitiesLength = personalities.length;
+  const isOutput = personality || personalitiesLength || cognFnArrayLength;
 
   // Converts map entries into an array, filters out zero values and sorts by count descending. Complexity: O(1) since n = 8.
   const updateCognFnArray = (
@@ -70,7 +79,7 @@ const Dashboard = () => {
   ): CognFunctionArr => {
     const counter = map.get(cognFnId) as number;
     if (cognFnArrayLength) {
-      const updCognFnArr = [...state.cognitiveFnArr];
+      const updCognFnArr = [...cognitiveFnArr];
       const index = updCognFnArr.findIndex((item) => item[0] === cognFnId);
 
       // Update the existing item
@@ -85,7 +94,7 @@ const Dashboard = () => {
         return updCognFnArr.filter((item) => item[0] !== cognFnId);
       }
       // Add a new item
-      return [...state.cognitiveFnArr, [cognFnId, counter]];
+      return [...cognitiveFnArr, [cognFnId, counter]];
     } else {
       // Add the first item
       return [[cognFnId, counter]];
@@ -243,7 +252,7 @@ const Dashboard = () => {
     if (!personality) return;
 
     // Add the first item
-    if (!personalities.length) {
+    if (!personalitiesLength) {
       setState((prev) => ({
         ...prev,
         personalities: [personality],
@@ -292,45 +301,63 @@ const Dashboard = () => {
     }
   }, [hasUserInteracted, state, saveState]);
 
-  if (!state.translation) return null;
+  if (!translation) return null;
 
   return (
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col justify-between">
-      <div className="flex flex-1 flex-col max-h-[300px]">
-        {/* Header: Personality Type */}
-        <div className="h-24 p-2 flex flex-1 flex-col justify-center">
-          <DashboardHeader personality={state.personality} />
-        </div>
+      {/* {isNoOutput ? (
+        
+      ) : null} */}
 
-        {/* Personality Cards */}
-        <div className="px-6">
-          <PersonalityCards personalities={personalities} />
-        </div>
-      </div>
+      {isOutput ? (
+        <>
+          <div className="flex flex-1 flex-col max-h-[300px]">
+            {/* Header: Personality Type */}
+            <div className="h-24 p-2 flex flex-1 flex-col justify-center">
+              <DashboardHeader personality={personality} />
+            </div>
 
-      <div className="flex flex-1 flex-col">
-        {/* Cognitive Function List */}
-        <div className="my-4 flex flex-1 flex-col justify-center">
-          <CognFunctions
-            cognitiveFnArr={state.cognitiveFnArr}
-            translation={state.translation}
-            onFunctionClick={handleCognFnListItemClick}
+            {/* Personality Cards */}
+            <div className="px-6">
+              <PersonalityCards personalities={personalities} />
+            </div>
+          </div>
+
+          {/* Cognitive Function List */}
+          <div className="my-4 flex flex-1 flex-col justify-center">
+            <CognFunctions
+              cognitiveFnArr={cognitiveFnArr}
+              translation={translation}
+              onFunctionClick={handleCognFnListItemClick}
+            />
+          </div>
+        </>
+      ) : (
+        <AnimatedAppear
+          isShown={!isOutput}
+          className="flex flex-1 flex-col items-center justify-center"
+        >
+          <Image
+            src="/images/mbti.svg"
+            width={180}
+            height={173}
+            alt="mbti mandala"
+            priority
           />
-        </div>
+        </AnimatedAppear>
+      )}
 
-        {/* Toolbar */}
-        {/* Cognitive Function Cards */}
-        <CognFunctionCards
-          cognitiveFnCards={state.cognitiveFnCards}
-          onClick={handleCognFnButtonClick}
-        />
-      </div>
+      {/* Toolbar */}
+      <CognFunctionCards
+        cognitiveFnCards={cognitiveFnCards}
+        onClick={handleCognFnButtonClick}
+      />
 
       {/* Absolute Positioned Content (Top) */}
       <div className="absolute top-4 right-2 z-20">
         <CleanUpResults
-          cleanUpResultsPrompt={state.translation.cleanUpResultsPrompt}
-          isAllow={!!state.cognitiveFnArr.length}
+          cleanUpResultsPrompt={translation.cleanUpResultsPrompt}
+          isAllow={!!cognitiveFnArr.length}
           onCleanUp={cleanUpData}
         />
       </div>

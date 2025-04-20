@@ -15,7 +15,7 @@ const CognFunctionCard = ({
   return (
     <div className="flex flex-col p-4 bg-card rounded-3xl select-none">
       {/* Title */}
-      <div className="text-center text-xs text-accent tracking-wider font-semibold uppercase cursor-default">
+      <div className="text-center text-xs text-accent-text tracking-wider font-semibold uppercase cursor-default">
         {title}
       </div>
 

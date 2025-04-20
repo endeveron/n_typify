@@ -8,7 +8,7 @@ import '@/core/globals.css';
 import { LangProvider } from '@/core/context/LangContext';
 
 export const metadata: Metadata = {
-  title: 'Typify - Psychological architecture',
+  title: 'Typify - Psychological Architecture',
   applicationName: 'Typify',
   description:
     'Wandering the halls of your inner architecture, where each room unveils a unique voice in your cognitive symphony.',
@@ -53,7 +53,7 @@ export default function RootLayout({
       <body className={`${interSans.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           // enableSystem
         >
           <LangProvider>

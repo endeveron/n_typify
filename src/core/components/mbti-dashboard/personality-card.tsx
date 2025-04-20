@@ -35,7 +35,7 @@ const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
       )}
     >
       {/* Title */}
-      <div className="my-0.5 text-[11px] leading-none uppercase font-bold text-accent tracking-wide">
+      <div className="my-0.5 text-[11px] leading-none uppercase font-bold text-accent-text tracking-wide">
         {personality.translation.title[0]}
       </div>
 

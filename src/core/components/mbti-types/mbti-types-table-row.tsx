@@ -28,8 +28,8 @@ const MBTITypesTableRow = ({
   if (!items.length) return null;
 
   return (
-    <AnimatedAppear isShown={!!items.length} className="mb-1">
-      <div className="mb-1 text-center text-xs text-[10px] leading-none uppercase font-bold text-muted tracking-wide opacity-60 cursor-default select-none">
+    <AnimatedAppear isShown={!!items.length} className="">
+      <div className="mb-2 text-center text-xs text-[10px] leading-none uppercase font-bold text-muted tracking-wide opacity-60 cursor-default select-none">
         {title}
       </div>
       <div className="flex gap-1 p-1 rounded-2xl bg-card">

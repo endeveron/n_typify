@@ -34,7 +34,7 @@ const NavbarItem = ({
       className={cn(
         `w-10 flex flex-col items-center justify-center transition-opacity`,
         {
-          'opacity-100 text-accent': isActiveState,
+          'opacity-100 text-accent-text': isActiveState,
           'opacity-50 hover:opacity-100 cursor-pointer': isNormalState,
         }
       )}
@@ -44,7 +44,7 @@ const NavbarItem = ({
         className={cn(
           `mt-1 text-[8px] font-bold tracking-wider uppercase cursor-default opacity-80 select-none`,
           {
-            'text-accent': isActiveState,
+            'text-accent-text': isActiveState,
             'text-muted': isNormalState,
           }
         )}

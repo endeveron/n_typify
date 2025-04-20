@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import MBTITypesTableRow from '@/core/components/mbti-types/mbti-types-table-row';
@@ -11,11 +11,13 @@ import { useLangCode } from '@/core/context/LangContext';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { MBTIType, MBTITypesState } from '@/core/types/mbti';
 import {
+  MBTITypeGroupMapTranslation,
   MBTITypeMapTranslation,
   PersonalityTypeTranslation,
 } from '@/core/types/translation';
 import { getMBTITypesTranslation } from '@/core/utils/dictionary';
 import { MBTITypeGroupMap, MBTITypeTableItems } from '@/core/utils/mbti';
+import SelectTypeGroup from '@/core/components/mbti-types/select-type-group';
 
 export const MBTI_TYPES_STATE_KEY = 'mbti_types_state';
 
@@ -50,18 +52,21 @@ const MBTITypes = () => {
     console.log('handleCardClick type', type);
   };
 
-  const handleSetGroup = (groupId: string | null, types: MBTIType[]) => {
-    if (!hasUserInteracted) setHasUserInteracted(true);
+  const handleSetGroup = useCallback(
+    (groupId: string | null, types: MBTIType[]) => {
+      if (!hasUserInteracted) setHasUserInteracted(true);
 
-    setState((prev) => ({
-      ...prev,
-      activeItems: types,
-      activeGroupId: groupId,
-      activeGroupDescription: groupId
-        ? prev.typeGroupMapTranslation!.get(groupId)?.description || ''
-        : '',
-    }));
-  };
+      setState((prev) => ({
+        ...prev,
+        activeItems: types,
+        activeGroupId: groupId,
+        activeGroupDescription: groupId
+          ? prev.typeGroupMapTranslation!.get(groupId)?.description || ''
+          : '',
+      }));
+    },
+    [hasUserInteracted]
+  );
 
   // Init translations, restore state from LocalStorage
   useEffect(() => {
@@ -112,13 +117,16 @@ const MBTITypes = () => {
     });
   }, [hasUserInteracted, state, saveState]);
 
+  useEffect(() => {
+    console.log('state.activeGroupId', state.activeGroupId);
+  }, [state.activeGroupId]);
+
   if (!isTranslationsReady) return null;
 
   return (
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col items-center justify-between">
-      {/* Main Title */}
-
-      <div className="min-h-20 max-h-32 flex flex-1 flex-col items-center justify-center">
+      {/* Title */}
+      <div className="min-h-24 max-h-40 flex flex-1 flex-col items-center justify-center">
         {!state.activeGroupDescription ? (
           <AnimatedAppear
             isShown={!state.activeGroupDescription}
@@ -129,53 +137,48 @@ const MBTITypes = () => {
         ) : null}
         <AnimatedAppear
           isShown={!!state.activeGroupDescription}
-          className="px-4 text-center text-accent text-sm font-medium tracking-wide"
+          className="px-4 text-center text-accent-text text-sm font-medium tracking-wide"
         >
           {state.activeGroupDescription}
         </AnimatedAppear>
       </div>
 
-      {/* Table Rows */}
-      {[0, 4, 8, 12].map((startIndex, index) => (
-        <MBTITypesTableRow
-          title={state.translation!.tableRowTitles[index]}
-          items={MBTITypeTableItems}
-          activeItems={state.activeItems}
-          firstItemIndex={startIndex}
-          lastItemIndex={startIndex + 4}
-          typeMapTranslation={
-            state.typeMapTranslation as MBTITypeMapTranslation
-          }
-          onClick={handleCardClick}
-          key={startIndex}
-        />
-      ))}
-
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <AnimatedAppear className="my-1 flex justify-center flex-wrap gap-1">
-          {Array.from(MBTITypeGroupMap.entries()).map(([groupId, types]) => (
-            <Button
-              onClick={() => handleSetGroup(groupId, types)}
-              variant={groupId === state.activeGroupId ? 'accent' : 'secondary'}
-              size="sm"
-              key={groupId}
-            >
-              {state.typeGroupMapTranslation
-                ?.get(groupId)!
-                .title.charAt(0)
-                .toUpperCase() + groupId.slice(1)}
-            </Button>
-          ))}
-          <Button
-            onClick={() => handleSetGroup(null, [])}
-            size="sm"
-            variant="outline"
-            key="reset"
-          >
-            {state.translation!.resetBtnTitle}
-          </Button>
-        </AnimatedAppear>
+      {/* Table */}
+      <div className="flex flex-1 flex-col gap-4">
+        {[0, 4, 8, 12].map((startIndex, index) => (
+          <MBTITypesTableRow
+            title={state.translation!.tableRowTitles[index]}
+            items={MBTITypeTableItems}
+            activeItems={state.activeItems}
+            firstItemIndex={startIndex}
+            lastItemIndex={startIndex + 4}
+            typeMapTranslation={
+              state.typeMapTranslation as MBTITypeMapTranslation
+            }
+            onClick={handleCardClick}
+            key={startIndex}
+          />
+        ))}
       </div>
+
+      {/* Select Group */}
+      <AnimatedAppear className="my-4 flex flex-1 items-center justify-center gap-4">
+        <SelectTypeGroup
+          activeGroupId={state.activeGroupId}
+          typeGroupMap={MBTITypeGroupMap}
+          typeGroupMapTranslation={
+            state.typeGroupMapTranslation as MBTITypeGroupMapTranslation
+          }
+          onSelect={handleSetGroup}
+        />
+        <Button
+          onClick={() => handleSetGroup(null, [])}
+          variant="outline"
+          key="reset"
+        >
+          {state.translation!.resetBtnTitle}
+        </Button>
+      </AnimatedAppear>
     </div>
   );
 };
