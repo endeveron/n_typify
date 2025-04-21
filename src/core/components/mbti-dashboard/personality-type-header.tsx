@@ -3,28 +3,28 @@
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
 
-type DashboardHeaderProps = {
+type PersonalityTypeHeaderProps = {
   personality: MBTIPersonalityItem | null;
 };
 
-const DashboardHeader = ({ personality }: DashboardHeaderProps) => {
+const PersonalityTypeHeader = ({ personality }: PersonalityTypeHeaderProps) => {
   return (
     <AnimatedAppear
       isShown={!!personality}
-      className="flex flex-col items-center uppercase cursor-default"
+      className="my-6 flex flex-1 flex-col items-center justify-center uppercase cursor-default"
     >
       {!!personality ? (
         <>
           {/* MBTI Personality Type */}
-          <div className="mb-1.5 text-5xl leading-none text-muted font-bold tracking-wide opacity-50">
+          <div className="text-5xl leading-none text-muted font-bold tracking-wide opacity-50">
             {personality.mbti.personalityType}
           </div>
           {/* Title */}
-          <div className="text-accent text-xl font-extrabold tracking-wider">
+          <div className="my-0.5 text-accent text-xl font-extrabold tracking-wider">
             {`The ${personality.translation.title[0]}`}
           </div>
           {/* Subtitle */}
-          <div className="mt-0.5 text-muted text-[11px] font-bold tracking-wider opacity-80">
+          <div className="text-muted text-[11px] font-bold tracking-wider opacity-80">
             {personality.translation.subtitle}
           </div>
         </>
@@ -33,4 +33,4 @@ const DashboardHeader = ({ personality }: DashboardHeaderProps) => {
   );
 };
 
-export default DashboardHeader;
+export default PersonalityTypeHeader;

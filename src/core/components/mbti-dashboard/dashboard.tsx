@@ -1,9 +1,16 @@
 'use client';
 
-import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
+import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
+import CognFunctionCards from '@/core/components/mbti-dashboard/cogn-function-cards';
+import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
+import MBTIVisual from '@/core/components/mbti-dashboard/mbti-visual';
+import PersonalityCards from '@/core/components/mbti-dashboard/personality-cards';
+import PersonalityTypeHeader from '@/core/components/mbti-dashboard/personality-type-header';
+import { useLangCode } from '@/core/context/LangContext';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
   CognFunctionArr,
   CognitiveFnId,
@@ -12,17 +19,11 @@ import {
   MBTIPersonalityItem,
 } from '@/core/types/mbti';
 import { PersonalityTypeTranslation } from '@/core/types/translation';
+import { cn } from '@/core/utils/common';
 import {
   getMBTIDashboardTranslation,
   getMBTITypesTranslation,
 } from '@/core/utils/dictionary';
-import CleanUpResults from '@/core/components/mbti-dashboard/clean-up-results';
-import CognFunctionCards from '@/core/components/mbti-dashboard/cogn-function-cards';
-import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
-import DashboardHeader from '@/core/components/mbti-dashboard/dashboard-header';
-import PersonalityCards from '@/core/components/mbti-dashboard/personality-cards';
-import { useLangCode } from '@/core/context/LangContext';
-import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
   configureCognitiveFnCards,
   defaultCognFnCounterMap,
@@ -31,8 +32,6 @@ import {
   MBTIMap,
   sortPersonalityItems,
 } from '@/core/utils/mbti';
-import AnimatedAppear from '@/core/components/shared/animated-appear';
-import { cn } from '@/core/utils/common';
 
 export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
@@ -319,14 +318,11 @@ const Dashboard = () => {
           <div className="flex flex-1 flex-col max-h-[300px]">
             {/* Header: Personality Type */}
             <div
-              className={cn(
-                `h-24 p-2 flex flex-1 flex-col justify-center transition-opacity`,
-                {
-                  'opacity-0': state.isCleanUpConfirmMode,
-                }
-              )}
+              className={cn(`transition-opacity`, {
+                'opacity-0': state.isCleanUpConfirmMode,
+              })}
             >
-              <DashboardHeader personality={personality} />
+              <PersonalityTypeHeader personality={personality} />
             </div>
 
             {/* Personality Cards */}
@@ -345,18 +341,9 @@ const Dashboard = () => {
           </div>
         </>
       ) : (
-        <AnimatedAppear
-          isShown={!isOutput}
-          className="flex flex-1 flex-col items-center justify-center"
-        >
-          <Image
-            src="/images/mbti.svg"
-            width={180}
-            height={173}
-            alt="mbti mandala"
-            priority
-          />
-        </AnimatedAppear>
+        <div className="flex flex-1 flex-col items-center justify-center">
+          <MBTIVisual />
+        </div>
       )}
 
       {/* Toolbar */}

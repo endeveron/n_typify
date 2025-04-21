@@ -227,6 +227,23 @@
   .base-max-w {
     max-width: var(--base-w);
   }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-visual-inner {
+    animation: spin 120s linear infinite;
+  }
+
+  .animate-visual-outer {
+    animation: spin 60s linear infinite reverse;
+  }
 }
 
 @layer components {
