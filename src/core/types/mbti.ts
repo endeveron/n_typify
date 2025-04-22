@@ -1,9 +1,11 @@
 import {
+  CognitiveFunctionsTranslation,
   MBTIDashboardTranslation,
-  MBTITypesTranslation,
-  MBTITypeMapTranslation,
-  PersonalityTypeTranslation,
+  MBTITypeDetailsTranslation,
   MBTITypeGroupMapTranslation,
+  MBTITypeGroupsTranslation,
+  MBTITypeMapTranslation,
+  MBTITypeTranslation,
 } from '@/core/types/translation';
 
 export type TraitIndex =
@@ -130,7 +132,7 @@ export type MBTIPersonalityItem = {
   mbti: MBTIPersonalityData & {
     cognitiveFnArr: CognFunctionArr;
   };
-  translation: PersonalityTypeTranslation;
+  translation: MBTITypeTranslation;
 };
 
 // MBTI Test
@@ -166,10 +168,19 @@ export type MBTIDashboardState = {
 };
 
 export type MBTITypesState = {
-  translation: MBTITypesTranslation | null;
+  translation: MBTITypeGroupsTranslation | null;
   typeMapTranslation: MBTITypeMapTranslation | null;
   typeGroupMapTranslation: MBTITypeGroupMapTranslation | null;
   activeGroupId: string | null;
   activeGroupDescription: string | null;
   activeItems: MBTIType[];
+};
+
+export type MBTITypeState = {
+  translation: {
+    MBTIType: MBTITypeTranslation;
+    MBTITypeDetails: MBTITypeDetailsTranslation;
+    cognitiveFunctions: CognitiveFunctionsTranslation;
+  } | null;
+  cognitiveFnArr: string[];
 };

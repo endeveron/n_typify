@@ -18,9 +18,13 @@ import {
   MBTIMapItem,
   MBTIPersonalityItem,
 } from '@/core/types/mbti';
-import { PersonalityTypeTranslation } from '@/core/types/translation';
+import {
+  CognitiveFunctionsTranslation,
+  MBTITypeTranslation,
+} from '@/core/types/translation';
 import { cn } from '@/core/utils/common';
 import {
+  getCognitiveFunctionsTranslation,
   getMBTIDashboardTranslation,
   getMBTITypesTranslation,
 } from '@/core/utils/dictionary';
@@ -55,7 +59,7 @@ const initialState: MBTIDashboardState = {
   isCleanUpConfirmMode: false,
 };
 
-const Dashboard = () => {
+const MBTIDashboard = () => {
   const { langCode } = useLangCode();
   const [getState, saveState] = useLocalStorage();
 
@@ -156,10 +160,19 @@ const Dashboard = () => {
   // Init toolbar cards and translation
   useEffect(() => {
     const initData = async () => {
-      // Get translation
+      // Get page translation
       const dashboardTranslation = await getMBTIDashboardTranslation(langCode);
-      const typesTranslation = await getMBTITypesTranslation(langCode);
-      if (!dashboardTranslation || !typesTranslation) {
+      // Get MBTI types translation
+      const MBTITypeTranslation = await getMBTITypesTranslation(langCode);
+      // Get Cognitive Functions translation
+      const cognFnsTranslation = await getCognitiveFunctionsTranslation(
+        langCode
+      );
+      if (
+        !dashboardTranslation ||
+        !MBTITypeTranslation ||
+        !cognFnsTranslation
+      ) {
         toast(`Unable to get translations`);
         return;
       }
@@ -167,7 +180,8 @@ const Dashboard = () => {
       // Merge translations
       const translation = {
         ...dashboardTranslation,
-        personalityTypes: typesTranslation.personalityTypes,
+        cognitiveFunctions: cognFnsTranslation,
+        MBTITypes: MBTITypeTranslation,
       };
 
       // Init toolbar cards
@@ -223,9 +237,9 @@ const Dashboard = () => {
     // Set a new personality
     if (type !== currentType) {
       // Get translation
-      const translationData = translation.personalityTypes!.find(
+      const translationData = translation.MBTITypes!.find(
         (item) => item.type === type
-      ) as PersonalityTypeTranslation;
+      ) as MBTITypeTranslation;
 
       // Get MBTIMap data
       const mapItem = MBTIMap.get(type) as MBTIMapItem;
@@ -317,12 +331,19 @@ const Dashboard = () => {
         <>
           <div className="flex flex-1 flex-col max-h-[300px]">
             {/* Header: Personality Type */}
+
             <div
-              className={cn(`transition-opacity`, {
+              className={cn(`flex flex-1 min-h-32 transition-opacity`, {
                 'opacity-0': state.isCleanUpConfirmMode,
               })}
             >
-              <PersonalityTypeHeader personality={personality} />
+              {personality ? (
+                <PersonalityTypeHeader
+                  MBTIType={personality.mbti.personalityType}
+                  title={personality.translation.title[0]}
+                  subtitle={personality.translation.subtitle}
+                />
+              ) : null}
             </div>
 
             {/* Personality Cards */}
@@ -335,7 +356,9 @@ const Dashboard = () => {
           <div className="my-4 flex flex-1 flex-col justify-center">
             <CognFunctions
               cognitiveFnArr={cognitiveFnArr}
-              translation={translation}
+              translation={
+                translation.cognitiveFunctions as CognitiveFunctionsTranslation
+              }
               onFunctionClick={handleCognFnListItemClick}
             />
           </div>
@@ -365,4 +388,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MBTIDashboard;

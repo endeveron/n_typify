@@ -3,22 +3,23 @@
 // import { mongoDB } from '@/core/db/mongo';
 // import UserModel from '@/core/models/user';
 
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 // import ToggleLanguage from '@/core/components/shared/toggle-language';
+import { useLangCode } from '@/core/context/LangContext';
 import { WelcomeTranslation } from '@/core/types/translation';
 import { getWelcomeTranslation } from '@/core/utils/dictionary';
-import { useLangCode } from '@/core/context/LangContext';
 
-import WelcomeImage from '~/public/images/welcome.jpg';
-import Image from 'next/image';
-import { welcomeImgBlured } from '@/core/data/blured-images';
-import { Button } from '@/core/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { DASHBOARD_STATE_KEY } from '@/core/components/mbti-dashboard/mbti-dashboard';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
+import { Button } from '@/core/components/ui/button';
+import { welcomeImgBlured } from '@/core/data/blured-images';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
-import { DASHBOARD_STATE_KEY } from '@/core/components/mbti-dashboard/dashboard';
+import { DEFAULT_REDIRECT } from '@/core/routes';
+import WelcomeImage from '~/public/images/welcome.jpg';
 
 const Welcome = () => {
   // await mongoDB.connect();
@@ -31,7 +32,7 @@ const Welcome = () => {
   const [translation, setTranslation] = useState<WelcomeTranslation>();
 
   const handleActionBtnClick = () => {
-    router.push('/dashboard');
+    router.push(DEFAULT_REDIRECT);
   };
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const Welcome = () => {
     const savedDashboardState = getState(DASHBOARD_STATE_KEY);
     if (savedDashboardState) {
       // Redirect to dashboard
-      router.push('/dashboard');
+      router.push(DEFAULT_REDIRECT);
       return;
     }
 

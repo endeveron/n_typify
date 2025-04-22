@@ -12,9 +12,11 @@ export default async function ProtectedLayout({
   if (!session?.user) return redirect('/sign-in');
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="flex flex-1">{children}</div>
-      <Navbar />
+    <div className="relative h-dvh max-h-dvh flex flex-1 flex-col ">
+      <div className="flex flex-1 mb-14 overflow-y-auto">{children}</div>
+      <div className="absolute inset-x-0 bottom-0">
+        <Navbar />
+      </div>
     </div>
   );
 }

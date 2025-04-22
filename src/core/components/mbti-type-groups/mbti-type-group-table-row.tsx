@@ -6,7 +6,7 @@ import { MBTIType } from '@/core/types/mbti';
 import { MBTITypeMapTranslation } from '@/core/types/translation';
 import { MBTITypeTableItems } from '@/core/utils/mbti';
 
-type MBTITypesTableRowProps = {
+type MBTITypeGroupTableRowProps = {
   title: string;
   firstItemIndex: number;
   lastItemIndex: number;
@@ -16,7 +16,7 @@ type MBTITypesTableRowProps = {
   onClick: (type: MBTIType) => void;
 };
 
-const MBTITypesTableRow = ({
+const MBTITypeGroupTableRow = ({
   title,
   firstItemIndex,
   lastItemIndex,
@@ -24,12 +24,12 @@ const MBTITypesTableRow = ({
   activeItems,
   typeMapTranslation,
   onClick,
-}: MBTITypesTableRowProps) => {
+}: MBTITypeGroupTableRowProps) => {
   if (!items.length) return null;
 
   return (
     <AnimatedAppear isShown={!!items.length}>
-      <div className="mb-1 text-center text-xs text-[10px] leading-none uppercase font-bold text-muted tracking-wide opacity-60 cursor-default select-none">
+      <div className="mb-1 text-center text-xs text-[10px] leading-none uppercase font-bold text-muted tracking-wide opacity-70 cursor-default select-none">
         {title}
       </div>
       <div className="flex gap-1 p-1 rounded-2xl bg-card">
@@ -49,4 +49,4 @@ const MBTITypesTableRow = ({
   );
 };
 
-export default MBTITypesTableRow;
+export default MBTITypeGroupTableRow;

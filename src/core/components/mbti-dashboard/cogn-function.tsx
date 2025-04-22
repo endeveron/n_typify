@@ -27,7 +27,9 @@ const CognFunction = ({
     <AnimatedAppear>
       <div
         onClick={onClick}
-        className="flex items-center gap-2 text-xs uppercase cursor-pointer select-none"
+        className={cn(`flex items-center gap-2 text-xs uppercase select-none`, {
+          'cursor-pointer': !!counter,
+        })}
       >
         <div
           className={cn(
@@ -40,17 +42,20 @@ const CognFunction = ({
         >
           {title}
         </div>
-        <div
-          className={cn(`relative h-5 w-5 flex items-center justify-center`)}
-        >
-          <div
-            className={cn(`absolute z-0 inset-0 rounded-full`, bgColor)}
-          ></div>
-          <div className="relative z-10 font-extrabold">{counter}</div>
-        </div>
-        <div className="w-4 text-center text-muted font-medium tracking-wide opacity-90">
+
+        {/* Counter */}
+        {!!counter ? (
+          <div className="min-w-4 text-center font-bold">{counter}</div>
+        ) : null}
+
+        {/* Function ID */}
+        <div className="w-4 text-center text-muted font-bold tracking-wide">
           {id}
         </div>
+
+        {/* Colored Line */}
+        <div className={cn(`h-3 w-1 rounded-full`, bgColor)}></div>
+
         <div
           className={cn(`w-[208px] font-medium tracking-wide`, {
             'text-accent-text': !isShadow,

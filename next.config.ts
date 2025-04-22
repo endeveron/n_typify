@@ -41,6 +41,16 @@ const nextConfig: NextConfig = {
 
     return config;
   },
+  // Add image APIs
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'website.com',
+  //       pathname: '/api/**',
+  //     },
+  //   ],
+  // },
   // reactStrictMode: false, // Uncomment to prevent components to render twice intentionally to detect side effects.
 };
 

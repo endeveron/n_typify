@@ -17,7 +17,7 @@ import TypesIcon from '~/public/icons/navbar/types.svg';
 const navbarItems: TNavbarItem[] = [
   {
     id: 'main',
-    path: '/dashboard',
+    path: '/mbti-dashboard',
     icon: <HomeIcon />,
   },
   {
@@ -51,7 +51,7 @@ const Navbar = () => {
       // Get translation
       const translation = await getNavbarTranslation(langCode);
       if (!translation) {
-        toast(`Unable to get localized data for navbar`);
+        toast(`Unable to load localized data for navbar`);
         return;
       }
       const map = new Map(translation.itemMap);

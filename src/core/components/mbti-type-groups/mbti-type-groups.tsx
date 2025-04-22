@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-import MBTITypesTableRow from '@/core/components/mbti-types/mbti-types-table-row';
+import MBTITypesTableRow from '@/core/components/mbti-type-groups/mbti-type-group-table-row';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Button } from '@/core/components/ui/button';
 import { useLangCode } from '@/core/context/LangContext';
@@ -13,11 +13,15 @@ import { MBTIType, MBTITypesState } from '@/core/types/mbti';
 import {
   MBTITypeGroupMapTranslation,
   MBTITypeMapTranslation,
-  PersonalityTypeTranslation,
+  MBTITypeTranslation,
 } from '@/core/types/translation';
-import { getMBTITypesTranslation } from '@/core/utils/dictionary';
+import {
+  getMBTITypeGroupsTranslation,
+  getMBTITypesTranslation,
+} from '@/core/utils/dictionary';
 import { MBTITypeGroupMap, MBTITypeTableItems } from '@/core/utils/mbti';
-import SelectTypeGroup from '@/core/components/mbti-types/select-type-group';
+import SelectTypeGroup from '@/core/components/mbti-type-groups/select-type-group';
+import { useRouter } from 'next/navigation';
 
 export const MBTI_TYPES_STATE_KEY = 'mbti_types_state';
 
@@ -36,8 +40,9 @@ const initialState: MBTITypesState = {
   activeItems: [],
 };
 
-const MBTITypes = () => {
+const MBTITypeGroups = () => {
   const { langCode } = useLangCode();
+  const router = useRouter();
   const [getState, saveState] = useLocalStorage();
 
   const [state, setState] = useState<MBTITypesState>(initialState);
@@ -53,10 +58,10 @@ const MBTITypes = () => {
   } = state;
 
   const isTranslationsReady =
-    translation && state.typeMapTranslation && state.typeGroupMapTranslation;
+    translation && typeMapTranslation && typeGroupMapTranslation;
 
   const handleCardClick = (type: MBTIType) => {
-    console.log('handleCardClick type', type);
+    router.push(`/mbti-type/${type}`);
   };
 
   const handleSetGroup = useCallback(
@@ -78,19 +83,18 @@ const MBTITypes = () => {
   // Init translations, restore state from LocalStorage
   useEffect(() => {
     const initData = async () => {
-      const translation = await getMBTITypesTranslation(langCode);
-      if (!translation) {
-        toast(`Unable to get localized data`);
+      // Get page translation
+      const translation = await getMBTITypeGroupsTranslation(langCode);
+      // Get MBTI types translation
+      const MBTITypeTranslation = await getMBTITypesTranslation(langCode);
+      if (!translation || !MBTITypeTranslation) {
+        toast(`Unable to load localized data`);
         return;
       }
 
       // Create the map of types
-      const typeTranslationArr = translation.personalityTypes;
-      const typeMapTranslation = new Map<
-        MBTIType,
-        PersonalityTypeTranslation
-      >();
-      for (const t of typeTranslationArr) {
+      const typeMapTranslation = new Map<MBTIType, MBTITypeTranslation>();
+      for (const t of MBTITypeTranslation) {
         typeMapTranslation.set(t.type, t);
       }
 
@@ -135,18 +139,18 @@ const MBTITypes = () => {
   return (
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col items-center justify-between">
       {/* Title */}
-      <div className="min-h-32 max-h-40 flex flex-1 flex-col items-center justify-center">
+      <div className="min-h-32 max-h-40 flex flex-1 flex-col items-center justify-center cursor-default select-none">
         {!activeGroupDescription ? (
           <AnimatedAppear
             isShown={!activeGroupDescription}
-            className="text-accent text-xl font-extrabold tracking-wider uppercase cursor-default select-none"
+            className="text-xl font-extrabold text-accent tracking-wide uppercase"
           >
             {translation!.mainTitle}
           </AnimatedAppear>
         ) : null}
         <AnimatedAppear
           isShown={!!activeGroupDescription}
-          className="px-4 text-center text-accent-text text-sm font-medium"
+          className="px-4 text-center text-accent-text font-medium"
         >
           {activeGroupDescription}
         </AnimatedAppear>
@@ -191,4 +195,4 @@ const MBTITypes = () => {
   );
 };
 
-export default MBTITypes;
+export default MBTITypeGroups;

@@ -25,7 +25,7 @@ export const apiAuthPrefix: string = '/api/auth';
 /**
  * Default redirect path after user signed in.
  */
-export const DEFAULT_REDIRECT = '/dashboard';
+export const DEFAULT_REDIRECT = '/mbti-dashboard';
 
 /**
  * Default redirect path after user signed out.

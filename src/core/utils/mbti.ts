@@ -51,9 +51,6 @@ export const MBTITypeGroupMap = new Map<string, MBTIType[]>([
   ['balancers', ['INTP', 'ENTP', 'ISFJ', 'ESFJ']],
   ['responders', ['INFJ', 'ENFJ', 'ISTP', 'ESTP']],
   ['freespirits', ['INFP', 'ENFP', 'ISFP', 'ESFP']],
-
-  // ['bridgebuilders', ['INFJ', 'ENFJ', 'ISFJ', 'ESFJ']],
-  // ['dreamers', ['INFJ', 'INFP', 'ISFP', 'ENFP']],
 ]);
 
 export const MBTITypeTableItems: MBTIType[] = [
@@ -389,9 +386,9 @@ export const configureCognitiveFnCards = (
       cognitiveFunctions: [
         {
           id: 'Te',
-          title: translation.thinkingCard.extraverted_function.title,
+          title: translation.thinkingCard.extroverted_function.title,
           description:
-            translation.thinkingCard.extraverted_function.description,
+            translation.thinkingCard.extroverted_function.description,
         },
         {
           id: 'Ti',
@@ -412,8 +409,8 @@ export const configureCognitiveFnCards = (
         },
         {
           id: 'Fe',
-          title: translation.feelingCard.extraverted_function.title,
-          description: translation.feelingCard.extraverted_function.description,
+          title: translation.feelingCard.extroverted_function.title,
+          description: translation.feelingCard.extroverted_function.description,
         },
       ],
     },
@@ -423,8 +420,8 @@ export const configureCognitiveFnCards = (
       cognitiveFunctions: [
         {
           id: 'Se',
-          title: translation.sensingCard.extraverted_function.title,
-          description: translation.sensingCard.extraverted_function.description,
+          title: translation.sensingCard.extroverted_function.title,
+          description: translation.sensingCard.extroverted_function.description,
         },
         {
           id: 'Si',
@@ -445,9 +442,9 @@ export const configureCognitiveFnCards = (
         },
         {
           id: 'Ne',
-          title: translation.intuitionCard.extraverted_function.title,
+          title: translation.intuitionCard.extroverted_function.title,
           description:
-            translation.intuitionCard.extraverted_function.description,
+            translation.intuitionCard.extroverted_function.description,
         },
       ],
     },

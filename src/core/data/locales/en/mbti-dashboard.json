@@ -1,7 +1,7 @@
 {
   "energyCard": {
     "introversion_title": "Introvert",
-    "extraversion_title": "Extravert"
+    "extraversion_title": "Extrovert"
   },
   "tacticsCard": {
     "introversion_title": "Judging",
@@ -9,7 +9,7 @@
   },
   "thinkingCard": {
     "title": "Thinking",
-    "extraverted_function": {
+    "extroverted_function": {
       "title": "Business",
       "description": "A mechanism that must run smoothly. Everything is subordinated to efficiency and practical value."
     },
@@ -20,7 +20,7 @@
   },
   "feelingCard": {
     "title": "Feeling",
-    "extraverted_function": {
+    "extroverted_function": {
       "title": "Relations",
       "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection."
     },
@@ -31,7 +31,7 @@
   },
   "sensingCard": {
     "title": "Sensing",
-    "extraverted_function": {
+    "extroverted_function": {
       "title": "Volitional",
       "description": "Strength, will, determination. Willingness to fight for your goals and assert your boundaries."
     },
@@ -42,49 +42,13 @@
   },
   "intuitionCard": {
     "title": "Intuition",
-    "extraverted_function": {
+    "extroverted_function": {
       "title": "Possibilities",
       "description": "Flight of fancy, lots of ideas, freedom of options."
     },
     "introverted_function": {
       "title": "Time",
       "description": "The flow of time, cycles, cause and effect. Sees the future through the present."
-    }
-  },
-  "cognitiveFnStack": [
-    "Core Driver",
-    "Trusted Guide",
-    "Growth Edge",
-    "Core Wound",
-    "Shadow Guard",
-    "Inner Critic",
-    "Rule Breaker",
-    "Inner Fear"
-  ],
-  "cognitiveFunctions": {
-    "Ni": {
-      "description": "Thinks in terms of time"
-    },
-    "Ne": {
-      "description": "Sees options in all things"
-    },
-    "Si": {
-      "description": "Refines comfort by detail"
-    },
-    "Se": {
-      "description": "Acts boldly in the moment"
-    },
-    "Ti": {
-      "description": "Structures clear thoughts"
-    },
-    "Te": {
-      "description": "Applies strategy to action"
-    },
-    "Fi": {
-      "description": "Turns feelings into art"
-    },
-    "Fe": {
-      "description": "Tunes into social moods"
     }
   },
   "cleanUpResultsPrompt": "Clean up results?"

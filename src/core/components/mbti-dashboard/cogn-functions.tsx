@@ -8,15 +8,15 @@ import {
   CognitiveFnId,
 } from '@/core/types/mbti';
 import {
+  CognitiveFunctionsTranslation,
   MBTICognitiveFnTranslation,
-  MBTIDashboardTranslation,
 } from '@/core/types/translation';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 
 type CognFunctionsProps = {
   cognitiveFnArr: CognFunctionArr;
-  translation: MBTIDashboardTranslation;
-  onFunctionClick: (functionId: CognitiveFnId) => void;
+  translation: CognitiveFunctionsTranslation;
+  onFunctionClick?: (functionId: CognitiveFnId) => void;
 };
 
 const CognFunctions = ({
@@ -29,27 +29,37 @@ const CognFunctions = ({
     useState<Map<string, MBTICognitiveFnTranslation>>();
   const [cognFnItems, setCognFnItems] = useState<TCognFunction[]>();
 
+  const translMap = translation?.map;
+  const translStack = translation?.stack;
+
   const handleItemClick = (functionId: CognitiveFnId) => {
-    onFunctionClick(functionId);
+    if (typeof onFunctionClick === 'function') {
+      onFunctionClick(functionId);
+    }
   };
 
   // Init cognitive function name stack translations
   useEffect(() => {
-    setCognitiveFnNameStack(translation.cognitiveFnStack);
-  }, [translation.cognitiveFnStack]);
+    if (!translStack) return;
+
+    setCognitiveFnNameStack(translStack);
+  }, [translStack]);
 
   // Init cognitive function data map translations
   useEffect(() => {
+    if (!translMap) return;
+
     // Convert `translation.cognitiveFunctions` object into a Map
     const map = new Map<string, MBTICognitiveFnTranslation>(
-      Object.entries(translation.cognitiveFunctions)
+      Object.entries(translMap)
     );
     setCognitiveFnMap(map);
-  }, [translation.cognitiveFunctions]);
+  }, [translMap]);
 
   // Update cognitive function items
   useEffect(() => {
-    if (!cognitiveFnNameStack || !cognitiveFnMap) return;
+    if (!cognitiveFnArr.length || !cognitiveFnNameStack || !cognitiveFnMap)
+      return;
 
     const items: TCognFunction[] = cognitiveFnArr.map(
       ([id, counter], index) => ({
@@ -74,7 +84,7 @@ const CognFunctions = ({
           {cognFnItems.slice(0, 4).map((data, index) => (
             <CognFunction
               {...data}
-              onClick={() => onFunctionClick(data.id as CognitiveFnId)}
+              onClick={() => () => handleItemClick(data.id as CognitiveFnId)}
               key={data.id}
               index={index}
             />
@@ -86,7 +96,7 @@ const CognFunctions = ({
             {cognFnItems.slice(4).map((data, index) => (
               <CognFunction
                 {...data}
-                onClick={() => handleItemClick(data.id as CognitiveFnId)}
+                onClick={() => () => handleItemClick(data.id as CognitiveFnId)}
                 isShadow={true}
                 key={data.id}
                 index={index}

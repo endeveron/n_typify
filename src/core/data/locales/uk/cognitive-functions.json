@@ -1,0 +1,38 @@
+{
+  "stack": [
+    "Core Driver",
+    "Trusted Guide",
+    "Growth Edge",
+    "Core Wound",
+    "Shadow Guard",
+    "Inner Critic",
+    "Rule Breaker",
+    "Inner Fear"
+  ],
+  "map": {
+    "Ni": {
+      "description": "Thinks in terms of time"
+    },
+    "Ne": {
+      "description": "Sees options in all things"
+    },
+    "Si": {
+      "description": "Refines comfort by detail"
+    },
+    "Se": {
+      "description": "Acts boldly in the moment"
+    },
+    "Ti": {
+      "description": "Structures clear thoughts"
+    },
+    "Te": {
+      "description": "Applies strategy to action"
+    },
+    "Fi": {
+      "description": "Turns feelings into art"
+    },
+    "Fe": {
+      "description": "Tunes into social moods"
+    }
+  }
+}

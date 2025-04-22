@@ -43,7 +43,7 @@ const CleanUpResults = ({
     <>
       {isConfirmMode ? (
         <div className="relative z-10 flex items-center justify-end gap-2">
-          <div className="text-accent font-semibold pr-4 cursor-default">
+          <div className="text-accent-text font-semibold pr-4 cursor-default">
             {cleanUpResultsPrompt}
           </div>
           <div className="flex gap-3">

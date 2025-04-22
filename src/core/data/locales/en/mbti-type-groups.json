@@ -1,0 +1,127 @@
+{
+  "mainTitle": "MBTI Types",
+  "tableRowTitles": [
+    "Analysts / Intuitive Thinking / rationality and intellect",
+    "Diplomats / Intuitive Feeling / empathy and diplomatic skills",
+    "Sentinels / Observant Judjing / practicality and stability",
+    "Explorers / Observant Prospecting / ingenuity and flexibility"
+  ],
+  "typeGroupMap": [
+    [
+      "visionaries",
+      {
+        "title": "Visionaries",
+        "description": "Deep thinkers and idealists who are future-focused, introspective, and imaginative"
+      }
+    ],
+    [
+      "catalysts",
+      {
+        "title": "Catalysts",
+        "description": "Energetic change-makers who spark ideas, lead movements, and inspire others"
+      }
+    ],
+    [
+      "artisans",
+      {
+        "title": "Artisans",
+        "description": "Skilled doers who value tradition, craftsmanship, and hands-on experience"
+      }
+    ],
+    [
+      "navigators",
+      {
+        "title": "Navigators",
+        "description": "Grounded leaders and social stewards who organize, direct, and connect communities"
+      }
+    ],
+
+    [
+      "mentors",
+      {
+        "title": "Mentors",
+        "description": "Purpose-driven leaders who guide others through vision, insight, and structured direction"
+      }
+    ],
+    [
+      "explorers",
+      {
+        "title": "Explorers",
+        "description": "Curious innovators who seek new ideas, perspectives, and creative experiences"
+      }
+    ],
+    [
+      "stewards",
+      {
+        "title": "Stewards",
+        "description": "Principled organizers who lead with conviction, structure, and a sense of duty to others"
+      }
+    ],
+    [
+      "harmonizers",
+      {
+        "title": "Harmonizers",
+        "description": "Empathetic and community-driven types who value emotional connection and shared meaning"
+      }
+    ],
+    [
+      "realists",
+      {
+        "title": "Realists",
+        "description": "Practical decision-makers who value efficiency and results"
+      }
+    ],
+    [
+      "guardians",
+      {
+        "title": "Guardians",
+        "description": "Emotionally grounded, people-first types who focus on harmony and care"
+      }
+    ],
+
+    [
+      "architects",
+      {
+        "title": "Architects",
+        "description": "Supportive connectors who bring people together through empathy, trust, and emotional insight"
+      }
+    ],
+    [
+      "balancers",
+      {
+        "title": "Balancers",
+        "description": "Analytical yet community-minded types who balance innovation with care and tradition"
+      }
+    ],
+    [
+      "responders",
+      {
+        "title": "Responders",
+        "description": "Responsive and situationally aware types who lead with empathy or action under pressure"
+      }
+    ],
+    [
+      "freespirits",
+      {
+        "title": "Free Spirits",
+        "description": "Authentic and expressive individuals who seek beauty, connection, and freedom to be themselves"
+      }
+    ],
+
+    [
+      "bridgebuilders",
+      {
+        "title": "Bridgebuilders",
+        "description": "Supportive connectors who bring people together through empathy, trust, and emotional insight"
+      }
+    ],
+    [
+      "dreamers",
+      {
+        "title": "Dreamers",
+        "description": "Imaginative and values-driven types who seek personal meaning and creative expression"
+      }
+    ]
+  ],
+  "resetBtnTitle": "Reset"
+}

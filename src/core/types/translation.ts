@@ -4,6 +4,21 @@ export type LangCode = 'en' | 'uk';
 
 // Define the structure of the imported JSON
 
+export type MBTITypesTranslation = MBTITypeTranslation[];
+
+export type CognitiveFnMapItemTranslation = {
+  description: string;
+};
+
+export type CognitiveFnMapObjTranslation = {
+  [id: string]: CognitiveFnMapItemTranslation;
+};
+
+export type CognitiveFunctionsTranslation = {
+  stack: string[];
+  map: CognitiveFnMapObjTranslation;
+};
+
 // Welcome page
 
 export type WelcomeTranslation = {
@@ -32,7 +47,7 @@ export type MBTIDashboardFunctionTranslation = {
 
 export type MBTIDashboardFunctionCardTranslation = {
   title: string;
-  extraverted_function: MBTIDashboardFunctionTranslation;
+  extroverted_function: MBTIDashboardFunctionTranslation;
   introverted_function: MBTIDashboardFunctionTranslation;
 };
 
@@ -40,50 +55,49 @@ export type MBTICognitiveFnTranslation = {
   description: string;
 };
 
-export type MBTICognitiveFnMapTranslation = {
-  [id: string]: {
-    description: string;
-  };
-};
-
-export type PersonalityTypeTranslation = {
+export type MBTITypeTranslation = {
   type: MBTIType;
   title: string[];
   subtitle: string;
-  persons: string[];
-  description: string;
-  traitSet: string[];
 };
+
+export type MBTITypeDetailsTranslation = {
+  type: MBTIType;
+  description: string[];
+  traitSet: string[];
+  famousPersons: string[];
+};
+
+export type MBTITypeDetailArrayTranslation = MBTITypeDetailsTranslation[];
 
 export type MBTIDashboardTranslation = {
   cleanUpResultsPrompt: string;
-  cognitiveFnStack: string[];
-  cognitiveFunctions: MBTICognitiveFnMapTranslation;
   energyCard: MBTIDashboardTraitCardTranslation;
   feelingCard: MBTIDashboardFunctionCardTranslation;
   intuitionCard: MBTIDashboardFunctionCardTranslation;
   sensingCard: MBTIDashboardFunctionCardTranslation;
   tacticsCard: MBTIDashboardTraitCardTranslation;
   thinkingCard: MBTIDashboardFunctionCardTranslation;
-  personalityTypes?: PersonalityTypeTranslation[];
+  MBTITypes?: MBTITypeTranslation[];
+  cognitiveFunctions?: CognitiveFunctionsTranslation;
 };
 
-// MBTI Types
+// MBTI Type Groups
 
 export type MBTITypeGroupMapItem = {
   title: string;
   description: string;
 };
 
-export type MBTITypesTranslation = {
+export type MBTITypeGroupsTranslation = {
   mainTitle: string;
-  personalityTypes: PersonalityTypeTranslation[];
+  MBTITypes?: MBTITypeTranslation[];
   tableRowTitles: string[];
   typeGroupMap: [string, MBTITypeGroupMapItem][];
   resetBtnTitle: string;
 };
 
-export type MBTITypeMapTranslation = Map<MBTIType, PersonalityTypeTranslation>;
+export type MBTITypeMapTranslation = Map<MBTIType, MBTITypeTranslation>;
 
 export type MBTITypeGroupMapTranslation = Map<string, MBTITypeGroupMapItem>;
 
