@@ -12,13 +12,15 @@ const TextBox = ({ paragraphs, title }: TextBoxProps) => {
     <AnimatedAppear
       isShown={!!paragraphs.length}
       timeout={1000}
-      className="px-6 py-8 flex flex-col gap-6 bg-card rounded-3xl"
+      className="mx-1 px-8 py-10 flex flex-col gap-6 bg-card rounded-3xl"
     >
       {title ? (
         <div className="text-xs text-accent-text font-semibold tracking-wide uppercase">
           {title}
         </div>
-      ) : null}
+      ) : (
+        <div className="h-1 w-24 -translate-x-10 bg-accent rounded-full"></div>
+      )}
       {paragraphs.map((text, index) => (
         <div
           className="text-sm font-light leading-loose opacity-90"

@@ -8,8 +8,8 @@
     ],
     "traitSet": ["introvert", "intuitive", "logician", "rationalist"],
     "famousPersons": [
-      "Elon Musk",
       "Christopher Nolan",
+      "Elon Musk",
       "Arnold Schwarzenegger",
       "Friedrich Nietzsche",
       "Robespierre"
@@ -25,8 +25,8 @@
     "traitSet": ["extrovert", "intuitive", "logician", "rationalist"],
     "famousPersons": [
       "Steve Jobs",
-      "Napoleon Bonaparte",
       "Margaret Thatcher",
+      "Napoleon Bonaparte",
       "Harrison Ford",
       "Jack London"
     ]
@@ -42,8 +42,8 @@
     "famousPersons": [
       "Albert Einstein",
       "Bill Gates",
+      "Kristen Stewart",
       "Isaac Newton",
-      "Avicii",
       "Balzac"
     ]
   },
@@ -57,9 +57,9 @@
     "traitSet": ["extrovert", "intuitive", "logician", "irrationalist"],
     "famousPersons": [
       "Thomas Edison",
-      "Mark Twain",
       "Tom Hanks",
-      "Sacha Baron Cohen",
+      "Mark Twain",
+      "Sacha Cohen",
       "Don Quixote"
     ]
   },

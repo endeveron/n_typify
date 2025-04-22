@@ -172,14 +172,16 @@ const MBTIType = ({ type }: MBTITypeProps) => {
       </div>
 
       {/* Famous Persons */}
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="my-4 flex flex-1 flex-col gap-4">
         <FamousPersons persons={translation.MBTITypeDetails.famousPersons} />
       </div>
 
       {/* Description Paragraphs */}
       {descriptionParagraphs?.length ? (
-        <TextBox title="About" paragraphs={descriptionParagraphs} />
+        <TextBox paragraphs={descriptionParagraphs} />
       ) : null}
+
+      <div className="h-14" />
     </div>
   );
 };
