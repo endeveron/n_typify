@@ -173,7 +173,7 @@ const MBTITypeGroups = () => {
       </div>
 
       {/* Select Group */}
-      <AnimatedAppear className="my-4 flex flex-1 items-center justify-center gap-4">
+      <AnimatedAppear className="my-4 flex flex-1 items-center gap-4">
         <SelectTypeGroup
           activeGroupId={activeGroupId}
           typeGroupMap={MBTITypeGroupMap}
@@ -186,7 +186,7 @@ const MBTITypeGroups = () => {
           onClick={() => handleSetGroup(null, [])}
           variant="outline"
           key="reset"
-          className={activeGroupId ? '' : 'opacity-40 pointer-events-none'}
+          className={activeGroupId ? '' : 'opacity-0 pointer-events-none'}
         >
           {translation!.resetBtnTitle}
         </Button>

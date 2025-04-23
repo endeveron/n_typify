@@ -155,7 +155,7 @@
       "Uma Thurman",
       "Frank Sinatra",
       "Emma Watson",
-      "John D. Rockefeller",
+      "John D.Rockefeller",
       "Stierlitz"
     ]
   },
@@ -169,9 +169,9 @@
     "traitSet": ["introvert", "sensor", "ethicist", "rationalist"],
     "famousPersons": [
       "Vin Diesel",
+      "Halle Berry",
       "Beyoncé",
       "Mother Teresa",
-      "Halle Berry",
       "Dreiser"
     ]
   },
@@ -216,9 +216,9 @@
     ],
     "traitSet": ["extrovert", "sensor", "logician", "irrationalist"],
     "famousPersons": [
+      "Angelina Jolie",
       "Eddie Murphy",
       "Madonna",
-      "Bruce Willis",
       "Ernest Hemingway",
       "Zhukov"
     ]

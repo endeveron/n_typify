@@ -1,11 +1,24 @@
 'use client';
 
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
+import { cn } from '@/core/utils/common';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { cn } from '@/core/utils/common';
+
+import { DASHBOARD_STATE_KEY } from '@/core/components/mbti-dashboard/mbti-dashboard';
+import { MBTI_TYPES_STATE_KEY } from '@/core/components/mbti-type-groups/mbti-type-groups';
+import { MBTI_TYPE_STATE_KEY } from '@/core/components/mbti-type/mbti-type';
 
 const MBTIVisual = () => {
+  const [, saveState] = useLocalStorage();
+
   const [isReady, setIsReady] = useState(false);
+
+  const handleClick = () => {
+    saveState(DASHBOARD_STATE_KEY, null);
+    saveState(MBTI_TYPE_STATE_KEY, null);
+    saveState(MBTI_TYPES_STATE_KEY, null);
+  };
 
   useEffect(() => {
     setIsReady(true);
@@ -13,6 +26,7 @@ const MBTIVisual = () => {
 
   return (
     <div
+      onClick={handleClick}
       className={cn(`relative opacity-0 transition-opacity duration-1000`, {
         'opacity-100': isReady,
       })}

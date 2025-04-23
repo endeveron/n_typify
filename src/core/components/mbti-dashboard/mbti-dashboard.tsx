@@ -50,7 +50,7 @@ const cognFnCounterMap = new Map<string, number>([
   ['Ni', 0],
 ]);
 
-const initialState: MBTIDashboardState = {
+export const initialState: MBTIDashboardState = {
   translation: null,
   personality: null,
   personalities: [],
