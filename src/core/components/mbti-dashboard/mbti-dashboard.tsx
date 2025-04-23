@@ -329,9 +329,9 @@ const MBTIDashboard = () => {
     <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col justify-between">
       {isOutput ? (
         <>
+          {/* Header */}
           <div className="flex flex-1 flex-col max-h-[300px]">
-            {/* Header: Personality Type */}
-
+            {/* Personality Type */}
             <div
               className={cn(`flex flex-1 min-h-32 transition-opacity`, {
                 'opacity-0': state.isCleanUpConfirmMode,

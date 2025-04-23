@@ -5,16 +5,19 @@ import AnimatedAppear from '@/core/components/shared/animated-appear';
 import HorizScrollArea from '@/core/components/shared/horiz-scroll-area';
 import { MBTIPersonalityItem } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
+import { useRouter } from 'next/navigation';
 
 type PersonalityCardsProps = {
   personalities: MBTIPersonalityItem[];
 };
 
 const PersonalityCards = ({ personalities }: PersonalityCardsProps) => {
+  const router = useRouter();
+
   const itemsNumber = personalities.length;
 
   const handleCardClick = (data: MBTIPersonalityItem) => {
-    console.log('handleCardClick > data', data);
+    router.push(`/mbti-type/${data.mbti.personalityType}`);
   };
 
   return (

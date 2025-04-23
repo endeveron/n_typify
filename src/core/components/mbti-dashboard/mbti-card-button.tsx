@@ -44,14 +44,12 @@ const MBTICardButton = ({ id, title, onClick }: TMBTICardButtonProps) => {
       <div
         className={cn(
           `h-16 w-16 flex items-center justify-center text-white rounded-full cursor-pointer transition-colors`,
-          // `h-16 w-16 flex items-center justify-center text-accent-text bg-black hover:bg-accent hover:text-black rounded-full cursor-pointer transition-colors`
-          // `h-16 w-16 flex items-center justify-center text-black bg-accent rounded-full cursor-pointer transition-colors`
           bgColor
         )}
       >
         {icon}
       </div>
-      <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default opacity-80 select-none">
+      <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default select-none opacity-90">
         {title}
       </div>
     </div>

@@ -16,14 +16,14 @@ import TypesIcon from '~/public/icons/navbar/types.svg';
 
 const navbarItems: TNavbarItem[] = [
   {
-    id: 'main',
-    path: '/mbti-dashboard',
-    icon: <HomeIcon />,
-  },
-  {
     id: 'types',
     path: '/mbti-types',
     icon: <TypesIcon />,
+  },
+  {
+    id: 'main',
+    path: '/mbti-dashboard',
+    icon: <HomeIcon />,
   },
 ];
 
@@ -62,15 +62,7 @@ const Navbar = () => {
   }, [langCode]);
 
   return (
-    <AnimatedAppear className="pt-2 pb-1 w-full base-max-w mx-auto flex items-center justify-evenly bg-card rounded-full">
-      <NavbarItem
-        id="logout"
-        icon={<SignOutButton />}
-        onClick={handleLogout}
-        isPending={isPending}
-        title={translationMap?.get('logout') ?? 'Logout'}
-        key="logout"
-      />
+    <AnimatedAppear className="h-14 pt-2 pb-1 w-full base-max-w mx-auto flex items-center justify-evenly bg-card rounded-full">
       {navbarItems.map((data) => (
         <NavbarItem
           onClick={handleItemClick}
@@ -80,6 +72,14 @@ const Navbar = () => {
           key={data.id}
         />
       ))}
+      <NavbarItem
+        id="logout"
+        icon={<SignOutButton />}
+        onClick={handleLogout}
+        isPending={isPending}
+        title={translationMap?.get('logout') ?? 'Logout'}
+        key="logout"
+      />
     </AnimatedAppear>
   );
 };

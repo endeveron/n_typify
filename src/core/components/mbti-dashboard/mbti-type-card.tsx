@@ -52,10 +52,9 @@ const MBTITypeCard = ({
       {/* MBTI Personality Type */}
       <div
         className={cn(
-          `my-1 text-2xl text-muted font-bold tracking-wide leading-none opacity-60 transition-all`,
+          `my-1 text-2xl text-muted font-bold tracking-wide leading-none opacity-70 transition-all`,
           {
             'text-accent opacity-100': isActive === true,
-            // '': isActive === undefined,
           }
         )}
       >

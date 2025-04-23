@@ -14,7 +14,7 @@ const CognFunctionCards = ({
   onClick,
 }: CognFunctionCardsProps) => {
   return (
-    <AnimatedAppear className="pb-1 flex flex-wrap items-center justify-center gap-1">
+    <AnimatedAppear className="flex flex-wrap items-center justify-center gap-1">
       {cognitiveFnCards?.map((data) => (
         <CognFunctionCard {...data} onClick={onClick} key={data.title} />
       ))}

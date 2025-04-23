@@ -22,10 +22,7 @@ const TextBox = ({ paragraphs, title }: TextBoxProps) => {
         <div className="h-1 w-24 -translate-x-10 bg-accent rounded-full"></div>
       )}
       {paragraphs.map((text, index) => (
-        <div
-          className="text-sm font-light leading-loose opacity-90"
-          key={index}
-        >
+        <div className="font-light leading-relaxed opacity-90" key={index}>
           {text}
         </div>
       ))}

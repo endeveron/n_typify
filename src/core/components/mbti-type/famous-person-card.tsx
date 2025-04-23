@@ -2,9 +2,7 @@
 
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
-
-// https://ui-avatars.com/avatar-placeholder/
+import { useEffect, useState } from 'react';
 
 type FamousPersonCardProps = {
   name: string;
@@ -12,11 +10,27 @@ type FamousPersonCardProps = {
 
 const FamousPersonCard = ({ name }: FamousPersonCardProps) => {
   const [isImgLoadError, setIsImgLoadError] = useState(false);
+  const [nameGroup, setNameGroup] = useState<{
+    firstName: string;
+    lastName: string | undefined;
+  }>();
 
-  const nameArr = useMemo(() => name.split(' '), [name]);
+  useEffect(() => {
+    const nameArr = name.split(' ');
+    const firstName = nameArr[0];
 
-  const firstName = nameArr[0];
-  const secondName = nameArr[1] ?? '';
+    let lastName;
+    if (nameArr.length > 1) {
+      lastName = nameArr.slice(1).reduce((val, curVal) => {
+        return `${val} ${curVal}`;
+      }, '');
+    }
+
+    setNameGroup({
+      firstName,
+      lastName,
+    });
+  }, [name]);
 
   const handleLoadError = () => {
     setIsImgLoadError(true);
@@ -26,9 +40,9 @@ const FamousPersonCard = ({ name }: FamousPersonCardProps) => {
     <div className="flex flex-col items-center">
       <div className="w-20 h-20 flex items-center justify-center rounded-full bg-card overflow-hidden">
         {isImgLoadError ? (
-          <div className="text-xl text-muted font-light opacity-60">
-            {firstName[0]}
-            {secondName[0]}
+          <div className="text-xl text-muted font-light opacity-70">
+            {nameGroup?.firstName.charAt(0)}
+            {nameGroup?.lastName?.charAt(1)}
           </div>
         ) : (
           <AnimatedAppear>
@@ -45,8 +59,8 @@ const FamousPersonCard = ({ name }: FamousPersonCardProps) => {
         )}
       </div>
       <div className="mt-2 font-medium tracking-wide text-center text-xs text-muted opacity-80">
-        <div className="w-20 truncate">{firstName}</div>
-        <div className="w-20 truncate">{secondName}</div>
+        <div className="w-20 truncate">{nameGroup?.firstName}</div>
+        <div className="w-20 truncate">{nameGroup?.lastName}</div>
       </div>
     </div>
   );

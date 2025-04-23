@@ -143,7 +143,7 @@ const MBTIType = ({ type }: MBTITypeProps) => {
   if (!translation) return null;
 
   return (
-    <div className="relative base-max-w mx-auto flex flex-col items-center gap-8 cursor-default">
+    <div className="base-max-w mx-auto flex flex-col items-center gap-8 cursor-default">
       {/* Personality Type */}
       <div className="mt-8 flex flex-col gap-4">
         <PersonalityTypeHeader
@@ -180,8 +180,6 @@ const MBTIType = ({ type }: MBTITypeProps) => {
       {descriptionParagraphs?.length ? (
         <TextBox paragraphs={descriptionParagraphs} />
       ) : null}
-
-      <div className="h-14" />
     </div>
   );
 };

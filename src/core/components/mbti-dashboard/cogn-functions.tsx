@@ -2,16 +2,16 @@
 import { useEffect, useState } from 'react';
 
 import CognFunction from '@/core/components/mbti-dashboard/cogn-function';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import {
-  CognFunction as TCognFunction,
   CognFunctionArr,
   CognitiveFnId,
+  CognFunction as TCognFunction,
 } from '@/core/types/mbti';
 import {
   CognitiveFunctionsTranslation,
   MBTICognitiveFnTranslation,
 } from '@/core/types/translation';
-import AnimatedAppear from '@/core/components/shared/animated-appear';
 
 type CognFunctionsProps = {
   cognitiveFnArr: CognFunctionArr;
@@ -92,7 +92,7 @@ const CognFunctions = ({
         </div>
 
         {cognFnItems.length > 4 ? (
-          <div className="mt-3 flex flex-col gap-1 opacity-50">
+          <div className="mt-3 flex flex-col gap-1 opacity-80">
             {cognFnItems.slice(4).map((data, index) => (
               <CognFunction
                 {...data}

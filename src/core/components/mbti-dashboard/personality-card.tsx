@@ -43,7 +43,7 @@ const PersonalityCard = ({ personality, onClick }: PersonalityCardProps) => {
       <div
         className={cn(`my-1 text-2xl font-bold tracking-wide leading-none`, {
           'text-accent': matchPercent === 100,
-          'text-muted opacity-60': matchPercent < 100,
+          'text-muted opacity-70': matchPercent < 100,
         })}
       >
         {personalityType}

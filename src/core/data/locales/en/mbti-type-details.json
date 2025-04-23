@@ -18,24 +18,24 @@
   {
     "type": "ENTJ",
     "description": [
-      "ENTJs are bold, strategic leaders who thrive on challenges and excel at turning vision into reality. Charismatic and confident, they inspire others with their relentless drive, sharp intellect, and unwavering determination. Ruthlessly logical and goal-oriented, they demand efficiency and competence, often pushing themselves—and those around them—to achieve extraordinary results.",
+      "ENTJs are bold, strategic leaders who thrive on challenges and excel at turning vision into reality. Charismatic and confident, they inspire others with their relentless drive, sharp intellect, and unwavering determination. Ruthlessly logical and goal-oriented, they demand efficiency and competence, often pushing themselves — and those around them — to achieve extraordinary results.",
       "Natural tacticians, ENTJs dominate negotiations and decision-making, valuing intellectual rigor and decisive action. While they respect talent and build strong teams, their bluntness and impatience with inefficiency can alienate others. Though they see emotions as secondary to results, they benefit from balancing their intensity with emotional awareness to foster deeper relationships.",
-      "Ambitious and self-assured, ENTJs believe anything is possible with enough willpower. They live by their own rules, refusing to settle for mediocrity—and expect the same from the world. When they harness their leadership skills with empathy, they become unstoppable forces of progress."
+      "Ambitious and self-assured, ENTJs believe anything is possible with enough willpower. They live by their own rules, refusing to settle for mediocrity — and expect the same from the world. When they harness their leadership skills with empathy, they become unstoppable forces of progress."
     ],
     "traitSet": ["extrovert", "intuitive", "logician", "rationalist"],
     "famousPersons": [
+      "Harrison Ford",
       "Steve Jobs",
       "Margaret Thatcher",
       "Napoleon Bonaparte",
-      "Harrison Ford",
       "Jack London"
     ]
   },
   {
     "type": "INTP",
     "description": [
-      "INTPs are intellectual explorers, driven by an insatiable curiosity and a love for unraveling complex ideas. They thrive in solitude, where their minds can freely wander through abstract theories, inventive solutions, and philosophical debates—often getting lost in thought mid-conversation. Highly analytical and independent, they excel at spotting inconsistencies and approaching problems with innovative, outside-the-box thinking. ",
-      "Though they may seem detached or absent-minded, INTPs light up in discussions with like-minded thinkers, engaging in spirited debates just for the thrill of intellectual exchange. Their flexibility of thought means they often play devil’s advocate, refining ideas rather than sticking to rigid conclusions. However, their relentless analysis can lead to overthinking, leaving them paralyzed by indecision—especially when emotions are involved. ",
+      "INTPs are intellectual explorers, driven by an insatiable curiosity and a love for unraveling complex ideas. They thrive in solitude, where their minds can freely wander through abstract theories, inventive solutions, and philosophical debates — often getting lost in thought mid-conversation. Highly analytical and independent, they excel at spotting inconsistencies and approaching problems with innovative, outside-the-box thinking. ",
+      "Though they may seem detached or absent-minded, INTPs light up in discussions with like-minded thinkers, engaging in spirited debates just for the thrill of intellectual exchange. Their flexibility of thought means they often play devil’s advocate, refining ideas rather than sticking to rigid conclusions. However, their relentless analysis can lead to overthinking, leaving them paralyzed by indecision — especially when emotions are involved. ",
       "While logic is their native language, INTPs do care deeply about others, even if they struggle to express it. Their brilliance shines when they channel their creativity into tangible solutions, but they may need to balance their theoretical musings with action. Ultimately, INTPs are visionary problem-solvers, happiest when they’re free to question, experiment, and discover the hidden patterns of the world."
     ],
     "traitSet": ["introvert", "intuitive", "logician", "irrationalist"],
@@ -50,89 +50,89 @@
   {
     "type": "ENTP",
     "description": [
-      "ENTPs are brilliant, quick-witted provocateurs who thrive on intellectual combat and challenging the status quo. Playful yet sharp, they love dissecting ideas, poking holes in arguments, and sparking lively debates—not out of malice, but out of sheer curiosity and a passion for innovation. Their rebellious streak drives them to question rules, explore unconventional solutions, and champion underdog perspectives.",
+      "ENTPs are brilliant, quick-witted provocateurs who thrive on intellectual combat and challenging the status quo. Playful yet sharp, they love dissecting ideas, poking holes in arguments, and sparking lively debates — not out of malice, but out of sheer curiosity and a passion for innovation. Their rebellious streak drives them to question rules, explore unconventional solutions, and champion underdog perspectives.",
       "Charismatic and inventive, ENTPs excel at brainstorming big-picture ideas but may struggle with follow-through, often jumping to the next exciting thought before finishing the last. While their contrarian nature makes them captivating conversationalists, it can also ruffle feathers, as they sometimes prioritize winning an argument over harmony.",
-      "With their humor, vision, and adaptability, ENTPs are natural innovators—but they shine brightest when they balance their love of debate with emotional awareness, learning that not every battle needs to be fought. When they channel their energy into meaningful goals rather than just playful contention, they become unstoppable forces of creativity and progress."
+      "With their humor, vision, and adaptability, ENTPs are natural innovators — but they shine brightest when they balance their love of debate with emotional awareness, learning that not every battle needs to be fought. When they channel their energy into meaningful goals rather than just playful contention, they become unstoppable forces of creativity and progress."
     ],
     "traitSet": ["extrovert", "intuitive", "logician", "irrationalist"],
     "famousPersons": [
       "Thomas Edison",
       "Tom Hanks",
       "Mark Twain",
-      "Sacha Cohen",
+      "Sacha Baron Cohen",
       "Don Quixote"
     ]
   },
   {
     "type": "INFJ",
     "description": [
-      "INFJs are rare, idealistic visionaries driven by a deep sense of purpose and a passion for helping others. With a unique blend of empathy, intuition, and conviction, they strive to make a meaningful impact—not for recognition, but because they feel called to heal injustices and guide people toward their potential. Thoughtful and principled, they move through life with quiet intensity, often feeling 'different' from those around them.",
-      "Warm yet private, INFJs crave profound connections and despise superficiality, offering deep emotional insight to those they trust. However, their sensitivity can leave them vulnerable to criticism and burnout, as they tend to prioritize others' needs over their own. Their greatest challenge—and strength—lies in balancing their lofty ideals with self-care, ensuring their compassion doesn’t deplete their inner resilience.",
+      "INFJs are rare, idealistic visionaries driven by a deep sense of purpose and a passion for helping others. With a unique blend of empathy, intuition, and conviction, they strive to make a meaningful impact — not for recognition, but because they feel called to heal injustices and guide people toward their potential. Thoughtful and principled, they move through life with quiet intensity, often feeling 'different' from those around them.",
+      "Warm yet private, INFJs crave profound connections and despise superficiality, offering deep emotional insight to those they trust. However, their sensitivity can leave them vulnerable to criticism and burnout, as they tend to prioritize others' needs over their own. Their greatest challenge — and strength — lies in balancing their lofty ideals with self-care, ensuring their compassion doesn’t deplete their inner resilience.",
       "When aligned with their values, INFJs become transformative forces, using their creativity and moral clarity to inspire change. Their quiet determination reminds us that even the smallest acts of integrity can ripple outward, reshaping the world."
     ],
     "traitSet": ["introvert", "intuitive", "ethicist", "rationalist"],
     "famousPersons": [
-      "Carl Jung",
-      "Martin Luther King Jr.",
-      "Nicole Kidman",
       "Benedict Cumberbatch",
+      "Nicole Kidman",
+      "Martin Luther King",
+      "Carl Jung",
       "Dostoevsky"
     ]
   },
   {
     "type": "ENFJ",
     "description": [
-      "ENFJs are natural-born leaders with a gift for inspiring others to become their best selves. Charismatic, compassionate, and principled, they feel a deep responsibility to make the world more just and caring—one relationship, one community, and one cause at a time. Their superpower lies in their ability to intuitively understand people’s emotions and motivations, which they use to uplift, guide, and unite others toward meaningful growth.",
+      "ENFJs are natural-born leaders with a gift for inspiring others to become their best selves. Charismatic, compassionate, and principled, they feel a deep responsibility to make the world more just and caring — one relationship, one community, and one cause at a time. Their superpower lies in their ability to intuitively understand people’s emotions and motivations, which they use to uplift, guide, and unite others toward meaningful growth.",
       "Driven by idealism and a strong moral compass, ENFJs speak up against injustice with eloquence and warmth, often becoming catalysts for positive change. However, their intense desire to 'fix' situations and help others can sometimes lead to over-involvement or disappointment when people resist their well-intentioned advice.",
-      "While they thrive on deep connections and mentorship, ENFJs must remember to direct some of their nurturing energy inward—their ability to lead by example is most powerful when they, too, embrace self-compassion. At their best, they don’t just advocate for a better world; they create it through everyday acts of courage, empathy, and unwavering belief in human potential."
+      "While they thrive on deep connections and mentorship, ENFJs must remember to direct some of their nurturing energy inward — their ability to lead by example is most powerful when they, too, embrace self-compassion. At their best, they don’t just advocate for a better world; they create it through everyday acts of courage, empathy, and unwavering belief in human potential."
     ],
     "traitSet": ["extrovert", "intuitive", "ethicist", "rationalist"],
     "famousPersons": [
       "Barack Obama",
       "Oprah Winfrey",
-      "Ben Affleck",
       "Jennifer Lawrence",
+      "Ben Affleck",
       "Hamlet"
     ]
   },
   {
     "type": "INFP",
     "description": [
-      "INFPs, often called Mediators or Dreamers, are gentle souls with fiery inner worlds. Behind their quiet exteriors burns a deep passion for authenticity, creativity, and human connection. These sensitive idealists experience life with poetic intensity—they're moved by art and nature, treasure sentimental keepsakes, and constantly ponder life's deeper meanings. While they may feel out of step with our fast-paced world, their rich inner lives and compassionate nature allow them to form profound bonds and see beauty others might miss.",
-      "What truly defines INFPs is their rare combination of empathy and imagination. They possess an almost magical ability to understand others' emotions while maintaining childlike wonder about possibilities. As natural listeners, they create safe spaces for people to share their stories, approaching every interaction with open-hearted curiosity. Yet this gift comes with vulnerability—they often absorb others' pain as their own and can become overwhelmed by the world's injustices. Their struggle lies in balancing their desire to heal the world with the need to protect their own sensitive spirits.",
-      "At their core, INFPs are seekers—of truth, purpose, and meaningful self-expression. They flourish when channeling their creativity into writing, art, or causes that align with their values. Though they may sometimes get lost in daydreams or indecision, when an INFP finds a calling that resonates with their ideals, their quiet perseverance can change lives. The world needs their compassionate vision—their ability to remind us all that kindness, authenticity, and imagination are not weaknesses, but rare and precious strengths."
+      "INFPs are gentle souls with fiery inner worlds. Behind their quiet exteriors burns a deep passion for authenticity, creativity, and human connection. These sensitive idealists experience life with poetic intensity — they're moved by art and nature, treasure sentimental keepsakes, and constantly ponder life's deeper meanings. While they may feel out of step with our fast-paced world, their rich inner lives and compassionate nature allow them to form profound bonds and see beauty others might miss.",
+      "What truly defines INFPs is their rare combination of empathy and imagination. They possess an almost magical ability to understand others' emotions while maintaining childlike wonder about possibilities. As natural listeners, they create safe spaces for people to share their stories, approaching every interaction with open-hearted curiosity. Yet this gift comes with vulnerability — they often absorb others' pain as their own and can become overwhelmed by the world's injustices. Their struggle lies in balancing their desire to heal the world with the need to protect their own sensitive spirits.",
+      "At their core, INFPs are seekers — of truth, purpose, and meaningful self-expression. They flourish when channeling their creativity into writing, art, or causes that align with their values. Though they may sometimes get lost in daydreams or indecision, when an INFP finds a calling that resonates with their ideals, their quiet perseverance can change lives. The world needs their compassionate vision — their ability to remind us all that kindness, authenticity, and imagination are not weaknesses, but rare and precious strengths."
     ],
     "traitSet": ["introvert", "intuitive", "ethicist", "irrationalist"],
     "famousPersons": [
-      "William Shakespeare",
-      "Vincent van Gogh",
-      "J.R.R. Tolkien",
       "Johnny Depp",
+      "Bob Marley",
+      "Kurt Cobain",
+      "J.R.R. Tolkien",
       "Yesenin"
     ]
   },
   {
     "type": "ENFP",
     "description": [
-      "ENFPs are radiant free spirits who light up any space with their warmth. These enthusiastic connectors crave authentic relationships and meaningful experiences above all else. Their playful energy masks a philosophical core—they're endlessly fascinated by human potential and life's deeper patterns. Natural storytellers and idea-explorers, they believe everyone has a unique spark worth celebrating. Yet their social confidence balances with private introspection about life's big questions.",
-      "What defines ENFPs is their dual gift for joy and depth. They approach the world with wide-eyed curiosity, seeing magic in ordinary connections. Their empathy creates spaces where people feel safe to be vulnerable, though they sometimes overanalyze interactions. While they love new adventures, they're not flighty—they simply believe growth comes through exploration. Their challenge is balancing their many passions with follow-through, as shiny new inspirations constantly compete for attention.",
-      "At their best, ENFPs are catalysts for transformation. They help others embrace their true selves while courageously chasing their own dreams. When aligned with meaningful purpose, their infectious optimism becomes a force for good. The world needs their reminder that life's richest rewards come from heartfelt connections and the bravery to live authentically—no matter how unconventional the path."
+      "ENFPs are radiant free spirits who light up any space with their warmth. These enthusiastic connectors crave authentic relationships and meaningful experiences above all else. Their playful energy masks a philosophical core — they're endlessly fascinated by human potential and life's deeper patterns. Natural storytellers and idea-explorers, they believe everyone has a unique spark worth celebrating. Yet their social confidence balances with private introspection about life's big questions.",
+      "What defines ENFPs is their dual gift for joy and depth. They approach the world with wide-eyed curiosity, seeing magic in ordinary connections. Their empathy creates spaces where people feel safe to be vulnerable, though they sometimes overanalyze interactions. While they love new adventures, they're not flighty — they simply believe growth comes through exploration. Their challenge is balancing their many passions with follow-through, as shiny new inspirations constantly compete for attention.",
+      "At their best, ENFPs are catalysts for transformation. They help others embrace their true selves while courageously chasing their own dreams. When aligned with meaningful purpose, their infectious optimism becomes a force for good. The world needs their reminder that life's richest rewards come from heartfelt connections and the bravery to live authentically — no matter how unconventional the path."
     ],
     "traitSet": ["extrovert", "intuitive", "ethicist", "irrationalist"],
     "famousPersons": [
       "Will Smith",
+      "Keira Knightley",
       "Robert Downey Jr.",
       "Quentin Tarantino",
-      "Oscar Wilde",
       "Huxley"
     ]
   },
   {
     "type": "ISTJ",
     "description": [
-      "ISTJs are society's reliable backbone. These practical, dutiful individuals value order, honesty and follow-through above all else. They thrive in structured environments with clear expectations, approaching tasks with methodical precision. Their word is ironclad - commitments are honored regardless of difficulty. While not flashy, their steadfastness provides crucial stability in chaotic times. Family and colleagues rely on their calm, logical problem-solving during crises.",
-      "ISTJs live by an unwavering moral code. They believe rules exist for good reason and expect others to take equal responsibility. This leads to blunt honesty - they'll admit mistakes even when damaging. However, their rigid standards can breed unfair judgments of less disciplined people. Their greatest growth comes in understanding different approaches can be valid. Though emotionally reserved, they feel deeply about fairness and feel frustrated when others shirk duties.",
-      "A common ISTJ struggle is overwork. Their extreme reliability often leads others to exploit them. They'll silently shoulder extra burdens until reaching breaking point. Learning to set boundaries is crucial - their value lies in sustainable dependability, not martyrdom. When balanced, ISTJs exemplify how integrity and structure enable progress. The world needs their quiet, consistent dedication now more than ever."
+      "ISTJs are society's reliable backbone. These practical, dutiful individuals value order, honesty and follow-through above all else. They thrive in structured environments with clear expectations, approaching tasks with methodical precision. Their word is ironclad — commitments are honored regardless of difficulty. While not flashy, their steadfastness provides crucial stability in chaotic times. Family and colleagues rely on their calm, logical problem-solving during crises.",
+      "ISTJs live by an unwavering moral code. They believe rules exist for good reason and expect others to take equal responsibility. This leads to blunt honesty — they'll admit mistakes even when damaging. However, their rigid standards can breed unfair judgments of less disciplined people. Their greatest growth comes in understanding different approaches can be valid. Though emotionally reserved, they feel deeply about fairness and feel frustrated when others shirk duties.",
+      "A common ISTJ struggle is overwork. Their extreme reliability often leads others to exploit them. They'll silently shoulder extra burdens until reaching breaking point. Learning to set boundaries is crucial — their value lies in sustainable dependability, not martyrdom. When balanced, ISTJs exemplify how integrity and structure enable progress. The world needs their quiet, consistent dedication now more than ever."
     ],
     "traitSet": ["introvert", "sensor", "logician", "rationalist"],
     "famousPersons": [
@@ -152,25 +152,25 @@
     ],
     "traitSet": ["extrovert", "sensor", "logician", "rationalist"],
     "famousPersons": [
-      "Judge Judy",
-      "John D. Rockefeller",
-      "Lyndon B. Johnson",
+      "Uma Thurman",
       "Frank Sinatra",
+      "Emma Watson",
+      "John D. Rockefeller",
       "Stierlitz"
     ]
   },
   {
     "type": "ISFJ",
     "description": [
-      "ISFJs are the silent nurturers who express care through actions, not words. These devoted protectors remember every birthday, anticipate needs before they're voiced, and uphold traditions that bind communities together. Their strength lies in steady reliability - they'll work tirelessly behind the scenes without demanding recognition. Combining emotional warmth with practical problem-solving, they create stability through countless small acts of service that others often take for granted.",
-      "The Defender's deepest motivation is loyalty. They invest extraordinary effort maintaining relationships, always showing up in times of need. Yet their perfectionism and inability to say no often leads to exhaustion. While they reject empty praise, they secretly crave appreciation for their sacrifices. Their growth lies in setting boundaries - understanding that self-care isn't selfish, but necessary to sustain their generous nature long-term.",
-      "What makes ISFJs extraordinary is their ability to make others feel truly seen. Their thoughtful gestures - the perfect gift, timely meal, or patient listening ear - create profound connections. Though introverted, they build extensive support networks through consistent care. When they finally treat themselves with the same compassion they show others, they unlock even greater capacity to heal the world around them."
+      "ISFJs are the silent nurturers who express care through actions, not words. These devoted protectors remember every birthday, anticipate needs before they're voiced, and uphold traditions that bind communities together. Their strength lies in steady reliability — they'll work tirelessly behind the scenes without demanding recognition. Combining emotional warmth with practical problem-solving, they create stability through countless small acts of service that others often take for granted.",
+      "The Defender's deepest motivation is loyalty. They invest extraordinary effort maintaining relationships, always showing up in times of need. Yet their perfectionism and inability to say no often leads to exhaustion. While they reject empty praise, they secretly crave appreciation for their sacrifices. Their growth lies in setting boundaries — understanding that self-care isn't selfish, but necessary to sustain their generous nature long-term.",
+      "What makes ISFJs extraordinary is their ability to make others feel truly seen. Their thoughtful gestures — the perfect gift, timely meal, or patient listening ear — create profound connections. Though introverted, they build extensive support networks through consistent care. When they finally treat themselves with the same compassion they show others, they unlock even greater capacity to heal the world around them."
     ],
     "traitSet": ["introvert", "sensor", "ethicist", "rationalist"],
     "famousPersons": [
       "Vin Diesel",
-      "Mother Teresa",
       "Beyoncé",
+      "Mother Teresa",
       "Halle Berry",
       "Dreiser"
     ]
@@ -185,9 +185,9 @@
     "traitSet": ["extrovert", "sensor", "ethicist", "rationalist"],
     "famousPersons": [
       "Taylor Swift",
-      "Jennifer Garner",
       "Bill Clinton",
       "Jennifer Lopez",
+      "Jennifer Garner",
       "Hugo"
     ]
   },
@@ -200,10 +200,10 @@
     ],
     "traitSet": ["introvert", "sensor", "logician", "irrationalist"],
     "famousPersons": [
-      "Daniel Craig",
       "Scarlett Johansson",
-      "Bruce Lee",
+      "Daniel Craig",
       "Milla Jovovich",
+      "Bruce Lee",
       "Gabin"
     ]
   },
@@ -216,10 +216,10 @@
     ],
     "traitSet": ["extrovert", "sensor", "logician", "irrationalist"],
     "famousPersons": [
-      "Ernest Hemingway",
       "Eddie Murphy",
       "Madonna",
       "Bruce Willis",
+      "Ernest Hemingway",
       "Zhukov"
     ]
   },
@@ -249,9 +249,9 @@
     "traitSet": ["extrovert", "sensor", "ethicist", "irrationalist"],
     "famousPersons": [
       "Adele",
+      "Elton John",
       "Marilyn Monroe",
       "Elvis Presley",
-      "Elton John",
       "Napoleon"
     ]
   }

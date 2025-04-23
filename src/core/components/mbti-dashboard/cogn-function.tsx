@@ -9,7 +9,7 @@ type CognFunctionProps = TCognFunction & {
   counter: number;
   onClick: () => void;
   isShadow?: boolean;
-  index?: number;
+  index: number;
 };
 
 const CognFunction = ({
@@ -32,13 +32,11 @@ const CognFunction = ({
         })}
       >
         <div
-          className={cn(
-            `w-[104px] text-right text-[11px] text-muted font-medium tracking-wide opacity-80`,
-            {
-              'text-foreground opacity-100': !isShadow && index === 0,
-              'text-foreground': !isShadow && index === 1,
-            }
-          )}
+          className={cn(`w-[104px] text-right text-[11px] tracking-wide`, {
+            'font-semibold': !isShadow && index < 2, // 1st group 1st and 2nd items
+            'opacity-70': !isShadow && index >= 2, // 1st group 3rd and 4th items
+            'text-muted opacity-80': isShadow, // 2nd group
+          })}
         >
           {title}
         </div>
@@ -57,11 +55,10 @@ const CognFunction = ({
         <div className={cn(`h-3 w-1 rounded-full`, bgColor)}></div>
 
         <div
-          className={cn(`w-[208px] font-medium tracking-wide`, {
-            'text-accent-text': !isShadow,
-            'font-semibold': !isShadow && (index === 0 || index === 1),
-            'opacity-80': index === 2,
-            'opacity-60': index === 3,
+          className={cn(`w-[208px] tracking-wide`, {
+            'text-accent-text font-semibold': !isShadow && index < 2, // 1st group 1st and 2nd items
+            'font-medium opacity-70': !isShadow && index >= 2, // 1st group 3rd and 4th items
+            'text-muted': isShadow, // 2nd group
           })}
         >
           {description}

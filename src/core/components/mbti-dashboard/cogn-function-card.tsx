@@ -12,20 +12,11 @@ const CognFunctionCard = ({
   cognitiveFunctions,
   onClick,
 }: CognitiveFnCardProps) => {
-  // const bgColor = cognFnColorMap.get(cognitiveFunctions[0].id);
-
   return (
     <div className="flex flex-col p-4 bg-card rounded-3xl select-none">
       {/* Title */}
       <div className="relative text-center text-xs text-accent-text tracking-wider font-semibold uppercase cursor-default">
         {title}
-
-        {/* <div
-          className={cn(
-            `absolute left-1/2 w-4 h-1 rounded-full -bottom-4 -translate-2`,
-            bgColor
-          )}
-        ></div> */}
       </div>
 
       {/* Cognitive Function Indexes */}
