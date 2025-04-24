@@ -13,6 +13,7 @@ import { getNavbarTranslation } from '@/core/utils/dictionary';
 
 import HomeIcon from '~/public/icons/navbar/home-blank.svg';
 import TypesIcon from '~/public/icons/navbar/types.svg';
+import TestIcon from '~/public/icons/navbar/test.svg';
 
 const navbarItems: TNavbarItem[] = [
   {
@@ -24,6 +25,11 @@ const navbarItems: TNavbarItem[] = [
     id: 'types',
     path: '/mbti-types',
     icon: <TypesIcon />,
+  },
+  {
+    id: 'test',
+    path: '/mbti-test',
+    icon: <TestIcon />,
   },
 ];
 
@@ -63,14 +69,6 @@ const Navbar = () => {
 
   return (
     <AnimatedAppear className="h-14 pt-2 pb-1 w-full base-max-w mx-auto flex items-center justify-evenly bg-card rounded-full">
-      <NavbarItem
-        id="logout"
-        icon={<SignOutButton />}
-        onClick={handleLogout}
-        isPending={isPending}
-        title={translationMap?.get('logout') ?? 'Logout'}
-        key="logout"
-      />
       {navbarItems.map((data) => (
         <NavbarItem
           onClick={handleItemClick}
@@ -80,6 +78,14 @@ const Navbar = () => {
           key={data.id}
         />
       ))}
+      <NavbarItem
+        id="logout"
+        icon={<SignOutButton />}
+        onClick={handleLogout}
+        isPending={isPending}
+        title={translationMap?.get('logout') ?? 'Logout'}
+        key="logout"
+      />
     </AnimatedAppear>
   );
 };

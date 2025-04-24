@@ -9,22 +9,36 @@ type AnimatedAppearProps = PropsWithChildren &
   React.HTMLAttributes<HTMLDivElement> & {
     isShown?: boolean;
     timeout?: number;
+    delay?: number;
   };
 
 const AnimatedAppear = forwardRef<HTMLDivElement, AnimatedAppearProps>(
   (
-    { children, className, timeout = DEFAULT_TIMEOUT, isShown, onClick },
+    { children, className, delay, timeout = DEFAULT_TIMEOUT, isShown, onClick },
     ref
   ) => {
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
+      let delayTimeout: NodeJS.Timeout;
+
+      if (delay) {
+        delayTimeout = setTimeout(() => {
+          setIsReady(true);
+        }, delay);
+        return;
+      }
+
       if (isShown === undefined) {
         setIsReady(true);
         return;
       }
       setIsReady(isShown);
-    }, [isShown]);
+
+      return () => {
+        if (delayTimeout) clearTimeout(delayTimeout);
+      };
+    }, [delay, isShown]);
 
     return (
       <div

@@ -114,3 +114,18 @@ export type MBTITestTranslation = {
   nextGroupBtnTitle: string;
   getResultsBtnTitle: string;
 };
+
+// MBTI Test Results
+
+export type MBTITraitMapItem = {
+  title: string;
+};
+
+export type MBTITraitsTranslation = {
+  dichotomyMap: [string, string][];
+  traitMap: [string, MBTITraitMapItem][];
+};
+
+export type MBTITestResultsTranslation = {
+  actionBtnTitle: string;
+};

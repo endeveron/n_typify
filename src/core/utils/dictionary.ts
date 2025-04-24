@@ -2,7 +2,9 @@ import {
   CognitiveFunctionsTranslation,
   LangCode,
   MBTIDashboardTranslation,
+  MBTITestResultsTranslation,
   MBTITestTranslation,
+  MBTITraitsTranslation,
   MBTITypeDetailArrayTranslation,
   MBTITypeGroupsTranslation,
   MBTITypesTranslation,
@@ -156,6 +158,46 @@ const MBTITestLoadersMap = new Map<string, () => Promise<MBTITestTranslation>>([
     () =>
       import('@/core/data/locales/uk/mbti-test.json').then(
         (module) => module.default as MBTITestTranslation
+      ),
+  ],
+]);
+
+const MBTITestResultsLoadersMap = new Map<
+  string,
+  () => Promise<MBTITestResultsTranslation>
+>([
+  [
+    'en',
+    () =>
+      import('@/core/data/locales/en/mbti-test-results.json').then(
+        (module) => module.default as MBTITestResultsTranslation
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/mbti-test-results.json').then(
+        (module) => module.default as MBTITestResultsTranslation
+      ),
+  ],
+]);
+
+const MBTITraitLoadersMap = new Map<
+  string,
+  () => Promise<MBTITraitsTranslation>
+>([
+  [
+    'en',
+    () =>
+      import('@/core/data/locales/en/mbti-traits.json').then(
+        (module) => module.default as MBTITraitsTranslation
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/mbti-traits.json').then(
+        (module) => module.default as MBTITraitsTranslation
       ),
   ],
 ]);
@@ -424,6 +466,74 @@ export const getMBTITestTranslation = async (
     // If requested language fails and it's not English, try English as fallback
     if (langCode !== 'en') {
       const fallbackLoader = MBTITestLoadersMap.get('en');
+      if (fallbackLoader) {
+        try {
+          return await fallbackLoader();
+        } catch (fallbackError) {
+          throw new Error(`${errMsg}: ${fallbackError}`);
+        }
+      }
+    }
+    throw new Error(`${errMsg}: ${error}`);
+  }
+};
+
+/**
+ * Gets localized data for MBTI Test Results page for the specified language code
+ * @param langCode Language code (e.g., 'en', 'uk')
+ * @returns Promise resolving to data of type MBTITestResultsTranslation
+ * @throws Error if both requested language and fallback language fail to load
+ */
+export const getMBTITestResultsTranslation = async (
+  langCode: LangCode = 'en'
+): Promise<MBTITestResultsTranslation> => {
+  // Try to get the loader for the requested language
+  const loader = MBTITestResultsLoadersMap.get(langCode);
+  const errMsg = `Failed to load translations for the Personality Test page`;
+  if (!loader) throw new Error(errMsg);
+
+  try {
+    // Load the translation
+    const translation = await loader();
+    return translation;
+  } catch (error) {
+    // If requested language fails and it's not English, try English as fallback
+    if (langCode !== 'en') {
+      const fallbackLoader = MBTITestResultsLoadersMap.get('en');
+      if (fallbackLoader) {
+        try {
+          return await fallbackLoader();
+        } catch (fallbackError) {
+          throw new Error(`${errMsg}: ${fallbackError}`);
+        }
+      }
+    }
+    throw new Error(`${errMsg}: ${error}`);
+  }
+};
+
+/**
+ * Gets localized data for MBTI Traits for the specified language code
+ * @param langCode Language code (e.g., 'en', 'uk')
+ * @returns Promise resolving to data of type MBTITraitsTranslation
+ * @throws Error if both requested language and fallback language fail to load
+ */
+export const getMBTITraitsTranslation = async (
+  langCode: LangCode = 'en'
+): Promise<MBTITraitsTranslation> => {
+  // Try to get the loader for the requested language
+  const loader = MBTITraitLoadersMap.get(langCode);
+  const errMsg = `Failed to load translations for the Personality Test page`;
+  if (!loader) throw new Error(errMsg);
+
+  try {
+    // Load the translation
+    const translation = await loader();
+    return translation;
+  } catch (error) {
+    // If requested language fails and it's not English, try English as fallback
+    if (langCode !== 'en') {
+      const fallbackLoader = MBTITraitLoadersMap.get('en');
       if (fallbackLoader) {
         try {
           return await fallbackLoader();

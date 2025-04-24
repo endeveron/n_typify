@@ -1,7 +1,8 @@
 {
   "itemMap": [
-    ["logout", "Log Out"],
     ["main", "Main"],
-    ["types", "Types"]
+    ["types", "Types"],
+    ["test", "Test"],
+    ["logout", "Log Out"]
   ]
 }

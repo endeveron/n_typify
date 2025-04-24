@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import CheckIcon from '~/public/icons/check.svg';
+import CheckIcon from '~/public/icons/checkmark.svg';
 import CloseIcon from '~/public/icons/close.svg';
 
 type ResetProps = {

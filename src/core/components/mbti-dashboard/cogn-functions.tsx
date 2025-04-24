@@ -84,7 +84,7 @@ const CognFunctions = ({
           {cognFnItems.slice(0, 4).map((data, index) => (
             <CognFunction
               {...data}
-              onClick={() => () => handleItemClick(data.id as CognitiveFnId)}
+              onClick={() => handleItemClick(data.id as CognitiveFnId)}
               key={data.id}
               index={index}
             />
@@ -96,7 +96,7 @@ const CognFunctions = ({
             {cognFnItems.slice(4).map((data, index) => (
               <CognFunction
                 {...data}
-                onClick={() => () => handleItemClick(data.id as CognitiveFnId)}
+                onClick={() => handleItemClick(data.id as CognitiveFnId)}
                 isShadow={true}
                 key={data.id}
                 index={index}

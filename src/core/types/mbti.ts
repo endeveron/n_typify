@@ -1,6 +1,8 @@
 import {
   CognitiveFunctionsTranslation,
   MBTIDashboardTranslation,
+  MBTITestResultsTranslation,
+  MBTITraitsTranslation,
   MBTITypeDetailsTranslation,
   MBTITypeGroupMapTranslation,
   MBTITypeGroupsTranslation,
@@ -49,6 +51,8 @@ export type MBTIType =
   | 'ESTP'
   | 'ISFP'
   | 'ESFP';
+
+export type MBTIIdentity = 'a' | 'v';
 
 // MBTI Dashboard
 
@@ -153,9 +157,12 @@ export type AnswerMapData = {
   value: number;
 };
 
+export type TraitMap = Map<TraitIndex, number>;
+
 export type MBTIResult = {
-  personality: string;
-  percentageMap: Map<TraitIndex, number>;
+  type: MBTIType;
+  identity: MBTIIdentity;
+  traitMap: TraitMap;
 };
 
 export type MBTIDashboardState = {
@@ -183,4 +190,21 @@ export type MBTITypeState = {
     cognitiveFunctions: CognitiveFunctionsTranslation;
   } | null;
   cognitiveFnArr: string[];
+};
+
+// MBTI Test Results
+
+export type MBTITestResultsState = {
+  type: string;
+  identity: MBTIIdentity;
+  traitMap: TraitMap;
+  translations: {
+    page: MBTITestResultsTranslation;
+    type: MBTITypeTranslation;
+    traits: MBTITraitsTranslation;
+  };
+} | null;
+
+export type MBTIDichotomyMapItem = {
+  traitIds: TraitIndex[];
 };

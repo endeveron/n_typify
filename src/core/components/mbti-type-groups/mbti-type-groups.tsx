@@ -137,7 +137,7 @@ const MBTITypeGroups = () => {
   if (!isTranslationsReady) return null;
 
   return (
-    <div className="relative max-h-[920px] base-max-w mx-auto flex flex-1 flex-col items-center justify-between">
+    <div className="relative max-h-[920px] mx-auto w-full base-max-w flex flex-1 flex-col items-center justify-between">
       {/* Title */}
       <div className="min-h-32 max-h-40 flex flex-1 flex-col items-center justify-center cursor-default select-none">
         {!activeGroupDescription ? (

@@ -1,0 +1,71 @@
+{
+  "dichotomyMap": [
+    ["energy", "Energy"],
+    ["mind", "Mind"],
+    ["nature", "Nature"],
+    ["tactics", "Tactics"],
+    ["identity", "Identity"]
+  ],
+  "traitMap": [
+    [
+      "e",
+      {
+        "title": "Extroversion"
+      }
+    ],
+    [
+      "i",
+      {
+        "title": "Introversion"
+      }
+    ],
+    [
+      "n",
+      {
+        "title": "Intuition"
+      }
+    ],
+    [
+      "s",
+      {
+        "title": "Sensing"
+      }
+    ],
+    [
+      "t",
+      {
+        "title": "Thinking"
+      }
+    ],
+    [
+      "f",
+      {
+        "title": "Feeling"
+      }
+    ],
+    [
+      "j",
+      {
+        "title": "Judging"
+      }
+    ],
+    [
+      "p",
+      {
+        "title": "Perceiving"
+      }
+    ],
+    [
+      "a",
+      {
+        "title": "Assertive"
+      }
+    ],
+    [
+      "v",
+      {
+        "title": "Turbulent"
+      }
+    ]
+  ]
+}

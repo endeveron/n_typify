@@ -4,36 +4,40 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import QuestionCard from '@/core/components/mbti-test/mbti-test-card';
+import ProgressBar from '@/core/components/mbti-test/progress-bar';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Button } from '@/core/components/ui/button';
-import { Progress } from '@/core/components/ui/progress';
+import { useLangCode } from '@/core/context/LangContext';
 import { QUESTION_DATA_ARRAY_LENGTH } from '@/core/data/questions';
 import {
   AnswerMapData,
   MBTIResult,
   Question,
   TraitIndex,
+  TraitMap,
 } from '@/core/types/mbti';
 import { LangCode, MBTITestTranslation } from '@/core/types/translation';
 import { getMBTITestTranslation } from '@/core/utils/dictionary';
-import { calculateMBTI, configureMBTITestQuestions } from '@/core/utils/mbti';
+import { detectMBTIType, configureMBTITestQuestions } from '@/core/utils/mbti';
+import MBTITestResults from '@/core/components/mbti-test/mbti-test-results';
 
 const QUESTION_GROUP_SIZE = 12;
-const TOTAL_QUESTION_GROUPS = QUESTION_DATA_ARRAY_LENGTH / QUESTION_GROUP_SIZE; // 5  (60 / 12)
+export const TOTAL_QUESTION_GROUPS =
+  QUESTION_DATA_ARRAY_LENGTH / QUESTION_GROUP_SIZE; // 5  (60 / 12)
 
-type MBTITestProps = {
-  langCode?: LangCode;
-};
-
-const MBTITest = ({ langCode }: MBTITestProps) => {
+const MBTITest = () => {
+  const { langCode } = useLangCode();
   const [translation, setTranslation] =
     useState<Omit<MBTITestTranslation, 'questions'>>();
   const [questions, setQuestions] = useState<Question[]>([]);
+
   const [questionGroup, setQuestionGroup] = useState<Question[]>([]);
   const [questionGroupNum, setQuestionGroupNum] = useState(0);
   const [activeQuestionId, setActiveQuestionId] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isNext, setIsNext] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [result, setResult] = useState<MBTIResult | null>(null);
 
   const activeQuestionRef = useRef<HTMLDivElement | null>(null);
   const answerMapRef = useRef<Map<string, AnswerMapData>>(new Map());
@@ -43,14 +47,32 @@ const MBTITest = ({ langCode }: MBTITestProps) => {
   };
 
   const handleGetResultsButton = () => {
-    const result = getResults();
-    console.log(result.personality);
-    console.log(result.percentageMap);
+    const res = getResults();
 
-    // TODO: Save test results in DB using server actions
+    // DEV
+    // const res: MBTIResult = {
+    //   type: 'ESFJ',
+    //   identity: 'a',
+    //   traitMap: new Map([
+    //     ['e', 68],
+    //     ['i', 32],
+    //     ['n', 34],
+    //     ['s', 66],
+    //     ['t', 60],
+    //     ['f', 40],
+    //     ['j', 25],
+    //     ['p', 75],
+    //     ['a', 50],
+    //     ['v', 50],
+    //   ]),
+    // };
+    setResult(res);
   };
 
   const handleQuestionCardSelect = (data: AnswerMapData) => {
+    // // DEV
+    // handleGetResultsButton();
+    //
     if (Number(data.questionId) >= activeQuestionId) {
       updateCurrentQuestionId();
     }
@@ -64,11 +86,11 @@ const MBTITest = ({ langCode }: MBTITestProps) => {
 
   const getResults = (): MBTIResult => {
     // Init trait map
-    const traitMap = new Map<TraitIndex, number>([
+    const traitMap: TraitMap = new Map([
       ['e', 0],
       ['i', 0],
-      ['s', 0],
       ['n', 0],
+      ['s', 0],
       ['t', 0],
       ['f', 0],
       ['j', 0],
@@ -83,8 +105,16 @@ const MBTITest = ({ langCode }: MBTITestProps) => {
       traitMap.set(traitIndex as TraitIndex, curValue + value);
     });
 
-    const result = calculateMBTI(traitMap);
-    return result;
+    const {
+      traitMap: percentageMap,
+      type,
+      identity,
+    } = detectMBTIType(traitMap);
+    return {
+      type,
+      identity,
+      traitMap: percentageMap,
+    };
   };
 
   const getNextQuestionGroup = () => {
@@ -174,56 +204,54 @@ const MBTITest = ({ langCode }: MBTITestProps) => {
   }, [langCode]);
 
   return (
-    <div className="mbti-test relative flex flex-col flex-1">
-      <div className="question-group m-auto max-w-[640px] lg:max-w-[720px] xl:max-w-[780px]">
-        {questionGroup.map((data) => (
-          <div
-            id={data.id}
-            ref={
-              data.id === `${activeQuestionId}` ? setActiveQuestionRef : null
-            }
-            key={data.id}
-          >
-            <QuestionCard
-              key={data.id}
+    <div className="flex flex-col flex-1 mx-auto w-full base-max-w cursor-default">
+      {result ? (
+        <MBTITestResults langCode={langCode as LangCode} result={result} />
+      ) : (
+        <AnimatedAppear isShown={!!questionGroup.length}>
+          {/* Progress */}
+          <ProgressBar
+            progress={progress}
+            questionGroupNum={questionGroupNum}
+          />
+
+          {/* Questions */}
+          {questionGroup.map((data) => (
+            <div
               id={data.id}
-              translation={translation?.questionCard}
-              question={data.question}
-              activeQuestionId={`${activeQuestionId}`}
-              traitType={data.traitType}
-              dichotomy={data.dichotomy}
-              onSelect={handleQuestionCardSelect}
-            />
+              ref={
+                data.id === `${activeQuestionId}` ? setActiveQuestionRef : null
+              }
+              key={data.id}
+            >
+              <QuestionCard
+                key={data.id}
+                id={data.id}
+                translation={translation?.questionCard}
+                question={data.question}
+                activeQuestionId={`${activeQuestionId}`}
+                traitType={data.traitType}
+                dichotomy={data.dichotomy}
+                onSelect={handleQuestionCardSelect}
+              />
+            </div>
+          ))}
+
+          <div className="action-buttons h-10 my-8 flex justify-center">
+            <AnimatedAppear isShown={isNext}>
+              {isDone ? (
+                <Button variant="accent" onClick={handleGetResultsButton}>
+                  {translation?.getResultsBtnTitle}
+                </Button>
+              ) : (
+                <Button variant="accent" onClick={handleNextButton}>
+                  {translation?.nextGroupBtnTitle}
+                </Button>
+              )}
+            </AnimatedAppear>
           </div>
-        ))}
-
-        <div className="action-buttons h-10 my-16 flex justify-center">
-          {isNext && !isDone ? (
-            <Button onClick={handleNextButton}>
-              {translation?.nextGroupBtnTitle}
-            </Button>
-          ) : null}
-          {isNext && isDone ? (
-            <Button variant="accent" onClick={handleGetResultsButton}>
-              {translation?.getResultsBtnTitle}
-            </Button>
-          ) : null}
-        </div>
-      </div>
-
-      <div className="bottom-bar min-h-16 sticky bottom-0 flex items-center justify-between bg-card xl:rounded-tr-4xl xl:rounded-tl-4xl">
-        <div className="w-24 flex items-center justify-center px-4 text-xl font-bold cursor-default">
-          {questionGroupNum}
-          <div className="text-muted ml-2">/ {TOTAL_QUESTION_GROUPS}</div>
-        </div>
-        <div className="flex flex-1">
-          <Progress value={progress} />
-        </div>
-        <div className="w-24 flex items-center justify-center px-4 text-xl font-bold cursor-default">
-          {progress}
-          <div className="text-muted ml-0.5">%</div>
-        </div>
-      </div>
+        </AnimatedAppear>
+      )}
     </div>
   );
 };

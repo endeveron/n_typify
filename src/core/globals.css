@@ -13,7 +13,7 @@
   --orange: #f8822d; /* -000 */
   --yellow: #ffba24; /* -000 */
   --blue: #3eabfa; /* -000 */
-  --neutral: #737373; /* neutral-500 */
+  --neutral: #525252; /* neutral-600 */
 
   --gold: #e1ab56;
   --purple: #9810fa; /* purple-600 */
@@ -91,11 +91,11 @@
     --orange: #f8822d; /* -000 */
     --yellow: #ffba24; /* -000 */
     --blue: #3eabfa; /* -000 */
-    --neutral: #737373; /* neutral-500 */
+    --neutral: #525252; /* neutral-600 */
 
     --gold: #e1ab56;
     --purple: #9810fa; /* purple-600 */
-    --rose: #ec003f; /* rose-600 */
+    --rose: #dd003b; /* rose-600 */
     --sky: #0084d1; /* sky-000 */
     --slate: #45556c; /* slate-600 */
     --teal: #009689; /* teal-600 */

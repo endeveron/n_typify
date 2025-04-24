@@ -40,21 +40,18 @@ const MBTITestCard = ({
     <div
       id={id}
       className={cn(
-        `question-card mt-6 pb-12 md:mt-8 md:pb-14 border-b border-b-border flex flex-col items-center transition-opacity`,
+        `question-card mt-4 px-4 pb-10 border-b border-b-border flex flex-col items-center transition-opacity`,
         {
           'opacity-20': activeQuestionId !== id,
         }
       )}
     >
-      <div className="question m-8 text-center text-xl font-medium xl:text-2xl ">
+      <div className="question my-6 text-center text-accent-text font-medium tracking-wide">
         {question}
       </div>
-      <div className="radio-group w-full flex flex-col items-center sm:flex-row sm:justify-center sm:gap-4 md:gap-6">
-        <div className="max-sm:hidden caption text-xl xl:text-2xl text-teal font-semibold cursor-default">
-          {translation.attitudePositive}
-        </div>
-        <div className="radios w-full flex items-center justify-between max-md:max-w-96 md:w-[420px] xl:w-[500px]">
-          <div className="w-12 h-12 xl:w-14 xl:h-14 cursor-pointer">
+      <div className="radio-group w-full flex flex-col items-center">
+        <div className="radios w-full flex items-center justify-between">
+          <div className="w-12 h-12 cursor-pointer">
             <RadioButton
               label="I strongly agree"
               value={3}
@@ -62,7 +59,7 @@ const MBTITestCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-10 h-10 xl:w-12 xl:h-12 cursor-pointer">
+          <div className="w-10 h-10 cursor-pointer">
             <RadioButton
               label="I moderately agree"
               value={2}
@@ -70,7 +67,7 @@ const MBTITestCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-8 h-8 xl:w-10 xl:h-10 cursor-pointer">
+          <div className="w-8 h-8 cursor-pointer">
             <RadioButton
               label="I agree"
               value={1}
@@ -78,7 +75,7 @@ const MBTITestCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-8 h-8 xl:w-10 xl:h-10 cursor-pointer">
+          <div className="w-8 h-8 cursor-pointer">
             <RadioButton
               label="I am not sure"
               value={0}
@@ -86,7 +83,7 @@ const MBTITestCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-8 h-8 xl:w-10 xl:h-10 cursor-pointer">
+          <div className="w-8 h-8 cursor-pointer">
             <RadioButton
               label="I disagree"
               value={-1}
@@ -94,7 +91,7 @@ const MBTITestCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-10 h-10 xl:w-12 xl:h-12 cursor-pointer">
+          <div className="w-10 h-10 cursor-pointer">
             <RadioButton
               label="I moderately disagree"
               value={-2}
@@ -102,7 +99,7 @@ const MBTITestCard = ({
               onClick={handleRadioButtonClick}
             />
           </div>
-          <div className="w-12 h-12 xl:w-14 xl:h-14 cursor-pointer">
+          <div className="w-12 h-12 cursor-pointer">
             <RadioButton
               label="I strongly disagree"
               value={-3}
@@ -111,12 +108,9 @@ const MBTITestCard = ({
             />
           </div>
         </div>
-        <div className="max-sm:hidden caption text-xl xl:text-2xl text-purple font-semibold cursor-default">
-          {translation.attitudeNegative}
-        </div>
-        <div className="captions-mobile w-full max-w-96 sm:hidden flex justify-between mt-4 text-sm font-semibold uppercase cursor-default">
-          <div className="text-teal">{translation.attitudePositive}</div>
-          <div className="text-purple">{translation.attitudeNegative}</div>
+        <div className="captions-mobile w-full flex justify-between mt-4 text-muted text-xs font-medium tracking-wider uppercase cursor-default opacity-50">
+          <div>{translation.attitudePositive}</div>
+          <div>{translation.attitudeNegative}</div>
         </div>
       </div>
     </div>
