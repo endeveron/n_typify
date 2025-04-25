@@ -1,13 +1,14 @@
 'use client';
 
+import {
+  DASHBOARD_STATE_KEY,
+  MBTI_TYPE_STATE_KEY,
+  MBTI_TYPES_STATE_KEY,
+} from '@/core/constants';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { cn } from '@/core/utils/common';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
-import { DASHBOARD_STATE_KEY } from '@/core/components/mbti-dashboard/mbti-dashboard';
-import { MBTI_TYPES_STATE_KEY } from '@/core/components/mbti-type-groups/mbti-type-groups';
-import { MBTI_TYPE_STATE_KEY } from '@/core/components/mbti-type/mbti-type';
 
 const MBTIVisual = () => {
   const [, saveState] = useLocalStorage();

@@ -28,6 +28,8 @@ const MBTITestCard = ({
   }
 
   const handleRadioButtonClick = (value: number) => {
+    if (id > activeQuestionId) return;
+
     setCheckedButtonValue(value);
     onSelect({
       questionId: id,
@@ -42,7 +44,9 @@ const MBTITestCard = ({
       className={cn(
         `question-card mt-4 px-4 pb-10 border-b border-b-border flex flex-col items-center transition-opacity`,
         {
-          'opacity-20': activeQuestionId !== id,
+          'opacity-20': id !== activeQuestionId,
+          'hover:opacity-100': id < activeQuestionId,
+          'pointer-events-none': id > activeQuestionId,
         }
       )}
     >

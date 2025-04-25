@@ -9,6 +9,7 @@ import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
 import MBTIVisual from '@/core/components/mbti-dashboard/mbti-visual';
 import PersonalityCards from '@/core/components/mbti-dashboard/personality-cards';
 import PersonalityTypeHeader from '@/core/components/mbti-dashboard/personality-type-header';
+import { DASHBOARD_STATE_KEY } from '@/core/constants';
 import { useLangCode } from '@/core/context/LangContext';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
@@ -36,8 +37,6 @@ import {
   MBTIMap,
   sortPersonalityItems,
 } from '@/core/utils/mbti';
-
-export const DASHBOARD_STATE_KEY = 'dashboard_state';
 
 const cognFnCounterMap = new Map<string, number>([
   ['Te', 0],

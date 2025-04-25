@@ -5,26 +5,25 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/core/utils/common';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer transition-all',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer transition-all',
   {
     variants: {
       variant: {
         default:
-          'text-btn-primary-foreground bg-btn-primary-background hover:bg-btn-primary-background-hover',
+          'text-btn-primary-foreground font-semibold bg-btn-primary-background hover:bg-btn-primary-background-hover',
         accent:
-          'text-btn-accent-foreground bg-btn-accent-background hover:bg-btn-accent-background-hover',
+          'text-btn-accent-foreground font-semibold bg-btn-accent-background hover:bg-btn-accent-background-hover',
         secondary:
-          'text-btn-secondary-foreground/70 bg-btn-secondary-background hover:text-btn-secondary-foreground hover:bg-btn-secondary-background-hover',
+          'text-btn-secondary-foreground/70 font-medium bg-btn-secondary-background hover:text-btn-secondary-foreground hover:bg-btn-secondary-background-hover',
         outline:
-          'border border-border text-foreground/80 hover:text-foreground hover:bg-btn-secondary-background-hover hover:border-transparent',
+          'border border-border font-medium text-foreground/70 hover:text-foreground hover:bg-btn-secondary-background-hover hover:border-transparent',
         ghost: 'hover:bg-btn-secondary-background hover:text-foreground',
         link: 'text-blue underline-offset-4 hover:underline',
       },
       size: {
-        sm: 'h-8 px-6 text-sm sm:h-10 sm:px-10 lg:h-12',
-        // default: 'h-12 px-8 sm:h-14 sm:px-10 sm:text-lg',
+        sm: 'h-8 px-6 text-sm',
         default: 'h-12 px-8',
-        lg: 'h-14 px-10 text-lg font-semibold sm:h-16 sm:px-12',
+        lg: 'h-14 px-10 text-lg sm:h-16 sm:px-12',
         icon: 'h-9 w-9',
       },
     },

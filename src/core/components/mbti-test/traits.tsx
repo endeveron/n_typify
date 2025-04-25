@@ -21,10 +21,9 @@ type TraitDichotomyContent = { text: string; isActive: boolean };
 type TraitDichotomy = {
   id: string;
   title: string;
-  percent: number;
+  percentage: number;
   leftSideContent: TraitDichotomyContent;
   rightSideContent: TraitDichotomyContent;
-  isReversed: boolean;
 };
 
 const Traits = ({ traitMap, translation }: TraitsProps) => {
@@ -44,36 +43,34 @@ const Traits = ({ traitMap, translation }: TraitsProps) => {
       traitMapTranslation: Map<string, MBTITraitMapItem>;
       dichotomyMapTranslation: Map<string, string>;
     }): TraitDichotomy => {
-      const firstTraitId = traitIds[0];
-      const secondTraitId = traitIds[1];
+      const [firstTraitId, secondTraitId] = traitIds;
+
+      // Get apercentage value
       const firstVal = traitMap.get(firstTraitId) as number;
       const secondVal = traitMap.get(secondTraitId) as number;
-      const percent = Math.max(firstVal, secondVal);
-      const isReversed = secondVal > firstVal;
+      const percentage = Math.max(firstVal, secondVal);
 
-      const firstTitle = (
-        traitMapTranslation.get(firstTraitId) as MBTITraitMapItem
-      ).title;
-      const secondTitle = (
-        traitMapTranslation.get(secondTraitId) as MBTITraitMapItem
-      ).title;
+      // Configure text content
+      const dichotomyTitle = dichotomyMapTranslation.get(dichotomyId)!;
+      const firstTitle = traitMapTranslation.get(firstTraitId)!.title;
+      const secondTitle = traitMapTranslation.get(secondTraitId)!.title;
+      const firstValGreaterOrEqual = firstVal >= secondVal;
 
       const leftSideContent: TraitDichotomyContent = {
-        text: firstTitle,
-        isActive: firstVal >= secondVal,
+        text: firstValGreaterOrEqual ? firstTitle : secondTitle,
+        isActive: true,
       };
       const rightSideContent: TraitDichotomyContent = {
-        text: secondTitle,
-        isActive: secondVal >= firstVal,
+        text: firstValGreaterOrEqual ? secondTitle : firstTitle,
+        isActive: firstVal === secondVal,
       };
 
       return {
         id: dichotomyId,
-        title: dichotomyMapTranslation.get(dichotomyId) as string,
-        percent,
+        title: dichotomyTitle,
+        percentage,
         leftSideContent,
         rightSideContent,
-        isReversed,
       };
     },
     []
@@ -118,50 +115,35 @@ const Traits = ({ traitMap, translation }: TraitsProps) => {
             )}
           >
             {/* Left Side Content */}
-            <div
-              className={cn(`w-1/3`, {
-                'text-accent-text': item.leftSideContent.isActive,
-                'text-muted opacity-40': !item.leftSideContent.isActive,
-              })}
-            >
+            <div className="flex flex-1 text-accent-text">
               {item.leftSideContent.text}
               {item.leftSideContent.isActive ? (
-                <span className="pl-2">{item.percent}%</span>
+                <span className="pl-2">{item.percentage}%</span>
               ) : null}
             </div>
 
             {/* Dichotomy Title */}
-            <div className="w-1/3 text-center text-muted font-bold opacity-90">
-              {item.id}
-            </div>
+            <div className="text-muted font-bold opacity-90">{item.id}</div>
 
             {/* Right Side Content */}
             <div
-              className={cn(`w-1/3 text-right`, {
+              className={cn(`flex flex-1 justify-end`, {
                 'text-accent-text': item.rightSideContent.isActive,
                 'text-muted opacity-40': !item.rightSideContent.isActive,
               })}
             >
+              <span className="mr-2">{100 - item.percentage}%</span>
               {item.rightSideContent.text}
-              {item.rightSideContent.isActive ? (
-                <span className="pl-2">{item.percent}%</span>
-              ) : null}
             </div>
           </div>
 
           {/* Percentage Bar */}
-          {item.percent === 50 ? (
+          {item.percentage === 50 ? (
             <div className="h-1 flex justify-center rounded-full bg-accent/10">
               <div className="h-1 w-8 rounded-full bg-accent" />
             </div>
           ) : (
-            <div
-              className={cn(``, {
-                'scale-x-[-1]': item.isReversed,
-              })}
-            >
-              <Progress value={item.percent} />
-            </div>
+            <Progress value={item.percentage} />
           )}
         </div>
       ))}

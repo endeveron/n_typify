@@ -6,29 +6,48 @@ import { toast } from 'sonner';
 import PersonalityTypeHeader from '@/core/components/mbti-dashboard/personality-type-header';
 import Traits from '@/core/components/mbti-test/traits';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
-import { MBTIResult, MBTITestResultsState, MBTIType } from '@/core/types/mbti';
+import { Button } from '@/core/components/ui/button';
+import { MBTI_TEST_RESULTS_STATE_KEY } from '@/core/constants';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
+import {
+  MBTIResult,
+  MBTITestResultsState,
+  MBTITestResultsStateLS,
+  MBTIType,
+} from '@/core/types/mbti';
 import { LangCode, MBTITypeTranslation } from '@/core/types/translation';
 import {
   getMBTITestResultsTranslation,
   getMBTITraitsTranslation,
   getMBTITypesTranslation,
 } from '@/core/utils/dictionary';
-import { Button } from '@/core/components/ui/button';
 import { useRouter } from 'next/navigation';
 
 type MBTITestResultsProps = {
   langCode: LangCode;
   result: MBTIResult | null;
+  onReset: () => void;
 };
 
-const MBTITestResults = ({ langCode, result }: MBTITestResultsProps) => {
+const MBTITestResults = ({
+  langCode,
+  result,
+  onReset,
+}: MBTITestResultsProps) => {
   const router = useRouter();
+  const [, saveState] = useLocalStorage();
+
   const [state, setState] = useState<MBTITestResultsState>(null);
 
-  const handleActionBtnClick = () => {
+  const handleDetailsBtnClick = () => {
     const type = state?.type;
     if (!type) return;
     router.push(`/mbti-type/${type}`);
+  };
+
+  const handleTestAgainBtnClick = () => {
+    setState(null);
+    onReset();
   };
 
   // Init data
@@ -72,10 +91,19 @@ const MBTITestResults = ({ langCode, result }: MBTITestResultsProps) => {
     initData();
   }, [langCode, result]);
 
+  // Save state in LocalStorage
+  useEffect(() => {
+    if (!state?.traitMap) return;
+    saveState<MBTITestResultsStateLS>(MBTI_TEST_RESULTS_STATE_KEY, {
+      ...state,
+      traitMap: [...state.traitMap],
+    });
+  }, [state, saveState]);
+
   if (!state) return null;
 
   return (
-    <AnimatedAppear className="flex flex-1 flex-col">
+    <AnimatedAppear className="flex flex-1 flex-col px-4">
       <PersonalityTypeHeader
         MBTIType={state.type as MBTIType}
         title={state.translations.type.title[0]}
@@ -87,21 +115,13 @@ const MBTITestResults = ({ langCode, result }: MBTITestResultsProps) => {
         translation={state.translations.traits}
       />
 
-      <div className="my-8 flex flex-col items-center justify-center gap-2">
-        <Button variant="accent" onClick={handleActionBtnClick}>
-          Save my results in profile
+      <div className="my-8 flex flex-col items-center justify-center gap-4">
+        <Button variant="accent" onClick={handleDetailsBtnClick}>
+          {state.translations.page.detailsBtnTitle}
         </Button>
-        <Button variant="accent" onClick={handleActionBtnClick}>
-          {state.translations.page.actionBtnTitle}
+        <Button variant="outline" onClick={handleTestAgainBtnClick}>
+          {state.translations.page.testAgainBtnTitle}
         </Button>
-        <Button variant="outline" onClick={handleActionBtnClick}>
-          Send to my account email
-        </Button>
-      </div>
-
-      <div className="my-8 flex text-sm flex-col items-center justify-center gap-2">
-        <div className=" text-orange-300">TODO: keep state in LS</div>
-        <div className=" text-orange-300">TODO: Share results ?</div>
       </div>
     </AnimatedAppear>
   );

@@ -5,6 +5,10 @@ import { toast } from 'sonner';
 
 import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
 import PersonalityTypeHeader from '@/core/components/mbti-dashboard/personality-type-header';
+import FamousPersons from '@/core/components/mbti-type/famous-persons';
+import TextBox from '@/core/components/mbti-type/text-box';
+import AnimatedAppear from '@/core/components/shared/animated-appear';
+import { MBTI_TYPE_STATE_KEY } from '@/core/constants';
 import { useLangCode } from '@/core/context/LangContext';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { MBTITypeState, MBTIType as TMBTIType } from '@/core/types/mbti';
@@ -19,11 +23,6 @@ import {
   getMBTITypesTranslation,
 } from '@/core/utils/dictionary';
 import { MBTIMap } from '@/core/utils/mbti';
-import AnimatedAppear from '@/core/components/shared/animated-appear';
-import TextBox from '@/core/components/mbti-type/text-box';
-import FamousPersons from '@/core/components/mbti-type/famous-persons';
-
-export const MBTI_TYPE_STATE_KEY = 'mbti_type_state';
 
 type MBTITypeStateLS = {
   typeMapTranslation: [TMBTIType, MBTITypeTranslation][];

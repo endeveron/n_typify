@@ -1,16 +1,15 @@
 'use client';
 
+import { LANG_CODE_KEY } from '@/core/constants';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
+import { LangCode } from '@/core/types/translation';
 import {
   createContext,
-  useContext,
-  useState,
   ReactNode,
+  useContext,
   useEffect,
+  useState,
 } from 'react';
-import { LangCode } from '@/core/types/translation';
-import { useLocalStorage } from '@/core/hooks/useLocalStorage';
-
-const LANG_CODE_KEY = 'langCode';
 
 interface LangContextType {
   langCode?: LangCode;

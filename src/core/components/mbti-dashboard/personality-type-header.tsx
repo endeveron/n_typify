@@ -20,7 +20,7 @@ const PersonalityTypeHeader = ({
       className="flex flex-1 flex-col items-center justify-center uppercase cursor-default"
     >
       {/* MBTI Personality Type */}
-      <div className="text-5xl leading-none text-muted font-bold tracking-wide opacity-60">
+      <div className="text-5xl leading-none text-muted font-bold tracking-wide opacity-70">
         {MBTIType}
       </div>
       {/* Title */}

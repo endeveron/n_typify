@@ -127,5 +127,6 @@ export type MBTITraitsTranslation = {
 };
 
 export type MBTITestResultsTranslation = {
-  actionBtnTitle: string;
+  detailsBtnTitle: string;
+  testAgainBtnTitle: string;
 };

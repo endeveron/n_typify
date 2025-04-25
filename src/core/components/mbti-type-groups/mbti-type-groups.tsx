@@ -4,10 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 import MBTITypesTableRow from '@/core/components/mbti-type-groups/mbti-type-group-table-row';
+import SelectTypeGroup from '@/core/components/mbti-type-groups/select-type-group';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Button } from '@/core/components/ui/button';
+import { MBTI_TYPES_STATE_KEY } from '@/core/constants';
 import { useLangCode } from '@/core/context/LangContext';
-// import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { MBTIType, MBTITypesState } from '@/core/types/mbti';
 import {
@@ -20,10 +21,7 @@ import {
   getMBTITypesTranslation,
 } from '@/core/utils/dictionary';
 import { MBTITypeGroupMap, MBTITypeTableItems } from '@/core/utils/mbti';
-import SelectTypeGroup from '@/core/components/mbti-type-groups/select-type-group';
 import { useRouter } from 'next/navigation';
-
-export const MBTI_TYPES_STATE_KEY = 'mbti_types_state';
 
 type MBTITypesStateForLS = {
   activeGroupId: string | null;

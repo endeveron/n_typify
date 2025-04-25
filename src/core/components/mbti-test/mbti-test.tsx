@@ -4,22 +4,26 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import QuestionCard from '@/core/components/mbti-test/mbti-test-card';
+import MBTITestResults from '@/core/components/mbti-test/mbti-test-results';
 import ProgressBar from '@/core/components/mbti-test/progress-bar';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Button } from '@/core/components/ui/button';
+import { MBTI_TEST_RESULTS_STATE_KEY } from '@/core/constants';
 import { useLangCode } from '@/core/context/LangContext';
 import { QUESTION_DATA_ARRAY_LENGTH } from '@/core/data/questions';
+import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
   AnswerMapData,
   MBTIResult,
+  MBTITestResultsStateLS,
+  MBTIType,
   Question,
   TraitIndex,
   TraitMap,
 } from '@/core/types/mbti';
 import { LangCode, MBTITestTranslation } from '@/core/types/translation';
 import { getMBTITestTranslation } from '@/core/utils/dictionary';
-import { detectMBTIType, configureMBTITestQuestions } from '@/core/utils/mbti';
-import MBTITestResults from '@/core/components/mbti-test/mbti-test-results';
+import { configureMBTITestQuestions, detectMBTIType } from '@/core/utils/mbti';
 
 const QUESTION_GROUP_SIZE = 12;
 export const TOTAL_QUESTION_GROUPS =
@@ -29,6 +33,7 @@ const MBTITest = () => {
   const { langCode } = useLangCode();
   const [translation, setTranslation] =
     useState<Omit<MBTITestTranslation, 'questions'>>();
+  const [getState, setState] = useLocalStorage();
   const [questions, setQuestions] = useState<Question[]>([]);
 
   const [questionGroup, setQuestionGroup] = useState<Question[]>([]);
@@ -49,7 +54,7 @@ const MBTITest = () => {
   const handleGetResultsButton = () => {
     const res = getResults();
 
-    // DEV
+    // // DEV
     // const res: MBTIResult = {
     //   type: 'ESFJ',
     //   identity: 'a',
@@ -72,7 +77,7 @@ const MBTITest = () => {
   const handleQuestionCardSelect = (data: AnswerMapData) => {
     // // DEV
     // handleGetResultsButton();
-    //
+
     if (Number(data.questionId) >= activeQuestionId) {
       updateCurrentQuestionId();
     }
@@ -82,6 +87,11 @@ const MBTITest = () => {
       updateProgress();
       updateAnswerMap(data);
     }, 50); // Ensure state updates before scrolling
+  };
+
+  const handleResetTestResults = () => {
+    setState<MBTITestResultsStateLS>(MBTI_TEST_RESULTS_STATE_KEY, null);
+    setResult(null);
   };
 
   const getResults = (): MBTIResult => {
@@ -176,8 +186,30 @@ const MBTITest = () => {
     answerMapRef.current.set(data.questionId, data);
   };
 
+  // Check LocalStorage for result
+  useEffect(() => {
+    // Check if the results exist in LocalStorage
+    const resultsFromLS = getState<MBTITestResultsStateLS>(
+      MBTI_TEST_RESULTS_STATE_KEY
+    );
+    if (resultsFromLS) {
+      const traitMap: TraitMap = new Map<TraitIndex, number>(
+        resultsFromLS.traitMap.map(([k, v]) => [k as TraitIndex, v])
+      );
+      const results: MBTIResult = {
+        type: resultsFromLS.type as MBTIType,
+        identity: resultsFromLS.identity,
+        traitMap,
+      };
+      setResult(results);
+      return;
+    }
+  }, [getState]);
+
   // Init data
   useEffect(() => {
+    if (result) return;
+
     const initData = async () => {
       // Get translations
       const { questions, ...translations } = await getMBTITestTranslation(
@@ -201,12 +233,16 @@ const MBTITest = () => {
     };
 
     initData();
-  }, [langCode]);
+  }, [langCode, result]);
 
   return (
     <div className="flex flex-col flex-1 mx-auto w-full base-max-w cursor-default">
-      {result ? (
-        <MBTITestResults langCode={langCode as LangCode} result={result} />
+      {!!result ? (
+        <MBTITestResults
+          langCode={langCode as LangCode}
+          result={result}
+          onReset={handleResetTestResults}
+        />
       ) : (
         <AnimatedAppear isShown={!!questionGroup.length}>
           {/* Progress */}

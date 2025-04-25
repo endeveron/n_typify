@@ -194,16 +194,21 @@ export type MBTITypeState = {
 
 // MBTI Test Results
 
-export type MBTITestResultsState = {
+type BaseMBTITestResultsState<TTraitMap> = {
   type: string;
   identity: MBTIIdentity;
-  traitMap: TraitMap;
+  traitMap: TTraitMap;
   translations: {
     page: MBTITestResultsTranslation;
     type: MBTITypeTranslation;
     traits: MBTITraitsTranslation;
   };
 } | null;
+
+export type MBTITestResultsState = BaseMBTITestResultsState<TraitMap>;
+export type MBTITestResultsStateLS = BaseMBTITestResultsState<
+  [TraitIndex, number][]
+>;
 
 export type MBTIDichotomyMapItem = {
   traitIds: TraitIndex[];

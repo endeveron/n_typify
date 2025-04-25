@@ -9,16 +9,15 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 // import ToggleLanguage from '@/core/components/shared/toggle-language';
-import { useLangCode } from '@/core/context/LangContext';
-import { WelcomeTranslation } from '@/core/types/translation';
-import { getWelcomeTranslation } from '@/core/utils/dictionary';
-
-import { DASHBOARD_STATE_KEY } from '@/core/components/mbti-dashboard/mbti-dashboard';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Button } from '@/core/components/ui/button';
+import { DASHBOARD_STATE_KEY } from '@/core/constants';
+import { useLangCode } from '@/core/context/LangContext';
 import { welcomeImgBlured } from '@/core/data/blured-images';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { DEFAULT_REDIRECT } from '@/core/routes';
+import { WelcomeTranslation } from '@/core/types/translation';
+import { getWelcomeTranslation } from '@/core/utils/dictionary';
 import WelcomeImage from '~/public/images/welcome.jpg';
 
 const Welcome = () => {
