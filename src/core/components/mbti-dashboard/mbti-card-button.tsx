@@ -11,8 +11,8 @@ import { cognFnColorMap } from '@/core/utils/mbti';
 import IntrovertedThinkingIcon from '~/public/icons/mbti/chart.svg';
 import ExtrovertedThinkingIcon from '~/public/icons/mbti/gear.svg';
 // `feeling` cognitive functions
-import ExtrovertedFeelingIcon from '~/public/icons/mbti/heart.svg';
-import IntrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
+import ExtrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
+import IntrovertedFeelingIcon from '~/public/icons/mbti/heart.svg';
 // `sensing` cognitive functions
 import ExtrovertedSensingIcon from '~/public/icons/mbti/bolt-lightning.svg';
 import IntrovertedSensingIcon from '~/public/icons/mbti/home.svg';

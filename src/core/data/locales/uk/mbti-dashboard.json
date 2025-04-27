@@ -23,13 +23,13 @@
   "feelingCard": {
     "title": "Feeling",
     "extroverted_function": {
-      "title": "Relations",
-      "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection.",
+      "title": "Emotions",
+      "description": "Controls the mood of others through bright and expressive emotionsemotional vibrations.",
       "markers": ["society", "empathy", "support", "respect", "harmony"]
     },
     "introverted_function": {
-      "title": "Emotions",
-      "description": "Controls the mood of others through bright and expressive emotionsemotional vibrations.",
+      "title": "Relations",
+      "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection.",
       "markers": ["ethics", "morals", "value", "loyalty", "identity"]
     }
   },
