@@ -43,6 +43,7 @@ export type MBTIDashboardTraitCardTranslation = {
 export type MBTIDashboardFunctionTranslation = {
   title: string;
   description: string;
+  markers?: string[];
 };
 
 export type MBTIDashboardFunctionCardTranslation = {

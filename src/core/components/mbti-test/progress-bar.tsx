@@ -14,7 +14,7 @@ const ProgressBar = ({ progress, questionGroupNum }: ProgressBarProps) => {
     <AnimatedAppear className="sticky top-0 w-full h-14 flex items-center justify-between text-sm font-semibold rounded-full bg-card z-10">
       <div className="w-20 flex justify-center">
         <div className="text-accent-text">{questionGroupNum}</div>
-        <div className="ml-2 text-muted opacity-80">
+        <div className="ml-1 text-muted opacity-80">
           / {TOTAL_QUESTION_GROUPS}
         </div>
       </div>

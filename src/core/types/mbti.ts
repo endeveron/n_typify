@@ -79,14 +79,19 @@ export type CardButton = {
   title: string;
 };
 
+export type CardTip = {
+  markers?: string[];
+};
+
 export type TraitCard = {
   type: TraitType;
   buttons: CardButton[];
 };
 
-export type CognitiveFnCardItem = CardButton & {
-  description?: string;
-};
+export type CognitiveFnCardItem = CardButton &
+  CardTip & {
+    description?: string;
+  };
 
 export type CognitiveFnCard = {
   title: string;

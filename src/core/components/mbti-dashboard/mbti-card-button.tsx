@@ -17,6 +17,7 @@ import IntrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
 import ExtrovertedSensingIcon from '~/public/icons/mbti/bolt-lightning.svg';
 import IntrovertedSensingIcon from '~/public/icons/mbti/home.svg';
 // `intuition` cognitive functions
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import IntrovertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
 import ExtrovertedIntuitionIcon from '~/public/icons/mbti/shapes.svg';
 
@@ -40,7 +41,11 @@ const MBTICardButton = ({ id, title, onClick }: TMBTICardButtonProps) => {
   const icon = cognFnIconMap.get(id);
 
   return (
-    <div onClick={onClick} className="w-16 flex flex-col items-center gap-3">
+    <AnimatedAppear
+      timeout={250}
+      onClick={onClick}
+      className="w-16 flex flex-col items-center justify-between"
+    >
       <div
         className={cn(
           `h-16 w-16 flex items-center justify-center text-white rounded-full cursor-pointer transition-colors`,
@@ -52,7 +57,7 @@ const MBTICardButton = ({ id, title, onClick }: TMBTICardButtonProps) => {
       <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default select-none opacity-90">
         {title}
       </div>
-    </div>
+    </AnimatedAppear>
   );
 };
 

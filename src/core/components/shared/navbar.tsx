@@ -11,15 +11,16 @@ import { useLangCode } from '@/core/context/LangContext';
 import { NavbarItem as TNavbarItem } from '@/core/types/common';
 import { getNavbarTranslation } from '@/core/utils/dictionary';
 
+import AskAIIcon from '~/public/icons/navbar/ask-ai.svg';
 import HomeIcon from '~/public/icons/navbar/home-blank.svg';
 import TypesIcon from '~/public/icons/navbar/types.svg';
 import TestIcon from '~/public/icons/navbar/test.svg';
 
 const navbarItems: TNavbarItem[] = [
   {
-    id: 'main',
-    path: '/mbti-dashboard',
-    icon: <HomeIcon />,
+    id: 'test',
+    path: '/mbti-test',
+    icon: <TestIcon />,
   },
   {
     id: 'types',
@@ -27,9 +28,14 @@ const navbarItems: TNavbarItem[] = [
     icon: <TypesIcon />,
   },
   {
-    id: 'test',
-    path: '/mbti-test',
-    icon: <TestIcon />,
+    id: 'main',
+    path: '/mbti-dashboard',
+    icon: <HomeIcon />,
+  },
+  {
+    id: 'ask-ai',
+    path: '/ask-ai',
+    icon: <AskAIIcon />,
   },
 ];
 

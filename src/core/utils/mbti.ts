@@ -424,12 +424,14 @@ export const configureCognitiveFnCards = (
           title: translation.thinkingCard.extroverted_function.title,
           description:
             translation.thinkingCard.extroverted_function.description,
+          markers: translation.thinkingCard.extroverted_function.markers,
         },
         {
           id: 'Ti',
           title: translation.thinkingCard.introverted_function.title,
           description:
             translation.thinkingCard.introverted_function.description,
+          markers: translation.thinkingCard.introverted_function.markers,
         },
       ],
     },
@@ -441,11 +443,13 @@ export const configureCognitiveFnCards = (
           id: 'Fi',
           title: translation.feelingCard.introverted_function.title,
           description: translation.feelingCard.introverted_function.description,
+          markers: translation.feelingCard.introverted_function.markers,
         },
         {
           id: 'Fe',
           title: translation.feelingCard.extroverted_function.title,
           description: translation.feelingCard.extroverted_function.description,
+          markers: translation.feelingCard.extroverted_function.markers,
         },
       ],
     },
@@ -457,11 +461,13 @@ export const configureCognitiveFnCards = (
           id: 'Se',
           title: translation.sensingCard.extroverted_function.title,
           description: translation.sensingCard.extroverted_function.description,
+          markers: translation.sensingCard.extroverted_function.markers,
         },
         {
           id: 'Si',
           title: translation.sensingCard.introverted_function.title,
           description: translation.sensingCard.introverted_function.description,
+          markers: translation.sensingCard.introverted_function.markers,
         },
       ],
     },
@@ -474,12 +480,14 @@ export const configureCognitiveFnCards = (
           title: translation.intuitionCard.introverted_function.title,
           description:
             translation.intuitionCard.introverted_function.description,
+          markers: translation.intuitionCard.introverted_function.markers,
         },
         {
           id: 'Ne',
           title: translation.intuitionCard.extroverted_function.title,
           description:
             translation.intuitionCard.extroverted_function.description,
+          markers: translation.intuitionCard.extroverted_function.markers,
         },
       ],
     },

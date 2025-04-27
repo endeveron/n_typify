@@ -11,44 +11,52 @@
     "title": "Thinking",
     "extroverted_function": {
       "title": "Business",
-      "description": "A mechanism that must run smoothly. Everything is subordinated to efficiency and practical value."
+      "description": "A mechanism that must run smoothly. Everything is subordinated to efficiency and practical value.",
+      "markers": ["action", "process", "system", "method", "result"]
     },
     "introverted_function": {
       "title": "Structural",
-      "description": "Structure, clarity, system. A logical map of the world where everything is interconnected."
+      "description": "Structure, clarity, system. A logical map of the world where everything is interconnected.",
+      "markers": ["logic", "model", "concept", "scheme", "reason"]
     }
   },
   "feelingCard": {
     "title": "Feeling",
     "extroverted_function": {
       "title": "Relations",
-      "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection."
+      "description": "Sees not behavior, but the soul. Reflection of inner states, empathy, personal reflection.",
+      "markers": ["society", "empathy", "support", "respect", "harmony"]
     },
     "introverted_function": {
-      "title": "Emotion",
-      "description": "Controls the mood of others through bright and expressive emotionsemotional vibrations."
+      "title": "Emotions",
+      "description": "Controls the mood of others through bright and expressive emotionsemotional vibrations.",
+      "markers": ["ethics", "morals", "value", "loyalty", "identity"]
     }
   },
   "sensingCard": {
     "title": "Sensing",
     "extroverted_function": {
       "title": "Volitional",
-      "description": "Strength, will, determination. Willingness to fight for your goals and assert your boundaries."
+      "description": "Strength, will, determination. Willingness to fight for your goals and assert your boundaries.",
+      "markers": ["power", "force", "control", "impact", "motion"]
     },
     "introverted_function": {
       "title": "Comfort",
-      "description": "Home, warmth. All the attention is on bodily sensations, cozy atmosphere and pleasant details."
+      "description": "Home, warmth. All the attention is on bodily sensations, cozy atmosphere and pleasant details.",
+      "markers": ["memory", "habit", "health", "safety", "coziness"]
     }
   },
   "intuitionCard": {
     "title": "Intuition",
     "extroverted_function": {
       "title": "Possibilities",
-      "description": "Flight of fancy, lots of ideas, freedom of options."
+      "description": "Flight of fancy, lots of ideas, freedom of options.",
+      "markers": ["idea", "chance", "option", "venture", "novelty"]
     },
     "introverted_function": {
       "title": "Time",
-      "description": "The flow of time, cycles, cause and effect. Sees the future through the present."
+      "description": "The flow of time, cycles, cause and effect. Sees the future through the present.",
+      "markers": ["logic", "concept", "reason", "model", "scheme"]
     }
   },
   "cleanUpResultsPrompt": "Очистити результати?"
