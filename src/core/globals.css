@@ -228,6 +228,10 @@
     max-width: var(--base-w);
   }
 
+  .no-select {
+    @apply cursor-default select-none;
+  }
+
   @keyframes spin {
     0% {
       transform: rotate(0deg);

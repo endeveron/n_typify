@@ -15,7 +15,7 @@
       "markers": ["action", "process", "system", "method", "result"]
     },
     "introverted_function": {
-      "title": "Structural",
+      "title": "System",
       "description": "Structure, clarity, system. A logical map of the world where everything is interconnected.",
       "markers": ["logic", "model", "concept", "scheme", "reason"]
     }
@@ -36,7 +36,7 @@
   "sensingCard": {
     "title": "Sensing",
     "extroverted_function": {
-      "title": "Volitional",
+      "title": "Will",
       "description": "Strength, will, determination. Willingness to fight for your goals and assert your boundaries.",
       "markers": ["power", "force", "control", "impact", "motion"]
     },
@@ -49,7 +49,7 @@
   "intuitionCard": {
     "title": "Intuition",
     "extroverted_function": {
-      "title": "Possibilities",
+      "title": "Potential",
       "description": "Flight of fancy, lots of ideas, freedom of options.",
       "markers": ["idea", "chance", "option", "venture", "novelty"]
     },

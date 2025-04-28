@@ -8,6 +8,7 @@ import { cognFnColorMap } from '@/core/utils/mbti';
 type CognFunctionProps = TCognFunction & {
   counter: number;
   onClick: () => void;
+  isClickable: boolean;
   isShadow?: boolean;
   index: number;
 };
@@ -18,6 +19,7 @@ const CognFunction = ({
   description,
   counter,
   onClick,
+  isClickable,
   isShadow,
   index,
 }: CognFunctionProps) => {
@@ -28,7 +30,7 @@ const CognFunction = ({
       <div
         onClick={onClick}
         className={cn(`flex items-center gap-2 text-xs uppercase select-none`, {
-          'cursor-pointer': !!counter,
+          'cursor-pointer': isClickable,
         })}
       >
         <div

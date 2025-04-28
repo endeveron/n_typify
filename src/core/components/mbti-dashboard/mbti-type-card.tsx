@@ -38,7 +38,7 @@ const MBTITypeCard = ({
       isShown={!!cognFunctions?.length}
       onClick={handleCardClick}
       className={cn(
-        `w-24 flex flex-col items-center p-2 bg-background rounded-xl select-none cursor-pointer transition-opacity`,
+        `w-24 flex flex-col items-center p-2 bg-background rounded-xl cursor-pointer select-none transition-opacity`,
         {
           'opacity-20': isActive === false,
         }

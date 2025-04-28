@@ -31,11 +31,10 @@ const CognFunctions = ({
 
   const translMap = translation?.map;
   const translStack = translation?.stack;
+  const isClickAllowed = typeof onFunctionClick === 'function';
 
   const handleItemClick = (functionId: CognitiveFnId) => {
-    if (typeof onFunctionClick === 'function') {
-      onFunctionClick(functionId);
-    }
+    if (isClickAllowed) onFunctionClick(functionId);
   };
 
   // Init cognitive function name stack translations
@@ -85,6 +84,7 @@ const CognFunctions = ({
             <CognFunction
               {...data}
               onClick={() => handleItemClick(data.id as CognitiveFnId)}
+              isClickable={isClickAllowed}
               key={data.id}
               index={index}
             />
@@ -97,6 +97,7 @@ const CognFunctions = ({
               <CognFunction
                 {...data}
                 onClick={() => handleItemClick(data.id as CognitiveFnId)}
+                isClickable={isClickAllowed}
                 isShadow={true}
                 key={data.id}
                 index={index}

@@ -9,6 +9,7 @@ import {
   MBTITypeGroupsTranslation,
   MBTITypesTranslation,
   NavbarTranslation,
+  PromptTranslation,
   WelcomeTranslation,
 } from '@/core/types/translation';
 
@@ -202,6 +203,23 @@ const MBTITraitLoadersMap = new Map<
   ],
 ]);
 
+const PromptLoadersMap = new Map<string, () => Promise<PromptTranslation>>([
+  [
+    'en',
+    () =>
+      import('@/core/data/locales/en/prompt.json').then(
+        (module) => module.default as PromptTranslation
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/prompt.json').then(
+        (module) => module.default as PromptTranslation
+      ),
+  ],
+]);
+
 // Utility function to save the lang code in the Local Storage
 export const storeLangCode = (langCode: LangCode = 'en'): LangCode => {
   return langCode;
@@ -389,7 +407,7 @@ export const getMBTIDashboardTranslation = async (
 ): Promise<MBTIDashboardTranslation> => {
   // Try to get the loader for the requested language
   const loader = MBTIDashboardLoadersMap.get(langCode);
-  const errMsg = `Failed to load translations for the Dashboard page`;
+  const errMsg = `Failed to load translations for the MBTI Dashboard page`;
   if (!loader) throw new Error(errMsg);
 
   try {
@@ -445,7 +463,7 @@ export const getMBTITypeGroupsTranslation = async (
 };
 
 /**
- * Gets localized data for MBTI Test for the specified language code
+ * Gets localized data for MBTI Test page for the specified language code
  * @param langCode Language code (e.g., 'en', 'uk')
  * @returns Promise resolving to data of type MBTITestTranslation
  * @throws Error if both requested language and fallback language fail to load
@@ -455,7 +473,7 @@ export const getMBTITestTranslation = async (
 ): Promise<MBTITestTranslation> => {
   // Try to get the loader for the requested language
   const loader = MBTITestLoadersMap.get(langCode);
-  const errMsg = `Failed to load translations for the Personality Test page`;
+  const errMsg = `Failed to load translations for the MBTI Test page`;
   if (!loader) throw new Error(errMsg);
 
   try {
@@ -489,7 +507,7 @@ export const getMBTITestResultsTranslation = async (
 ): Promise<MBTITestResultsTranslation> => {
   // Try to get the loader for the requested language
   const loader = MBTITestResultsLoadersMap.get(langCode);
-  const errMsg = `Failed to load translations for the Personality Test page`;
+  const errMsg = `Failed to load translations for the MBTI Test Results page`;
   if (!loader) throw new Error(errMsg);
 
   try {
@@ -523,7 +541,7 @@ export const getMBTITraitsTranslation = async (
 ): Promise<MBTITraitsTranslation> => {
   // Try to get the loader for the requested language
   const loader = MBTITraitLoadersMap.get(langCode);
-  const errMsg = `Failed to load translations for the Personality Test page`;
+  const errMsg = `Failed to load translations for the MBTI Traits`;
   if (!loader) throw new Error(errMsg);
 
   try {
@@ -534,6 +552,40 @@ export const getMBTITraitsTranslation = async (
     // If requested language fails and it's not English, try English as fallback
     if (langCode !== 'en') {
       const fallbackLoader = MBTITraitLoadersMap.get('en');
+      if (fallbackLoader) {
+        try {
+          return await fallbackLoader();
+        } catch (fallbackError) {
+          throw new Error(`${errMsg}: ${fallbackError}`);
+        }
+      }
+    }
+    throw new Error(`${errMsg}: ${error}`);
+  }
+};
+
+/**
+ * Gets localized data for the Prompt page for the specified language code
+ * @param langCode Language code (e.g., 'en', 'uk')
+ * @returns Promise resolving to data of type PromptTranslation
+ * @throws Error if both requested language and fallback language fail to load
+ */
+export const getPromptTranslation = async (
+  langCode: LangCode = 'en'
+): Promise<PromptTranslation> => {
+  // Try to get the loader for the requested language
+  const loader = PromptLoadersMap.get(langCode);
+  const errMsg = `Failed to load translations for the Prompt page`;
+  if (!loader) throw new Error(errMsg);
+
+  try {
+    // Load the translation
+    const translation = await loader();
+    return translation;
+  } catch (error) {
+    // If requested language fails and it's not English, try English as fallback
+    if (langCode !== 'en') {
+      const fallbackLoader = PromptLoadersMap.get('en');
       if (fallbackLoader) {
         try {
           return await fallbackLoader();

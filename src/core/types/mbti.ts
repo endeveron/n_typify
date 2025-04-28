@@ -8,6 +8,7 @@ import {
   MBTITypeGroupsTranslation,
   MBTITypeMapTranslation,
   MBTITypeTranslation,
+  PromptTranslation,
 } from '@/core/types/translation';
 
 export type TraitIndex =
@@ -217,4 +218,18 @@ export type MBTITestResultsStateLS = BaseMBTITestResultsState<
 
 export type MBTIDichotomyMapItem = {
   traitIds: TraitIndex[];
+};
+
+// Prompt
+
+export type CognitiveFnDataForPrompt = {
+  personalities: MBTIPersonalityItem[];
+  cognitiveFnArr: CognFunctionArr;
+  cognitiveFnTranslation: CognitiveFunctionsTranslation;
+};
+
+export type PromptState = {
+  translation: PromptTranslation | null;
+  MBTIDashboardData: CognitiveFnDataForPrompt | null;
+  isCognFnDataActive: boolean;
 };

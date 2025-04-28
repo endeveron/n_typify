@@ -29,7 +29,7 @@ const MBTITypeGroupTableRow = ({
 
   return (
     <AnimatedAppear isShown={!!items.length}>
-      <div className="mb-1 text-center text-xs text-[10px] leading-none uppercase font-bold text-muted tracking-wide opacity-70 cursor-default select-none">
+      <div className="mb-1 text-center text-xs text-[10px] leading-none uppercase font-bold text-muted tracking-wide opacity-70 no-select">
         {title}
       </div>
       <div className="flex gap-1 p-1 rounded-2xl bg-card">

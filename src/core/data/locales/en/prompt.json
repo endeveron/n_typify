@@ -1,0 +1,6 @@
+{
+  "mainTitle": "Create a Prompt for LLM",
+  "dashboardDataTitle": "Main Screen Data",
+  "disabledCardMessage": "Will not be included in the prompt",
+  "generatePromptBtnTitle": "Generate Prompt"
+}

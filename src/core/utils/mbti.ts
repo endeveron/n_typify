@@ -3,6 +3,7 @@ import {
   cognFnPatternMapStatus,
   CognFunctionArr,
   CognitiveFnCard,
+  CognitiveFnDataForPrompt,
   MBTIDichotomyMapItem,
   MBTIMapItem,
   MBTIPersonalityItem,
@@ -453,28 +454,17 @@ export const configureCognitiveFnCards = (
         },
       ],
     },
-    // sensing
-    {
-      title: translation.sensingCard.title,
-      cognitiveFunctions: [
-        {
-          id: 'Se',
-          title: translation.sensingCard.extroverted_function.title,
-          description: translation.sensingCard.extroverted_function.description,
-          markers: translation.sensingCard.extroverted_function.markers,
-        },
-        {
-          id: 'Si',
-          title: translation.sensingCard.introverted_function.title,
-          description: translation.sensingCard.introverted_function.description,
-          markers: translation.sensingCard.introverted_function.markers,
-        },
-      ],
-    },
     // intuition
     {
       title: translation.intuitionCard.title,
       cognitiveFunctions: [
+        {
+          id: 'Ne',
+          title: translation.intuitionCard.extroverted_function.title,
+          description:
+            translation.intuitionCard.extroverted_function.description,
+          markers: translation.intuitionCard.extroverted_function.markers,
+        },
         {
           id: 'Ni',
           title: translation.intuitionCard.introverted_function.title,
@@ -482,12 +472,23 @@ export const configureCognitiveFnCards = (
             translation.intuitionCard.introverted_function.description,
           markers: translation.intuitionCard.introverted_function.markers,
         },
+      ],
+    },
+    // sensing
+    {
+      title: translation.sensingCard.title,
+      cognitiveFunctions: [
         {
-          id: 'Ne',
-          title: translation.intuitionCard.extroverted_function.title,
-          description:
-            translation.intuitionCard.extroverted_function.description,
-          markers: translation.intuitionCard.extroverted_function.markers,
+          id: 'Si',
+          title: translation.sensingCard.introverted_function.title,
+          description: translation.sensingCard.introverted_function.description,
+          markers: translation.sensingCard.introverted_function.markers,
+        },
+        {
+          id: 'Se',
+          title: translation.sensingCard.extroverted_function.title,
+          description: translation.sensingCard.extroverted_function.description,
+          markers: translation.sensingCard.extroverted_function.markers,
         },
       ],
     },
@@ -568,3 +569,12 @@ export const sortPersonalityItems = (
 ): MBTIPersonalityItem[] => {
   return items.sort((a, b) => b.mbti.matchPercent - a.mbti.matchPercent);
 };
+
+export const createEmptyDashboardData = (): CognitiveFnDataForPrompt => ({
+  personalities: [],
+  cognitiveFnArr: [],
+  cognitiveFnTranslation: {
+    map: {},
+    stack: [],
+  },
+});

@@ -2,24 +2,24 @@
 
 import { ReactElement } from 'react';
 
+import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { CardButton } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
 import { cognFnColorMap } from '@/core/utils/mbti';
 
 // Icons
 // `thinking` cognitive functions
-import IntrovertedThinkingIcon from '~/public/icons/mbti/chart.svg';
 import ExtrovertedThinkingIcon from '~/public/icons/mbti/gear.svg';
+import IntrovertedThinkingIcon from '~/public/icons/mbti/layers.svg';
 // `feeling` cognitive functions
-import ExtrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
 import IntrovertedFeelingIcon from '~/public/icons/mbti/heart.svg';
+import ExtrovertedFeelingIcon from '~/public/icons/mbti/theater.svg';
+// `intuition` cognitive functions
+import IntrovertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
+import ExtrovertedIntuitionIcon from '~/public/icons/mbti/network.svg';
 // `sensing` cognitive functions
 import ExtrovertedSensingIcon from '~/public/icons/mbti/bolt-lightning.svg';
 import IntrovertedSensingIcon from '~/public/icons/mbti/home.svg';
-// `intuition` cognitive functions
-import AnimatedAppear from '@/core/components/shared/animated-appear';
-import IntrovertedIntuitionIcon from '~/public/icons/mbti/clock.svg';
-import ExtrovertedIntuitionIcon from '~/public/icons/mbti/shapes.svg';
 
 const cognFnIconMap = new Map<string, ReactElement>([
   ['Te', <ExtrovertedThinkingIcon key={0} />],
@@ -54,7 +54,7 @@ const MBTICardButton = ({ id, title, onClick }: TMBTICardButtonProps) => {
       >
         {icon}
       </div>
-      <div className="text-[10px] text-muted font-bold tracking-wider uppercase cursor-default select-none opacity-90">
+      <div className="text-[10px] text-muted font-bold tracking-wider uppercase no-select opacity-90">
         {title}
       </div>
     </AnimatedAppear>

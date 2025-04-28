@@ -18,6 +18,7 @@ import {
   MBTIDashboardState,
   MBTIMapItem,
   MBTIPersonalityItem,
+  MBTIType,
 } from '@/core/types/mbti';
 import {
   CognitiveFunctionsTranslation,
@@ -123,6 +124,16 @@ const MBTIDashboard = () => {
     setState((prev) => ({
       ...prev,
       cognitiveFnArr,
+    }));
+  };
+
+  const handleRemovePersonality = (MBTIType: MBTIType) => {
+    if (!hasUserInteracted) setHasUserInteracted(true);
+    setState((prev) => ({
+      ...prev,
+      personalities: [...prev.personalities].filter(
+        (p) => p.mbti.personalityType !== MBTIType
+      ),
     }));
   };
 
@@ -325,7 +336,7 @@ const MBTIDashboard = () => {
   if (!translation) return null;
 
   return (
-    <div className="relative max-h-[920px] mx-auto w-full base-max-w flex flex-1 flex-col justify-between">
+    <div className="relative max-h-[920px] w-full base-max-w mx-auto flex flex-1 flex-col justify-between">
       {isOutput ? (
         <>
           {/* Header */}
@@ -347,7 +358,10 @@ const MBTIDashboard = () => {
 
             {/* Personality Cards */}
             <div className="px-6">
-              <PersonalityCards personalities={personalities} />
+              <PersonalityCards
+                personalities={personalities}
+                removeCard={handleRemovePersonality}
+              />
             </div>
           </div>
 

@@ -42,7 +42,7 @@ const NavbarItem = ({
       {icon}
       <div
         className={cn(
-          `mt-1 text-[8px] font-bold tracking-wider uppercase cursor-default opacity-80 select-none`,
+          `mt-1 text-[8px] font-bold tracking-wider uppercase cursor-default opacity-80 no-select`,
           {
             'text-accent-text': isActiveState,
             'text-muted': isNormalState,

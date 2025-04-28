@@ -11,7 +11,7 @@ import { useLangCode } from '@/core/context/LangContext';
 import { NavbarItem as TNavbarItem } from '@/core/types/common';
 import { getNavbarTranslation } from '@/core/utils/dictionary';
 
-import AskAIIcon from '~/public/icons/navbar/ask-ai.svg';
+import PromptIcon from '~/public/icons/navbar/prompt.svg';
 import HomeIcon from '~/public/icons/navbar/home-blank.svg';
 import TypesIcon from '~/public/icons/navbar/types.svg';
 import TestIcon from '~/public/icons/navbar/test.svg';
@@ -33,9 +33,9 @@ const navbarItems: TNavbarItem[] = [
     icon: <HomeIcon />,
   },
   {
-    id: 'ask-ai',
-    path: '/ask-ai',
-    icon: <AskAIIcon />,
+    id: 'prompt',
+    path: '/prompt',
+    icon: <PromptIcon />,
   },
 ];
 

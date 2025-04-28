@@ -22,11 +22,11 @@ const CognFunctionCard = ({
   };
 
   return (
-    <div className="flex flex-col p-4 bg-card rounded-3xl select-none">
+    <div className="flex flex-col pt-2 px-4 pb-4 bg-card rounded-3xl no-select">
       {/* Title */}
-      <div className="flex justify-center">
+      <div className="z-10 flex justify-center">
         <div
-          className="pb-2 text-xs text-accent-text tracking-wider font-semibold uppercase cursor-pointer"
+          className="px-4 py-2 text-xs text-accent-text tracking-wider font-semibold uppercase cursor-pointer"
           onClick={handleToggleTip}
         >
           {title}

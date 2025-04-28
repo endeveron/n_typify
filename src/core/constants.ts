@@ -11,6 +11,7 @@ const DASHBOARD_STATE_KEY = 'dashboard_state';
 const MBTI_TYPE_STATE_KEY = 'mbti_type_state';
 const MBTI_TYPES_STATE_KEY = 'mbti_types_state';
 const MBTI_TEST_RESULTS_STATE_KEY = 'mbti_test_results_state';
+const PROMPT_STATE_KEY = 'prompt_state';
 
 export {
   BASE_URL,
@@ -24,4 +25,5 @@ export {
   MBTI_TYPE_STATE_KEY,
   MBTI_TYPES_STATE_KEY,
   MBTI_TEST_RESULTS_STATE_KEY,
+  PROMPT_STATE_KEY,
 };

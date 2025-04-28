@@ -49,8 +49,8 @@ const FamousPersonCard = ({ name }: FamousPersonCardProps) => {
             <Image
               onError={handleLoadError}
               src={`/images/famous-persons/${name}.jpg`}
-              width={80}
-              height={80}
+              width={160}
+              height={160}
               priority
               quality={100}
               alt={name}

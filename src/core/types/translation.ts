@@ -131,3 +131,12 @@ export type MBTITestResultsTranslation = {
   detailsBtnTitle: string;
   testAgainBtnTitle: string;
 };
+
+// Prompt
+
+export type PromptTranslation = {
+  mainTitle: string;
+  dashboardDataTitle: string;
+  disabledCardMessage: string;
+  generatePromptBtnTitle: string;
+};
