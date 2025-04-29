@@ -12,6 +12,7 @@ const MBTI_TYPE_STATE_KEY = 'mbti_type_state';
 const MBTI_TYPES_STATE_KEY = 'mbti_types_state';
 const MBTI_TEST_RESULTS_STATE_KEY = 'mbti_test_results_state';
 const PROMPT_STATE_KEY = 'prompt_state';
+const PROMPT_SIMPLE_OUTPUT_KEY = 'prompt_simple_output';
 
 export {
   BASE_URL,
@@ -26,4 +27,5 @@ export {
   MBTI_TYPES_STATE_KEY,
   MBTI_TEST_RESULTS_STATE_KEY,
   PROMPT_STATE_KEY,
+  PROMPT_SIMPLE_OUTPUT_KEY,
 };

@@ -119,6 +119,7 @@ const MBTIDashboard = () => {
 
   const handleCognFnListItemClick = (cognFnId: CognitiveFnId) => {
     // Decrease counter value by 1
+    if (!hasUserInteracted) setHasUserInteracted(true);
     const updCognFnCountMap = updateCognFnCounterMap(cognFnId, true);
     const cognitiveFnArr = updateCognFnArray(cognFnId, updCognFnCountMap);
     setState((prev) => ({

@@ -222,14 +222,23 @@ export type MBTIDichotomyMapItem = {
 
 // Prompt
 
-export type CognitiveFnDataForPrompt = {
+export type MBTIDashboardDataForPrompt = {
   personalities: MBTIPersonalityItem[];
   cognitiveFnArr: CognFunctionArr;
   cognitiveFnTranslation: CognitiveFunctionsTranslation;
 };
 
+export type PromptCardDataStatus = 'ok' | 'no-data' | 'not-enough-data';
+
+export type MBTIDashboardCard = {
+  data: MBTIDashboardDataForPrompt | null;
+  message: string | null;
+  isActive: boolean;
+  dataStatus?: PromptCardDataStatus;
+};
+
 export type PromptState = {
   translation: PromptTranslation | null;
-  MBTIDashboardData: CognitiveFnDataForPrompt | null;
-  isCognFnDataActive: boolean;
+  MBTIDashboardCard: MBTIDashboardCard | null;
+  prompt: string | null;
 };

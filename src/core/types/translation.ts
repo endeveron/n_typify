@@ -135,8 +135,14 @@ export type MBTITestResultsTranslation = {
 // Prompt
 
 export type PromptTranslation = {
-  mainTitle: string;
+  headerTitle: string;
+  headerDescription: string;
   dashboardDataTitle: string;
   disabledCardMessage: string;
-  generatePromptBtnTitle: string;
+  notEnoughDataMessage: string;
+  noDataMessage: string;
+  simplifyOutputTitle: string;
+  createPromptBtnTitle: string;
+  copyPromptBtnTitle: string;
+  resetBtnTitle: string;
 };

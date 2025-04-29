@@ -1,23 +1,27 @@
 'use client';
 
+import { PropsWithChildren } from 'react';
+
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { Switch } from '@/core/components/ui/switch';
+import { PromptCardDataStatus } from '@/core/types/mbti';
 import { cn } from '@/core/utils/common';
-import { PropsWithChildren } from 'react';
 
 type TPromptCardProps = PropsWithChildren & {
   title: string;
   isActive: boolean;
-  disabledCardMessage: string;
+  message: string | null;
   onStateToggle: () => void;
+  dataStatus?: PromptCardDataStatus;
 };
 
 const PromptCard = ({
   children,
   isActive,
   title,
-  disabledCardMessage,
+  message,
   onStateToggle,
+  dataStatus,
 }: TPromptCardProps) => {
   return (
     <AnimatedAppear className="flex flex-col border-2 border-border rounded-2xl">
@@ -34,9 +38,11 @@ const PromptCard = ({
         >
           {title}
         </div>
-        <div className="z-10 flex items-center px-2 rounded-full bg-background">
-          <Switch checked={isActive} onClick={() => onStateToggle()} />
-        </div>
+        {dataStatus === 'ok' ? (
+          <div className="z-10 flex items-center px-2 rounded-full bg-background">
+            <Switch checked={isActive} onClick={() => onStateToggle()} />
+          </div>
+        ) : null}
       </div>
 
       {/* Content */}
@@ -44,11 +50,13 @@ const PromptCard = ({
         <AnimatedAppear className="py-8 flex flex-col items-center gap-6">
           {children}
         </AnimatedAppear>
-      ) : (
+      ) : null}
+
+      {message && !isActive ? (
         <div className="p-8 text-center text-xs font-semibold text-muted/70 tracking-wide uppercase no-select">
-          {disabledCardMessage}
+          {message}
         </div>
-      )}
+      ) : null}
     </AnimatedAppear>
   );
 };

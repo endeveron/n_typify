@@ -3,7 +3,7 @@ import {
   cognFnPatternMapStatus,
   CognFunctionArr,
   CognitiveFnCard,
-  CognitiveFnDataForPrompt,
+  MBTIDashboardCard,
   MBTIDichotomyMapItem,
   MBTIMapItem,
   MBTIPersonalityItem,
@@ -570,11 +570,15 @@ export const sortPersonalityItems = (
   return items.sort((a, b) => b.mbti.matchPercent - a.mbti.matchPercent);
 };
 
-export const createEmptyDashboardData = (): CognitiveFnDataForPrompt => ({
-  personalities: [],
-  cognitiveFnArr: [],
-  cognitiveFnTranslation: {
-    map: {},
-    stack: [],
+export const initDashboardCard = (): MBTIDashboardCard => ({
+  data: {
+    personalities: [],
+    cognitiveFnArr: [],
+    cognitiveFnTranslation: {
+      stack: [],
+      map: {},
+    },
   },
+  message: null,
+  isActive: false,
 });
