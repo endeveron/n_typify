@@ -25,14 +25,14 @@
       "artisans",
       {
         "title": "Artisans",
-        "description": "Skilled doers who value tradition, craftsmanship, and hands-on experience"
+        "description": "Grounded realists upholding tradition, bringing stability via practical skill and dedication"
       }
     ],
     [
       "navigators",
       {
         "title": "Navigators",
-        "description": "Grounded leaders and social stewards who organize, direct, and connect communities"
+        "description": "Energetic actors who engage others through charisma, action, and social intelligence"
       }
     ],
 
@@ -40,28 +40,28 @@
       "mentors",
       {
         "title": "Mentors",
-        "description": "Purpose-driven leaders who guide others through vision, insight, and structured direction"
+        "description": "Purposeful leaders who guide others with insight, structure, and vision"
       }
     ],
     [
       "explorers",
       {
         "title": "Explorers",
-        "description": "Curious innovators who seek new ideas, perspectives, and creative experiences"
+        "description": "Curious minds who thrive on ideas, innovation, and endless discovery"
       }
     ],
     [
       "stewards",
       {
         "title": "Stewards",
-        "description": "Principled organizers who lead with conviction, structure, and a sense of duty to others"
+        "description": "Principled organizers who lead with structure, duty, and ethical resolve"
       }
     ],
     [
       "harmonizers",
       {
         "title": "Harmonizers",
-        "description": "Empathetic and community-driven types who value emotional connection and shared meaning"
+        "description": "Empathetic and collaborative types who value emotional connection and shared meaning"
       }
     ],
     [
@@ -75,7 +75,7 @@
       "guardians",
       {
         "title": "Guardians",
-        "description": "Emotionally grounded, people-first types who focus on harmony and care"
+        "description": "Loyal caregivers who protect harmony, traditions, and personal well-being"
       }
     ],
 
@@ -83,14 +83,14 @@
       "architects",
       {
         "title": "Architects",
-        "description": "Supportive connectors who bring people together through empathy, trust, and emotional insight"
+        "description": "Strategic Executors who drive progress through logic, structure, and decisive action"
       }
     ],
     [
       "balancers",
       {
         "title": "Balancers",
-        "description": "Analytical yet community-minded types who balance innovation with care and tradition"
+        "description": "Types who blend reason with empathy, and creativity with tradition"
       }
     ],
     [
@@ -104,22 +104,7 @@
       "freespirits",
       {
         "title": "Free Spirits",
-        "description": "Authentic and expressive individuals who seek beauty, connection, and freedom to be themselves"
-      }
-    ],
-
-    [
-      "bridgebuilders",
-      {
-        "title": "Bridgebuilders",
-        "description": "Supportive connectors who bring people together through empathy, trust, and emotional insight"
-      }
-    ],
-    [
-      "dreamers",
-      {
-        "title": "Dreamers",
-        "description": "Imaginative and values-driven types who seek personal meaning and creative expression"
+        "description": "Authentic and expressive individuals who seek beauty, connection, and freedom"
       }
     ]
   ],

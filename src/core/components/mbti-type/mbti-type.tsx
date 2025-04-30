@@ -142,7 +142,7 @@ const MBTIType = ({ type }: MBTITypeProps) => {
   if (!translation) return null;
 
   return (
-    <div className="mx-auto w-full base-max-w flex flex-col items-center gap-8 cursor-default">
+    <div className="mx-auto w-full base-max-w flex flex-col items-center gap-8 cursor-default pb-1">
       {/* Personality Type */}
       <div className="mt-8 flex flex-col gap-4">
         <PersonalityTypeHeader

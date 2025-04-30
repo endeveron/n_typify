@@ -1,14 +1,18 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import {
   DASHBOARD_STATE_KEY,
+  MBTI_TEST_RESULTS_STATE_KEY,
   MBTI_TYPE_STATE_KEY,
   MBTI_TYPES_STATE_KEY,
+  PROMPT_SIMPLE_OUTPUT_KEY,
+  PROMPT_STATE_KEY,
 } from '@/core/constants';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import { cn } from '@/core/utils/common';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 
 const MBTIVisual = () => {
   const [, saveState] = useLocalStorage();
@@ -17,8 +21,11 @@ const MBTIVisual = () => {
 
   const handleClick = () => {
     saveState(DASHBOARD_STATE_KEY, null);
+    saveState(MBTI_TEST_RESULTS_STATE_KEY, null);
     saveState(MBTI_TYPE_STATE_KEY, null);
     saveState(MBTI_TYPES_STATE_KEY, null);
+    saveState(PROMPT_SIMPLE_OUTPUT_KEY, false);
+    saveState(PROMPT_STATE_KEY, null);
   };
 
   useEffect(() => {

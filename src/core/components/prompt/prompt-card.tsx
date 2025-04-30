@@ -9,8 +9,8 @@ import { cn } from '@/core/utils/common';
 
 type TPromptCardProps = PropsWithChildren & {
   title: string;
-  isActive: boolean;
-  message: string | null;
+  isActive?: boolean;
+  message?: string | null;
   onStateToggle: () => void;
   dataStatus?: PromptCardDataStatus;
 };
@@ -31,7 +31,7 @@ const PromptCard = ({
           className={cn(
             `px-2 text-xs font-semibold tracking-wide uppercase no-select bg-background transition-color`,
             {
-              'text-accent-text': isActive,
+              'text-accent-text': !!isActive,
               'text-muted/70': !isActive,
             }
           )}
@@ -40,7 +40,7 @@ const PromptCard = ({
         </div>
         {dataStatus === 'ok' ? (
           <div className="z-10 flex items-center px-2 rounded-full bg-background">
-            <Switch checked={isActive} onClick={() => onStateToggle()} />
+            <Switch checked={!!isActive} onClick={() => onStateToggle()} />
           </div>
         ) : null}
       </div>
@@ -53,7 +53,7 @@ const PromptCard = ({
       ) : null}
 
       {message && !isActive ? (
-        <div className="p-8 text-center text-xs font-semibold text-muted/70 tracking-wide uppercase no-select">
+        <div className="p-8 text-center text-xs font-semibold text-muted/70 tracking-wide no-select">
           {message}
         </div>
       ) : null}

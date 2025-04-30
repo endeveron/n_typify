@@ -30,7 +30,7 @@ const PersonalityCards = ({
         itemsNumber={itemsNumber}
         minItemsNumberToEnableScroll={4}
         className={cn(
-          `w-full h-[104px] flex items-center gap-1 p-1 rounded-2xl bg-card`
+          `w-full h-[100px] flex items-center gap-1 p-0.5 rounded-2xl bg-card`
         )}
       >
         {personalities.map((personality) => (

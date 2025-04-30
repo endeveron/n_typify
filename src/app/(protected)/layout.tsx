@@ -14,9 +14,7 @@ export default async function ProtectedLayout({
   return (
     <div className="flex flex-col h-dvh min-h-dvh max-h-dvh">
       {/* Content area, scrollable */}
-      <div className="flex flex-1 flex-col pb-1 overflow-y-auto">
-        {children}
-      </div>
+      <div className="flex flex-1 flex-col overflow-y-auto">{children}</div>
       {/* Bottom */}
       <Navbar />
     </div>

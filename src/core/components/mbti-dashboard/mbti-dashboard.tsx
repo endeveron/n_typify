@@ -337,7 +337,7 @@ const MBTIDashboard = () => {
   if (!translation) return null;
 
   return (
-    <div className="relative max-h-[920px] w-full base-max-w mx-auto flex flex-1 flex-col justify-between">
+    <div className="relative max-h-[920px] w-full base-max-w mx-auto flex flex-1 flex-col justify-between pb-1">
       {isOutput ? (
         <>
           {/* Header */}

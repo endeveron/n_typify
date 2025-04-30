@@ -155,7 +155,7 @@ const MBTITypeGroups = () => {
       </div>
 
       {/* Table */}
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-3">
         {[0, 4, 8, 12].map((startIndex, index) => (
           <MBTITypesTableRow
             title={translation!.tableRowTitles[index]}

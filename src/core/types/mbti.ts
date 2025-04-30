@@ -2,6 +2,7 @@ import {
   CognitiveFunctionsTranslation,
   MBTIDashboardTranslation,
   MBTITestResultsTranslation,
+  MBTITraitMapItem,
   MBTITraitsTranslation,
   MBTITypeDetailsTranslation,
   MBTITypeGroupMapTranslation,
@@ -222,23 +223,37 @@ export type MBTIDichotomyMapItem = {
 
 // Prompt
 
+export type PromptCardDataStatus = 'ok' | 'no-data' | 'not-enough-data';
+
+export type PromptCard<T> = {
+  data: T | null;
+  message: string | null;
+  isActive: boolean;
+  dataStatus?: PromptCardDataStatus;
+};
+
 export type MBTIDashboardDataForPrompt = {
   personalities: MBTIPersonalityItem[];
   cognitiveFnArr: CognFunctionArr;
   cognitiveFnTranslation: CognitiveFunctionsTranslation;
 };
 
-export type PromptCardDataStatus = 'ok' | 'no-data' | 'not-enough-data';
+export type MBTIDashboardCard = PromptCard<MBTIDashboardDataForPrompt>;
 
-export type MBTIDashboardCard = {
-  data: MBTIDashboardDataForPrompt | null;
-  message: string | null;
-  isActive: boolean;
-  dataStatus?: PromptCardDataStatus;
+export type MBTITestDataForPrompt = {
+  type: string;
+  typeBoxTitle: string;
+  dominantTraits: [string, number][];
+  identity: MBTIIdentity;
+  traitMap: [TraitIndex, number][];
+  traitMapTranslation: [TraitIndex, MBTITraitMapItem][];
 };
+
+export type MBTITestCard = PromptCard<MBTITestDataForPrompt>;
 
 export type PromptState = {
   translation: PromptTranslation | null;
   MBTIDashboardCard: MBTIDashboardCard | null;
+  MBTITestCard: MBTITestCard | null;
   prompt: string | null;
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -11,14 +12,17 @@ import { Button } from '@/core/components/ui/button';
 import { Switch } from '@/core/components/ui/switch';
 import {
   DASHBOARD_STATE_KEY,
+  MBTI_TEST_RESULTS_STATE_KEY,
   PROMPT_SIMPLE_OUTPUT_KEY,
   PROMPT_STATE_KEY,
 } from '@/core/constants';
 import { useLangCode } from '@/core/context/LangContext';
+import { useClipboard } from '@/core/hooks/useClipboard';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
 import {
-  MBTIDashboardCard,
   MBTIDashboardState,
+  MBTITestResultsStateLS,
+  MBTIType,
   PromptState,
 } from '@/core/types/mbti';
 import {
@@ -26,9 +30,16 @@ import {
   PromptTranslation,
 } from '@/core/types/translation';
 import { cn } from '@/core/utils/common';
-import { getPromptTranslation } from '@/core/utils/dictionary';
-import { initDashboardCard } from '@/core/utils/mbti';
-import { useClipboard } from '@/core/hooks/useClipboard';
+import {
+  getMBTITypesTranslation,
+  getPromptTranslation,
+} from '@/core/utils/dictionary';
+import {
+  getDominantTraits,
+  initMBTIDashboardCard,
+  initMBTITestCard,
+} from '@/core/utils/mbti';
+import MBTITypeCard from '@/core/components/mbti-dashboard/mbti-type-card';
 
 type PromptStateForLS = {
   translation: PromptTranslation;
@@ -37,20 +48,23 @@ type PromptStateForLS = {
 const initialState: PromptState = {
   translation: null,
   MBTIDashboardCard: null,
+  MBTITestCard: null,
   prompt: null,
 };
 
 const PromptClient = () => {
   const { langCode } = useLangCode();
+  const router = useRouter();
   const [getState, saveState] = useLocalStorage();
-  const { copy, copied } = useClipboard();
+  const { copy } = useClipboard();
 
   const [state, setState] = useState<PromptState>(initialState);
   const [isSimpleOutput, setIsSimpleOutput] = useState(false);
 
-  const { MBTIDashboardCard, prompt, translation } = state;
+  const { MBTIDashboardCard, MBTITestCard, prompt, translation } = state;
   const isPromptAllowed =
-    MBTIDashboardCard?.dataStatus === 'ok' && MBTIDashboardCard.isActive;
+    (MBTIDashboardCard?.dataStatus === 'ok' && MBTIDashboardCard.isActive) ||
+    (MBTITestCard?.dataStatus === 'ok' && MBTITestCard.isActive);
 
   const handleMBTIDashboardCardToggle = () => {
     if (!MBTIDashboardCard || !translation) return;
@@ -63,6 +77,23 @@ const PromptClient = () => {
         message: translation.disabledCardMessage,
       },
     }));
+  };
+
+  const handleMBTITestCardToggle = () => {
+    if (!MBTITestCard || !translation) return;
+
+    setState((prev) => ({
+      ...prev,
+      MBTITestCard: {
+        ...MBTITestCard,
+        isActive: !prev.MBTITestCard?.isActive,
+        message: translation.disabledCardMessage,
+      },
+    }));
+  };
+
+  const handleMBTITestTypeCardClick = (type: MBTIType) => {
+    router.push(`/mbti-type/${type}`);
   };
 
   const handleCreatePromptBtnClick = () => {
@@ -78,7 +109,7 @@ const PromptClient = () => {
     copy(prompt);
   };
 
-  const handleResetPromptBtnClick = () => {
+  const handleCancelBtnClick = () => {
     setState((prev) => ({
       ...prev,
       prompt: null,
@@ -98,16 +129,14 @@ const PromptClient = () => {
       return null;
     }
 
-    let prompt = 'MBTI typing results:';
+    let prompt = 'Cognitive functions typing results:';
 
     // Handle cognitive functions
     if (MBTIDashboardCard.data.cognitiveFnArr.length) {
       const cognitiveFunctions = MBTIDashboardCard.data.cognitiveFnArr.map(
         ([cognFnId, matchNum]) => `${cognFnId}: ${matchNum}`
       );
-      prompt += `\n- Cognitive functions match count: ${cognitiveFunctions.join(
-        ', '
-      )}. `;
+      prompt += `\n- Match count: ${cognitiveFunctions.join(', ')}. `;
     }
 
     // Handle MBTI type
@@ -146,7 +175,7 @@ const PromptClient = () => {
         });
       }
 
-      // Handle output mode
+      // Handle the output mode
       const isSimpleOutputFromLS = getState<boolean>(PROMPT_SIMPLE_OUTPUT_KEY);
       if (isSimpleOutputFromLS) {
         setIsSimpleOutput(true);
@@ -160,15 +189,13 @@ const PromptClient = () => {
         translation,
       }));
 
-      // Get the MBTI dashboard page data for the prompt
-      let MBTIDashboardCard: MBTIDashboardCard | null = null;
-      // Try to get data from LocalStorage
+      // Card 1 - MBTI dashboard page data
+
+      const MBTIDashboardCard = initMBTIDashboardCard();
       const MBTIDashboardStateFromLS =
         getState<MBTIDashboardState>(DASHBOARD_STATE_KEY);
 
       if (MBTIDashboardStateFromLS) {
-        MBTIDashboardCard = initDashboardCard();
-
         const personalities = MBTIDashboardStateFromLS.personalities;
         const isPersonalities = personalities.length;
         const cognitiveFnArr = MBTIDashboardStateFromLS.cognitiveFnArr;
@@ -210,11 +237,58 @@ const PromptClient = () => {
           MBTIDashboardCard.dataStatus = 'no-data';
           MBTIDashboardCard.message = translation.noDataMessage;
         }
+      } else {
+        MBTIDashboardCard.dataStatus = 'no-data';
+        MBTIDashboardCard.message = translation.noDataMessage;
+      }
+
+      // Card 2 - MBTI Test page data
+
+      const MBTITestCard = initMBTITestCard();
+      const MBTITestStateFromLS = getState<MBTITestResultsStateLS>(
+        MBTI_TEST_RESULTS_STATE_KEY
+      );
+
+      if (MBTITestStateFromLS) {
+        const type = MBTITestStateFromLS.type;
+        const traitMap = MBTITestStateFromLS.traitMap;
+        const traitMapTranslation =
+          MBTITestStateFromLS.translations.traits.traitMap;
+
+        if (type && traitMap.length && traitMapTranslation.length) {
+          // Get MBTI types translation
+          const MBTITypeTranslation = await getMBTITypesTranslation(langCode);
+
+          const MBTITypeItemTranslation = MBTITypeTranslation.find(
+            (item) => item.type === type
+          );
+          if (!MBTITypeItemTranslation) {
+            toast(`Unable to load localized data`);
+            return;
+          }
+
+          // Data is ok
+          MBTITestCard.dataStatus = 'ok';
+          MBTITestCard.isActive = true;
+
+          // Init values
+          MBTITestCard.data!.type = type;
+          MBTITestCard.data!.typeBoxTitle = MBTITypeItemTranslation.title[0];
+          MBTITestCard.data!.dominantTraits = getDominantTraits({
+            traitMap,
+            traitMapTranslation,
+          });
+        }
+      } else {
+        // No data
+        MBTITestCard.dataStatus = 'no-data';
+        MBTITestCard.message = translation.noDataMessage;
       }
 
       setState((prev) => ({
         ...prev,
         MBTIDashboardCard,
+        MBTITestCard,
       }));
     };
 
@@ -226,124 +300,164 @@ const PromptClient = () => {
     saveState<boolean>(PROMPT_SIMPLE_OUTPUT_KEY, isSimpleOutput);
   }, [isSimpleOutput, getState, saveState]);
 
-  useEffect(() => {
-    if (copied) {
-      toast('Prompt copied to clipboard');
-    }
-  }, [copied]);
+  // useEffect(() => {
+  //   if (copied) {
+  //     toast('Prompt copied to clipboard');
+  //   }
+  // }, [copied]);
 
   if (!translation) return null;
 
   return (
-    <div className="max-h-[920px] w-full base-max-w mx-auto flex flex-1 flex-col justify-between px-1 py-4">
+    <div className="max-h-[920px] w-full base-max-w mx-auto flex flex-1 flex-col justify-between px-1 pt-4">
       <div className="flex flex-1 flex-col gap-4">
         {/* Header */}
-        <AnimatedAppear className="flex flex-1 max-h-28 flex-col justify-center gap-2 items-center no-select">
+        <AnimatedAppear className="flex flex-1 min-h-24 max-h-32 flex-col justify-center gap-2 items-center no-select">
           <div className="text-xl font-extrabold text-accent tracking-wide uppercase">
             {translation.headerTitle}
           </div>
-          <div className="text-xs font-medium text-muted/80 tracking-wide">
+          <div className="text-xs font-semibold text-muted/80 tracking-wide">
             {translation.headerDescription}
           </div>
         </AnimatedAppear>
 
         {/* Content Cards */}
 
-        {/* Cognitive Functions (MBTI Dashboard / Main page) */}
-        {MBTIDashboardCard ? (
-          <PromptCard
-            title={translation.dashboardDataTitle}
-            onStateToggle={handleMBTIDashboardCardToggle}
-            isActive={MBTIDashboardCard.isActive}
-            message={MBTIDashboardCard.message}
-            dataStatus={MBTIDashboardCard.dataStatus}
-          >
-            {MBTIDashboardCard.data ? (
-              <>
-                <div className="max-w-[380px]">
-                  <PersonalityCards
-                    personalities={MBTIDashboardCard.data?.personalities}
-                    showPrompt={false}
+        <div className="flex flex-col gap-8 pb-4">
+          {/* Cognitive Functions / MBTI Dashboard / Main page) */}
+          <AnimatedAppear>
+            <PromptCard
+              title={translation.MBTIDashboardCardTitle}
+              onStateToggle={handleMBTIDashboardCardToggle}
+              isActive={MBTIDashboardCard?.isActive}
+              message={MBTIDashboardCard?.message}
+              dataStatus={MBTIDashboardCard?.dataStatus}
+            >
+              {!!MBTIDashboardCard?.data ? (
+                <>
+                  <div className="max-w-[380px]">
+                    <PersonalityCards
+                      personalities={MBTIDashboardCard.data?.personalities}
+                      showPrompt={false}
+                    />
+                  </div>
+
+                  <CognFunctions
+                    cognitiveFnArr={MBTIDashboardCard.data.cognitiveFnArr}
+                    translation={
+                      MBTIDashboardCard.data
+                        .cognitiveFnTranslation as CognitiveFunctionsTranslation
+                    }
                   />
+                </>
+              ) : null}
+            </PromptCard>
+          </AnimatedAppear>
+
+          {/* MBTI Test */}
+          <AnimatedAppear>
+            <PromptCard
+              title={translation.MBTITestCardTitle}
+              onStateToggle={handleMBTITestCardToggle}
+              isActive={MBTITestCard?.isActive}
+              message={MBTITestCard?.message}
+              dataStatus={MBTITestCard?.dataStatus}
+            >
+              {!!MBTITestCard?.data ? (
+                <div className="flex items-center fustify-center gap-6 cursor-default">
+                  {/* MBTI Type Card */}
+                  <div className="p-0.5 bg-card rounded-2xl">
+                    <MBTITypeCard
+                      title={MBTITestCard.data.typeBoxTitle}
+                      type={MBTITestCard.data.type as MBTIType}
+                      isActive={true}
+                      onClick={handleMBTITestTypeCardClick}
+                    />
+                  </div>
+
+                  {/* Dominant Trait List */}
+                  <div className="flex flex-col gap-1 justify-between">
+                    {MBTITestCard.data.dominantTraits.map((item) => (
+                      <div
+                        className="flex text-xs text-accent-text font-medium tracking-wide"
+                        key={item[0]}
+                      >
+                        {/* Trait Title */}
+                        <div>{item[0]}:</div>
+                        {/* Percentage */}
+                        <div className="ml-2">{item[1]}</div>
+                        <div className="pl-0.5 font-bold text-muted/40">%</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-
-                <CognFunctions
-                  cognitiveFnArr={MBTIDashboardCard.data.cognitiveFnArr}
-                  translation={
-                    MBTIDashboardCard.data
-                      .cognitiveFnTranslation as CognitiveFunctionsTranslation
-                  }
-                />
-              </>
-            ) : null}
-          </PromptCard>
-        ) : null}
-
-        {/* MBTI Test */}
+              ) : null}
+            </PromptCard>
+          </AnimatedAppear>
+        </div>
       </div>
 
-      {/* Prompt */}
-      {prompt ? (
-        <AnimatedAppear
-          isShown={!!prompt && isPromptAllowed}
-          className="mt-4 flex flex-col gap-4"
-        >
-          <div className="p-4 text-sm font-medium text-accent-text whitespace-pre-wrap border-2 border-accent rounded-2xl">
-            {prompt}
-          </div>
-
-          {/* Buttons */}
-          <div className="flex gap-4">
-            {/* Reset */}
-            <Button onClick={handleResetPromptBtnClick} variant="secondary">
-              {translation.resetBtnTitle}
-            </Button>
-            {/* Copy Prompt to Clipboard */}
-            <Button
-              className="flex-1"
-              onClick={handleCopyPromptBtnClick}
-              variant="accent"
-            >
-              {translation.copyPromptBtnTitle}
-            </Button>
-          </div>
-        </AnimatedAppear>
-      ) : null}
-
-      {!prompt ? (
-        <AnimatedAppear
-          isShown={isPromptAllowed && !prompt}
-          className="flex flex-col gap-4"
-        >
-          <div className="flex items-center justify-between">
-            {/* Simplify Output Toggle */}
-            <div
-              className={cn(
-                `text-xs font-semibold tracking-wide no-select transition-color`,
-                {
-                  'text-accent-text': isSimpleOutput,
-                  'text-muted/60': !isSimpleOutput,
-                }
-              )}
-            >
-              <div onClick={toggleOutputForm} className="py-1 cursor-pointer">
-                {translation.simplifyOutputTitle}
-              </div>
+      <div className="py-4 sticky bottom-0 bg-background z-20">
+        {/* Prompt */}
+        {prompt ? (
+          <AnimatedAppear isShown={!!prompt && isPromptAllowed} className="">
+            <div className="p-4 text-sm font-medium text-accent-text whitespace-pre-wrap border-2 border-accent rounded-2xl">
+              {prompt}
             </div>
 
-            <Switch
-              className="cursor-pointer"
-              onClick={toggleOutputForm}
-              checked={isSimpleOutput}
-            />
-          </div>
+            {/* Buttons */}
+            <div className="mt-4 flex gap-4">
+              {/* Reset */}
+              <Button onClick={handleCancelBtnClick} variant="secondary">
+                {translation.cancelBtnTitle}
+              </Button>
+              {/* Copy Prompt to Clipboard */}
+              <Button
+                className="flex-1"
+                onClick={handleCopyPromptBtnClick}
+                variant="accent"
+              >
+                {translation.copyPromptBtnTitle}
+              </Button>
+            </div>
+          </AnimatedAppear>
+        ) : null}
 
-          {/* Create Prompt Button */}
-          <Button onClick={handleCreatePromptBtnClick} variant="accent">
-            {translation.createPromptBtnTitle}
-          </Button>
-        </AnimatedAppear>
-      ) : null}
+        {!prompt ? (
+          <AnimatedAppear
+            isShown={isPromptAllowed && !prompt}
+            className="flex flex-col gap-4"
+          >
+            <div className="flex items-center justify-between px-0.5">
+              {/* Simplify Output Toggle */}
+              <div
+                className={cn(
+                  `text-xs font-semibold tracking-wide no-select transition-color`,
+                  {
+                    'text-accent-text': isSimpleOutput,
+                    'text-muted/60': !isSimpleOutput,
+                  }
+                )}
+              >
+                <div onClick={toggleOutputForm} className="py-1 cursor-pointer">
+                  {translation.simplifyOutputTitle}
+                </div>
+              </div>
+
+              <Switch
+                className="cursor-pointer"
+                onClick={toggleOutputForm}
+                checked={isSimpleOutput}
+              />
+            </div>
+
+            {/* Create Prompt Button */}
+            <Button onClick={handleCreatePromptBtnClick} variant="accent">
+              {translation.createPromptBtnTitle}
+            </Button>
+          </AnimatedAppear>
+        ) : null}
+      </div>
     </div>
   );
 };

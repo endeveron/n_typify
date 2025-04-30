@@ -1,12 +1,13 @@
 {
   "headerTitle": "Prompt for LLM",
   "headerDescription": "Create the System Prompt for LLM based on MBTI data",
-  "dashboardDataTitle": "MBTI Dashboard (Main Screen)",
+  "MBTIDashboardCardTitle": "Cognitive Functions Typing Results",
+  "MBTITestCardTitle": "MBTI Test Results",
   "disabledCardMessage": "Will not be included in the prompt",
   "notEnoughDataMessage": "Not enough data",
   "noDataMessage": "No data",
   "simplifyOutputTitle": "Simplify output (avoid MBTI terms)",
   "createPromptBtnTitle": "Create Prompt",
   "copyPromptBtnTitle": "Copy Prompt to Clipboard",
-  "resetBtnTitle": "Reset"
+  "cancelBtnTitle": "Cancel"
 }

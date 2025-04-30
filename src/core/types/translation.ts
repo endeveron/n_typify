@@ -137,12 +137,13 @@ export type MBTITestResultsTranslation = {
 export type PromptTranslation = {
   headerTitle: string;
   headerDescription: string;
-  dashboardDataTitle: string;
+  MBTIDashboardCardTitle: string;
+  MBTITestCardTitle: string;
   disabledCardMessage: string;
   notEnoughDataMessage: string;
   noDataMessage: string;
   simplifyOutputTitle: string;
   createPromptBtnTitle: string;
   copyPromptBtnTitle: string;
-  resetBtnTitle: string;
+  cancelBtnTitle: string;
 };

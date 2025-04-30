@@ -8,11 +8,15 @@ import {
   MBTIMapItem,
   MBTIPersonalityItem,
   MBTIResult,
+  MBTITestCard,
   MBTIType,
   TraitIndex,
   TraitMap,
 } from '@/core/types/mbti';
-import { MBTIDashboardTranslation } from '@/core/types/translation';
+import {
+  MBTIDashboardTranslation,
+  MBTITraitMapItem,
+} from '@/core/types/translation';
 
 export const cognFnColorMap = new Map<string, string>([
   ['Te', 'bg-teal'],
@@ -570,7 +574,12 @@ export const sortPersonalityItems = (
   return items.sort((a, b) => b.mbti.matchPercent - a.mbti.matchPercent);
 };
 
-export const initDashboardCard = (): MBTIDashboardCard => ({
+const promptCardProps = {
+  message: null,
+  isActive: false,
+};
+
+export const initMBTIDashboardCard = (): MBTIDashboardCard => ({
   data: {
     personalities: [],
     cognitiveFnArr: [],
@@ -579,6 +588,43 @@ export const initDashboardCard = (): MBTIDashboardCard => ({
       map: {},
     },
   },
-  message: null,
-  isActive: false,
+  ...promptCardProps,
 });
+
+export const initMBTITestCard = (): MBTITestCard => ({
+  data: {
+    type: '',
+    typeBoxTitle: '',
+    identity: 'a',
+    traitMap: [],
+    traitMapTranslation: [],
+    dominantTraits: [],
+  },
+  ...promptCardProps,
+});
+
+export const getDominantTraits = ({
+  traitMap,
+  traitMapTranslation,
+}: {
+  traitMap: [TraitIndex, number][];
+  traitMapTranslation: [string, MBTITraitMapItem][];
+}): [string, number][] => {
+  const output: [string, number][] = [];
+  const translationMap = new Map<string, MBTITraitMapItem>(traitMapTranslation);
+
+  for (let i = 0; i < traitMap.length; i += 2) {
+    const first = traitMap[i];
+    const second = traitMap[i + 1];
+    if (!second) break;
+
+    if (first[1] >= second[1]) {
+      const title = translationMap.get(first[0])!.title;
+      output.push([title, first[1]]);
+    } else {
+      const title = translationMap.get(second[0])!.title;
+      output.push([title, second[1]]);
+    }
+  }
+  return output;
+};

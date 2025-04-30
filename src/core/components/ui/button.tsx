@@ -14,9 +14,9 @@ const buttonVariants = cva(
         accent:
           'text-btn-accent-foreground font-semibold bg-btn-accent-background hover:bg-btn-accent-background-hover',
         secondary:
-          'text-btn-secondary-foreground/70 font-medium bg-btn-secondary-background hover:text-btn-secondary-foreground hover:bg-btn-secondary-background-hover',
+          'text-btn-secondary-foreground/70 bg-btn-secondary-background hover:text-btn-secondary-foreground hover:bg-btn-secondary-background-hover',
         outline:
-          'border border-border font-medium text-foreground/70 hover:text-foreground hover:bg-btn-secondary-background-hover hover:border-transparent',
+          'border border-border text-foreground/70 hover:text-foreground hover:bg-btn-secondary-background-hover hover:border-transparent',
         ghost: 'hover:bg-btn-secondary-background hover:text-foreground',
         link: 'text-blue underline-offset-4 hover:underline',
       },
