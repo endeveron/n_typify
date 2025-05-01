@@ -8,6 +8,7 @@ import {
   MBTITypeGroupMapTranslation,
   MBTITypeGroupsTranslation,
   MBTITypeMapTranslation,
+  MBTITypePageTranslation,
   MBTITypeTranslation,
   PromptTranslation,
 } from '@/core/types/translation';
@@ -192,11 +193,23 @@ export type MBTITypesState = {
 
 export type MBTITypeState = {
   translation: {
+    page: MBTITypePageTranslation;
     MBTIType: MBTITypeTranslation;
+    MBTITypeMap: Map<MBTIType, MBTITypeTranslation>;
     MBTITypeDetails: MBTITypeDetailsTranslation;
     cognitiveFunctions: CognitiveFunctionsTranslation;
   } | null;
   cognitiveFnArr: string[];
+  similarTypes: MBTIType[];
+};
+
+export type MBTITypeStateLS = {
+  translation: {
+    page: MBTITypePageTranslation;
+    typeMap: [MBTIType, MBTITypeTranslation][];
+    typeDetalsMap: [MBTIType, MBTITypeDetailsTranslation][];
+    cognitiveFunctions: CognitiveFunctionsTranslation;
+  };
 };
 
 // MBTI Test Results

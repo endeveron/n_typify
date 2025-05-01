@@ -7,6 +7,7 @@ import {
   MBTITraitsTranslation,
   MBTITypeDetailArrayTranslation,
   MBTITypeGroupsTranslation,
+  MBTITypePageTranslation,
   MBTITypesTranslation,
   NavbarTranslation,
   PromptTranslation,
@@ -47,24 +48,45 @@ const WelcomeLoadersMap = new Map<string, () => Promise<WelcomeTranslation>>([
   ],
 ]);
 
-const MBTITypeLoadersMap = new Map<string, () => Promise<MBTITypesTranslation>>(
+const MBTITypesLoadersMap = new Map<
+  string,
+  () => Promise<MBTITypesTranslation>
+>([
   [
-    [
-      'en',
-      () =>
-        import('@/core/data/locales/en/mbti-types.json').then(
-          (module) => module.default as MBTITypesTranslation
-        ),
-    ],
-    [
-      'uk',
-      () =>
-        import('@/core/data/locales/uk/mbti-types.json').then(
-          (module) => module.default as MBTITypesTranslation
-        ),
-    ],
-  ]
-);
+    'en',
+    () =>
+      import('@/core/data/locales/en/mbti-types.json').then(
+        (module) => module.default as MBTITypesTranslation
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/mbti-types.json').then(
+        (module) => module.default as MBTITypesTranslation
+      ),
+  ],
+]);
+
+const MBTITypePageLoadersMap = new Map<
+  string,
+  () => Promise<MBTITypePageTranslation>
+>([
+  [
+    'en',
+    () =>
+      import('@/core/data/locales/en/mbti-type.json').then(
+        (module) => module.default as MBTITypePageTranslation
+      ),
+  ],
+  [
+    'uk',
+    () =>
+      import('@/core/data/locales/uk/mbti-type.json').then(
+        (module) => module.default as MBTITypePageTranslation
+      ),
+  ],
+]);
 
 const MBTITypeDetailsLoadersMap = new Map<
   string,
@@ -308,7 +330,7 @@ export const getMBTITypesTranslation = async (
   langCode: LangCode = 'en'
 ): Promise<MBTITypesTranslation> => {
   // Try to get the loader for the requested language
-  const loader = MBTITypeLoadersMap.get(langCode);
+  const loader = MBTITypesLoadersMap.get(langCode);
   const errMsg = `Failed to load translations for MBTI Types`;
   if (!loader) throw new Error(errMsg);
 
@@ -317,7 +339,39 @@ export const getMBTITypesTranslation = async (
   } catch (error) {
     // If requested language fails and it's not English, try English as fallback
     if (langCode !== 'en') {
-      const fallbackLoader = MBTITypeLoadersMap.get('en');
+      const fallbackLoader = MBTITypesLoadersMap.get('en');
+      if (fallbackLoader) {
+        try {
+          return await fallbackLoader();
+        } catch (fallbackError) {
+          throw new Error(`${errMsg}: ${fallbackError}`);
+        }
+      }
+    }
+    throw new Error(`${errMsg}: ${error}`);
+  }
+};
+
+/**
+ * Gets localized data for MBTI Type page for the specified language code
+ * @param langCode Language code (e.g., 'en', 'uk')
+ * @returns Promise resolving to data of type MBTITypePageTranslation
+ * @throws Error if both requested language and fallback language fail to load
+ */
+export const getMBTITypeTranslation = async (
+  langCode: LangCode = 'en'
+): Promise<MBTITypePageTranslation> => {
+  // Try to get the loader for the requested language
+  const loader = MBTITypePageLoadersMap.get(langCode);
+  const errMsg = `Failed to load translations for MBTI Type Details`;
+  if (!loader) throw new Error(errMsg);
+
+  try {
+    return await loader();
+  } catch (error) {
+    // If requested language fails and it's not English, try English as fallback
+    if (langCode !== 'en') {
+      const fallbackLoader = MBTITypePageLoadersMap.get('en');
       if (fallbackLoader) {
         try {
           return await fallbackLoader();

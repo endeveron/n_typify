@@ -340,6 +340,25 @@ const cognFnAbsoluteMatchMap = new Map<string, MBTIType>([
   ['SeFiTeNiSiFeTiNe', 'ESFP'],
 ]);
 
+export const similarTypeMap = new Map<MBTIType, MBTIType[]>([
+  ['INTJ', ['INFJ', 'INTP', 'ENTJ', 'ISTJ']],
+  ['ENTJ', ['INTJ', 'ENTP', 'ESTJ', 'ENFJ']],
+  ['INTP', ['INFP', 'INTJ', 'ENTP', 'ISTP']],
+  ['ENTP', ['ENFP', 'INTP', 'ENFJ', 'ESTP']],
+  ['INFJ', ['INFP', 'ISFJ', 'INTJ', 'ENFJ']],
+  ['ENFJ', ['ESFJ', 'INFJ', 'ENFP', 'ENTP']],
+  ['INFP', ['ISFP', 'INFJ', 'ENFP', 'INTP']],
+  ['ENFP', ['ESFP', 'INFP', 'ENTP', 'ENFJ']],
+  ['ISTJ', ['ISFJ', 'ESTJ', 'INTJ', 'ISTP']],
+  ['ESTJ', ['ENTJ', 'ISTJ', 'ESFJ', 'ESTP']],
+  ['ISFJ', ['ISTJ', 'INFJ', 'ESFJ', 'ISFP']],
+  ['ESFJ', ['ENFJ', 'ISFJ', 'ESTJ', 'ESFP']],
+  ['ISTP', ['ESTP', 'INTP', 'ISFP', 'ISTJ']],
+  ['ESTP', ['ESFP', 'ISTP', 'ENTP', 'ESTJ']],
+  ['ISFP', ['INFP', 'ESFP', 'ISTP', 'ISFJ']],
+  ['ESFP', ['ESTP', 'ISFP', 'ENFP', 'ESFJ']],
+]);
+
 export const getMBTITypeByCognFnPattern = (
   cognFnPattern: string
 ): {

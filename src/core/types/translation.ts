@@ -6,6 +6,11 @@ export type LangCode = 'en' | 'uk';
 
 export type MBTITypesTranslation = MBTITypeTranslation[];
 
+export type MBTITypePageTranslation = {
+  mainTitle: string;
+  similarTypesTitle: string;
+};
+
 export type CognitiveFnMapItemTranslation = {
   description: string;
 };

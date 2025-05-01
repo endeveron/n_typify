@@ -6,14 +6,18 @@ import { toast } from 'sonner';
 import CognFunctions from '@/core/components/mbti-dashboard/cogn-functions';
 import PersonalityTypeHeader from '@/core/components/mbti-dashboard/personality-type-header';
 import FamousPersons from '@/core/components/mbti-type/famous-persons';
+import MBTITypeTable from '@/core/components/mbti-type/mbti-type-table';
 import TextBox from '@/core/components/mbti-type/text-box';
 import AnimatedAppear from '@/core/components/shared/animated-appear';
 import { MBTI_TYPE_STATE_KEY } from '@/core/constants';
 import { useLangCode } from '@/core/context/LangContext';
 import { useLocalStorage } from '@/core/hooks/useLocalStorage';
-import { MBTITypeState, MBTIType as TMBTIType } from '@/core/types/mbti';
 import {
-  CognitiveFunctionsTranslation,
+  MBTITypeState,
+  MBTITypeStateLS,
+  MBTIType as TMBTIType,
+} from '@/core/types/mbti';
+import {
   MBTITypeDetailsTranslation,
   MBTITypeTranslation,
 } from '@/core/types/translation';
@@ -21,14 +25,10 @@ import {
   getCognitiveFunctionsTranslation,
   getMBTITypeDetailsTranslation,
   getMBTITypesTranslation,
+  getMBTITypeTranslation,
 } from '@/core/utils/dictionary';
-import { MBTIMap } from '@/core/utils/mbti';
-
-type MBTITypeStateLS = {
-  typeMapTranslation: [TMBTIType, MBTITypeTranslation][];
-  typeDetalsMapTranslation: [TMBTIType, MBTITypeDetailsTranslation][];
-  cognFnsTranslation: CognitiveFunctionsTranslation;
-};
+import { MBTIMap, similarTypeMap } from '@/core/utils/mbti';
+import { useRouter } from 'next/navigation';
 
 type MBTITypeProps = {
   type: string;
@@ -37,30 +37,30 @@ type MBTITypeProps = {
 const initialState: MBTITypeState = {
   translation: null,
   cognitiveFnArr: [],
+  similarTypes: [],
 };
 
 const MBTIType = ({ type }: MBTITypeProps) => {
   const { langCode } = useLangCode();
+  const router = useRouter();
   const [getState, saveState] = useLocalStorage();
 
   const [state, setState] = useState<MBTITypeState>(initialState);
   // const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
-  const { translation } = state;
+  const { translation, similarTypes } = state;
   const traits = translation?.MBTITypeDetails.traitSet;
   const descriptionParagraphs = translation?.MBTITypeDetails.description;
 
-  // const handle = useCallback(
-  //   () => {
-  //   },
-  //   []
-  // );
+  const handleTypeCardClick = (MBTIType: TMBTIType) => {
+    router.push(`/mbti-type/${MBTIType}`);
+  };
 
   // Init translations, restore state from LocalStorage
   useEffect(() => {
     const initData = async () => {
       // Get page translation
-      // const translation = await getMBTITypeTranslation(langCode);
+      const pageTranslation = await getMBTITypeTranslation(langCode);
 
       let typeMapTranslation = new Map<TMBTIType, MBTITypeTranslation>();
       let typeDetalsMapTranslation = new Map<
@@ -71,16 +71,14 @@ const MBTIType = ({ type }: MBTITypeProps) => {
 
       // Try to restore typeMapTranslation from LocalStorage
       const stateFromLS = getState<MBTITypeStateLS>(MBTI_TYPE_STATE_KEY);
-      const isDataFromLS = stateFromLS?.typeMapTranslation.length;
+      const isDataFromLS = stateFromLS?.translation.typeMap.length;
 
       if (isDataFromLS) {
-        typeMapTranslation = new Map(stateFromLS.typeMapTranslation);
+        typeMapTranslation = new Map(stateFromLS.translation.typeMap);
         typeDetalsMapTranslation = new Map(
-          stateFromLS.typeDetalsMapTranslation
+          stateFromLS.translation.typeDetalsMap
         );
-        // cognFnsMapTranslation = new Map(stateFromLS.cognFnsMapTranslation);
-        // cognFnsStackTranslation = stateFromLS.cognFnsStackTranslation;
-        cognFnsTranslation = stateFromLS.cognFnsTranslation;
+        cognFnsTranslation = stateFromLS.translation.cognitiveFunctions;
       } else {
         // Get translations
         const MBTITypesTranslation = await getMBTITypesTranslation(langCode);
@@ -109,17 +107,22 @@ const MBTIType = ({ type }: MBTITypeProps) => {
 
         // Save state in LocalStorage
         saveState<MBTITypeStateLS>(MBTI_TYPE_STATE_KEY, {
-          typeMapTranslation: [...typeMapTranslation],
-          typeDetalsMapTranslation: [...typeDetalsMapTranslation],
-          cognFnsTranslation,
+          translation: {
+            page: pageTranslation,
+            typeMap: [...typeMapTranslation],
+            typeDetalsMap: [...typeDetalsMapTranslation],
+            cognitiveFunctions: cognFnsTranslation,
+          },
         });
       }
 
       // Configure translation
       const translation = {
+        page: pageTranslation,
         MBTIType: typeMapTranslation.get(
           type as TMBTIType
         ) as MBTITypeTranslation,
+        MBTITypeMap: typeMapTranslation,
         MBTITypeDetails: typeDetalsMapTranslation.get(
           type as TMBTIType
         ) as MBTITypeDetailsTranslation,
@@ -129,10 +132,14 @@ const MBTIType = ({ type }: MBTITypeProps) => {
       // Get cognitiveFns array for current MBTI type
       const cognitiveFnArr = MBTIMap.get(type)?.cognitiveFns as string[];
 
+      // Get similar types
+      const similarTypes = similarTypeMap.get(type as TMBTIType) as TMBTIType[];
+
       setState((prev) => ({
         ...prev,
         translation,
         cognitiveFnArr,
+        similarTypes,
       }));
     };
 
@@ -142,7 +149,7 @@ const MBTIType = ({ type }: MBTITypeProps) => {
   if (!translation) return null;
 
   return (
-    <div className="mx-auto w-full base-max-w flex flex-col items-center gap-8 cursor-default pb-1">
+    <div className="mx-auto w-full base-max-w flex flex-col items-center gap-8 cursor-default">
       {/* Personality Type */}
       <div className="mt-8 flex flex-col gap-4">
         <PersonalityTypeHeader
@@ -179,6 +186,39 @@ const MBTIType = ({ type }: MBTITypeProps) => {
       {descriptionParagraphs?.length ? (
         <TextBox paragraphs={descriptionParagraphs} />
       ) : null}
+
+      {/* {similarTypes.length ? (
+        <div>
+          <div className="px-1 text-xs text-accent-text font-semibold tracking-wide uppercase">
+            {translation.page.similarTypesTitle}
+          </div>
+          <div className="mt-4 flex gap-0.5 p-0.5 rounded-2xl bg-card">
+            {similarTypes.map((type) => (
+              <MBTITypeCard
+                title={translation.MBTITypeMap.get(type)!.title[0]}
+                type={type}
+                onClick={handleTypeCardClick}
+                // isActive={true}
+                key={type}
+              />
+            ))}
+          </div>
+        </div>
+      ) : null} */}
+
+      {/* Similar Types */}
+      <div className="my-4">
+        <div className="px-1 text-xs text-accent-text font-semibold tracking-wide uppercase">
+          {translation.page.similarTypesTitle}
+        </div>
+        <div className="my-4">
+          <MBTITypeTable
+            activeItems={similarTypes}
+            onClick={handleTypeCardClick}
+            MBTITypeMapTranslation={translation.MBTITypeMap}
+          />
+        </div>
+      </div>
     </div>
   );
 };
