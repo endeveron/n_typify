@@ -19,7 +19,7 @@ interface LangContextType {
 const LangContext = createContext<LangContextType | undefined>(undefined);
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [langCode, setLangCode] = useState<LangCode>();
+  const [langCode, setLangCode] = useState<LangCode>('en');
   const [getLangCodeFromStorage, saveLangCodeInStorage] = useLocalStorage();
 
   const toggleLangCode = () => {

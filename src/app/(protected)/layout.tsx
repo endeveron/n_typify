@@ -9,6 +9,7 @@ export default async function ProtectedLayout({
   children: React.ReactNode;
 }) {
   const session = await auth();
+  console.log('session', session);
   if (!session?.user) return redirect('/sign-in');
 
   return (

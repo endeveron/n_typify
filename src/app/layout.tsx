@@ -3,9 +3,9 @@ import { Inter } from 'next/font/google';
 
 import { Toaster } from '@/core/components/ui/sonner';
 import { ThemeProvider } from '@/core/components/ui/theme-provider';
+import { LangProvider } from '@/core/context/LangContext';
 
 import '@/core/globals.css';
-import { LangProvider } from '@/core/context/LangContext';
 
 export const metadata: Metadata = {
   title: 'Typify - Psychological Architecture',
