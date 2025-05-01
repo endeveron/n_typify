@@ -76,6 +76,7 @@ const PromptClient = () => {
         isActive: !prev.MBTIDashboardCard?.isActive,
         message: translation.disabledCardMessage,
       },
+      prompt: null,
     }));
   };
 
@@ -89,6 +90,7 @@ const PromptClient = () => {
         isActive: !prev.MBTITestCard?.isActive,
         message: translation.disabledCardMessage,
       },
+      prompt: null,
     }));
   };
 
@@ -121,38 +123,59 @@ const PromptClient = () => {
   };
 
   const createPrompt = (): string | null => {
-    if (
-      !MBTIDashboardCard?.data?.cognitiveFnArr.length &&
-      !MBTIDashboardCard?.data?.personalities.length
-    ) {
-      toast(`Unable to generate prompt. Invalid Input data`);
+    // Exit if there are no active cards
+    if (!MBTIDashboardCard?.isActive && !MBTITestCard?.isActive) {
       return null;
     }
 
-    let prompt = 'Cognitive functions typing results:';
-
-    // Handle cognitive functions
-    if (MBTIDashboardCard.data.cognitiveFnArr.length) {
-      const cognitiveFunctions = MBTIDashboardCard.data.cognitiveFnArr.map(
-        ([cognFnId, matchNum]) => `${cognFnId}: ${matchNum}`
-      );
-      prompt += `\n- Match count: ${cognitiveFunctions.join(', ')}. `;
-    }
-
-    // Handle MBTI type
-    if (MBTIDashboardCard.data.personalities.length) {
-      const MBTITypes = MBTIDashboardCard.data.personalities.map(
-        (personality) =>
-          `${personality.mbti.personalityType}: ${personality.mbti.matchPercent}%`
-      );
-      prompt += `\n- MBTI type match percentage: ${MBTITypes.join(', ')}. `;
-    }
-
-    const useDataStr = `using the data provided.`;
-    prompt += `\nAnswer the question(s) `;
+    let prompt = `Answer questions `;
+    const useDataStr = `using the following data.`;
     prompt += isSimpleOutput
       ? `in a simple, casual manner, ${useDataStr} Avoid MBTI terms.`
       : useDataStr;
+
+    // Cognitive functions typing results
+    if (
+      MBTIDashboardCard?.isActive &&
+      MBTIDashboardCard?.data &&
+      MBTIDashboardCard.data.cognitiveFnArr.length
+    ) {
+      prompt += '\nCognitive functions typing results:';
+      const cognitiveFunctions = MBTIDashboardCard!.data!.cognitiveFnArr.map(
+        ([cognFnId, matchNum]) => `${cognFnId}: ${matchNum}`
+      );
+      prompt += `\n- Match count: ${cognitiveFunctions.join(', ')}. `;
+
+      // MBTI type
+      if (MBTIDashboardCard?.data?.personalities.length) {
+        const MBTITypes = MBTIDashboardCard!.data!.personalities.map(
+          (personality) =>
+            `${personality.mbti.personalityType}: ${personality.mbti.matchPercent}%`
+        );
+        prompt += `\n- Probable MBTI type match: ${MBTITypes.join(', ')}. `;
+      }
+    }
+
+    // MBTI test results
+    if (MBTITestCard?.isActive && MBTITestCard?.data) {
+      if (
+        !MBTITestCard.data.type ||
+        !MBTITestCard.data.identity ||
+        !MBTITestCard.data.dominantTraits.length
+      ) {
+        toast(`Invalid MBTI test data`);
+        return null;
+      }
+
+      prompt += '\nMBTI test results:';
+      prompt += `\n- Type: ${MBTITestCard.data.type}.`;
+
+      // Dominant traits
+      const traits = MBTITestCard.data.dominantTraits
+        .map(([trait, percentage]) => `${trait}: ${percentage}%`)
+        .join(', ');
+      prompt += `\n- Dominant traits: ${traits}.`;
+    }
 
     return prompt;
   };
@@ -401,7 +424,7 @@ const PromptClient = () => {
         {/* Prompt */}
         {prompt ? (
           <AnimatedAppear isShown={!!prompt && isPromptAllowed} className="">
-            <div className="p-4 text-sm font-medium text-accent-text whitespace-pre-wrap border-2 border-accent rounded-2xl">
+            <div className="p-4 text-sm font-medium text-accent-text whitespace-pre-wrap rounded-2xl bg-card">
               {prompt}
             </div>
 
