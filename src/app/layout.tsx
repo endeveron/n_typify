@@ -12,25 +12,25 @@ export const metadata: Metadata = {
   applicationName: 'Typify',
   description:
     'Wandering the halls of your inner architecture, where each room unveils a unique voice in your cognitive symphony.',
-  // openGraph: {
-  //   title: 'Typify',
-  //   description: 'Find Clarity Within',
-  //   siteName: 'Typify',
-  //   type: 'website',
-  //   images: [
-  //     {
-  //       url: 'https://chatai-sigma-three.vercel.app/icon.svg',
-  //       width: 512,
-  //       height: 512,
-  //     },
-  //   ],
-  // },
-  // icons: {
-  //   icon: {
-  //     url: '/icon.svg',
-  //     type: 'image/svg+xml',
-  //   },
-  // },
+  openGraph: {
+    title: 'Typify',
+    description: 'Find Clarity Within',
+    siteName: 'Typify',
+    type: 'website',
+    images: [
+      {
+        url: 'https://typify-zeta.vercel.app/icons/icon.svg',
+        width: 1024,
+        height: 1024,
+      },
+    ],
+  },
+  icons: {
+    icon: {
+      url: 'https://typify-zeta.vercel.app/favicon.ico',
+      type: 'image/image/ico',
+    },
+  },
 };
 
 export const viewport: Viewport = {
