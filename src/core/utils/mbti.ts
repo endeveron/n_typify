@@ -442,6 +442,7 @@ export const configureCognitiveFnCards = (
     // thinking
     {
       title: translation.thinkingCard.title,
+      traitFeatures: translation.thinkingCard.traitFeatures,
       cognitiveFunctions: [
         {
           id: 'Te',
@@ -462,6 +463,7 @@ export const configureCognitiveFnCards = (
     // feeling
     {
       title: translation.feelingCard.title,
+      traitFeatures: translation.feelingCard.traitFeatures,
       cognitiveFunctions: [
         {
           id: 'Fi',
@@ -480,6 +482,7 @@ export const configureCognitiveFnCards = (
     // intuition
     {
       title: translation.intuitionCard.title,
+      traitFeatures: translation.intuitionCard.traitFeatures,
       cognitiveFunctions: [
         {
           id: 'Ne',
@@ -500,6 +503,7 @@ export const configureCognitiveFnCards = (
     // sensing
     {
       title: translation.sensingCard.title,
+      traitFeatures: translation.sensingCard.traitFeatures,
       cognitiveFunctions: [
         {
           id: 'Si',

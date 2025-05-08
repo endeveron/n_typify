@@ -98,6 +98,7 @@ export type CognitiveFnCardItem = CardButton &
 
 export type CognitiveFnCard = {
   title: string;
+  traitFeatures: string[];
   cognitiveFunctions: CognitiveFnCardItem[];
 };
 

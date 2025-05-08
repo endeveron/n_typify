@@ -53,6 +53,7 @@ export type MBTIDashboardFunctionTranslation = {
 
 export type MBTIDashboardFunctionCardTranslation = {
   title: string;
+  traitFeatures: string[];
   extroverted_function: MBTIDashboardFunctionTranslation;
   introverted_function: MBTIDashboardFunctionTranslation;
 };
